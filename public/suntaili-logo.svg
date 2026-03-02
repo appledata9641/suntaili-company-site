@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 420" role="img" aria-labelledby="title desc">
+  <title id="title">Suntaili 三泰利企業有限公司</title>
+  <desc id="desc">三泰利企業有限公司品牌標誌（簡化向量版）</desc>
+  <defs>
+    <linearGradient id="bodyGrad" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0%" stop-color="#d8d3df"/>
+      <stop offset="55%" stop-color="#a49ab7"/>
+      <stop offset="100%" stop-color="#0f2c84"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="360" height="420" fill="white"/>
+
+  <path
+    d="M68 64 L112 24 L160 54 L205 20 L246 52 L292 18 L320 46 L304 108 L58 108 Z"
+    fill="#1f4f2d"
+  />
+
+  <g transform="translate(66,126)">
+    <path d="M0 0 H236 V176 H0 Z" fill="url(#bodyGrad)"/>
+    <path
+      d="M36 0 H90 C85 34 61 58 54 86 C47 112 47 146 51 176 H0 V0 Z"
+      fill="white"
+      opacity="0.95"
+    />
+    <path
+      d="M165 0 H219 V176 H158 C153 145 154 116 163 91 C171 67 194 39 201 0 Z"
+      fill="white"
+      opacity="0.95"
+    />
+  </g>
+
+  <text x="180" y="340" text-anchor="middle" font-size="52" font-family="Georgia, 'Times New Roman', serif" fill="#132a7a">
+    Suntaili
+  </text>
+  <text x="180" y="378" text-anchor="middle" font-size="22" font-family="'Noto Sans TC', 'Microsoft JhengHei', sans-serif" fill="#5f6675" letter-spacing="1">
+    三泰利企業有限公司
+  </text>
+</svg>

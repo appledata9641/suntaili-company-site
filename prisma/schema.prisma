@@ -1,0 +1,136 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum DownloadAssetType {
+  firmware
+  software
+  manual
+}
+
+enum Visibility {
+  public
+  partner
+  customer
+  private
+}
+
+enum PublishStatus {
+  draft
+  published
+  archived
+}
+
+enum DownloadResult {
+  issued
+  success
+  expired
+  denied
+}
+
+model ProductCategory {
+  id         String    @id @default(uuid()) @db.Uuid
+  code       String    @unique @db.VarChar(50)
+  nameZh     String    @map("name_zh") @db.VarChar(100)
+  sortOrder  Int       @default(0) @map("sort_order")
+  isActive   Boolean   @default(true) @map("is_active")
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  products   Product[]
+
+  @@map("product_categories")
+  @@index([isActive], map: "idx_product_categories_is_active")
+}
+
+model Product {
+  id                  String          @id @default(uuid()) @db.Uuid
+  slug                String          @unique @db.VarChar(150)
+  model               String          @unique @db.VarChar(120)
+  nameZh              String          @map("name_zh") @db.VarChar(200)
+  categoryId          String          @map("category_id") @db.Uuid
+  shortDescriptionZh  String          @map("short_description_zh")
+  descriptionZh       String          @map("description_zh")
+  coverImageUrl       String          @map("cover_image_url")
+  specsJson           Json            @map("specs_json")
+  tagsJson            Json            @map("tags_json")
+  featureBulletsJson  Json            @map("feature_bullets_json")
+  published           Boolean         @default(true)
+  createdAt           DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt           DateTime        @updatedAt @map("updated_at") @db.Timestamptz(6)
+  category            ProductCategory @relation(fields: [categoryId], references: [id])
+  downloadAssets      DownloadAsset[]
+  downloadLogs        DownloadLog[]
+
+  @@map("products")
+  @@index([categoryId], map: "idx_products_category_id")
+  @@index([published], map: "idx_products_published")
+}
+
+model DownloadAsset {
+  id              String            @id @default(uuid()) @db.Uuid
+  productId       String            @map("product_id") @db.Uuid
+  assetType       DownloadAssetType @map("asset_type")
+  titleZh         String            @map("title_zh") @db.VarChar(250)
+  version         String            @db.VarChar(80)
+  releaseDate     DateTime          @map("release_date") @db.Date
+  fileSizeBytes   BigInt            @map("file_size_bytes")
+  checksumSha256  String?           @map("checksum_sha256") @db.VarChar(128)
+  notesZh         String?           @map("notes_zh")
+  minHwVersion    String?           @map("min_hw_version") @db.VarChar(50)
+  visibility      Visibility        @default(public)
+  status          PublishStatus     @default(published)
+  sortPriority    Int               @default(0) @map("sort_priority")
+  createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime          @updatedAt @map("updated_at") @db.Timestamptz(6)
+  product         Product           @relation(fields: [productId], references: [id])
+  storedFiles     StoredFile[]
+  downloadLogs    DownloadLog[]
+
+  @@map("download_assets")
+  @@index([productId], map: "idx_download_assets_product_id")
+  @@index([assetType], map: "idx_download_assets_type")
+  @@index([releaseDate], map: "idx_download_assets_release_date")
+  @@index([status, visibility], map: "idx_download_assets_status_visibility")
+}
+
+model StoredFile {
+  id               String   @id @default(uuid()) @db.Uuid
+  assetId          String   @map("asset_id") @db.Uuid
+  storageProvider  String   @map("storage_provider") @db.VarChar(30)
+  bucket           String   @db.VarChar(120)
+  objectKey        String   @map("object_key")
+  originalFilename String   @map("original_filename") @db.VarChar(255)
+  mimeType         String   @map("mime_type") @db.VarChar(120)
+  sizeBytes        BigInt   @map("size_bytes")
+  sha256           String?  @db.VarChar(128)
+  isPrimary        Boolean  @default(true) @map("is_primary")
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  asset            DownloadAsset @relation(fields: [assetId], references: [id])
+
+  @@map("stored_files")
+  @@index([assetId], map: "idx_stored_files_asset_id")
+  @@index([objectKey], map: "idx_stored_files_object_key")
+}
+
+model DownloadLog {
+  id                String         @id @default(uuid()) @db.Uuid
+  assetId           String         @map("asset_id") @db.Uuid
+  productId         String         @map("product_id") @db.Uuid
+  requestUserId     String?        @map("request_user_id") @db.Uuid
+  requestCustomerId String?        @map("request_customer_id") @db.Uuid
+  ipHash            String?        @map("ip_hash") @db.VarChar(128)
+  userAgent         String?        @map("user_agent")
+  downloadResult    DownloadResult @map("download_result")
+  createdAt         DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  asset             DownloadAsset  @relation(fields: [assetId], references: [id])
+  product           Product        @relation(fields: [productId], references: [id])
+
+  @@map("download_logs")
+  @@index([assetId, createdAt], map: "idx_download_logs_asset_id_created_at")
+  @@index([productId, createdAt], map: "idx_download_logs_product_id_created_at")
+}
