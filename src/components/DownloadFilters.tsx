@@ -19,9 +19,8 @@ interface DownloadFiltersProps {
 
 const typeOptions: Array<{ id: DownloadType | "all"; label: string }> = [
   { id: "all", label: "全部類型" },
-  { id: "firmware", label: "韌體" },
-  { id: "software", label: "軟體工具" },
   { id: "manual", label: "說明文件" },
+  { id: "software", label: "軟體工具" },
 ];
 
 export default function DownloadFilters({
@@ -41,7 +40,7 @@ export default function DownloadFilters({
           <select
             value={activeCategory}
             onChange={(event) => onCategoryChange(event.target.value)}
-            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none ring-0 focus:border-slate-500"
+            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-slate-500"
           >
             {categoryOptions.map((option) => (
               <option key={option.id} value={option.id}>
@@ -52,11 +51,11 @@ export default function DownloadFilters({
         </label>
 
         <label className="flex flex-col gap-2 text-sm">
-          <span className="font-medium text-slate-800">下載類型</span>
+          <span className="font-medium text-slate-800">檔案類型</span>
           <select
             value={activeType}
             onChange={(event) => onTypeChange(event.target.value as DownloadType | "all")}
-            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none ring-0 focus:border-slate-500"
+            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-slate-500"
           >
             {typeOptions.map((option) => (
               <option key={option.id} value={option.id}>
@@ -72,8 +71,8 @@ export default function DownloadFilters({
             type="search"
             value={searchTerm}
             onChange={(event) => onSearchTermChange(event.target.value)}
-            placeholder="例如：NVR、網橋、韌體、手冊"
-            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 outline-none ring-0 focus:border-slate-500"
+            placeholder="例如：NVR、門禁、說明書、工具"
+            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 outline-none focus:border-slate-500"
           />
         </label>
       </div>

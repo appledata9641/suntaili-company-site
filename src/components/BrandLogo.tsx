@@ -12,7 +12,7 @@ export default function BrandLogo({ compact = false, href = "/" }: BrandLogoProp
       <div className={compact ? "relative h-10 w-10 shrink-0" : "relative h-12 w-12 shrink-0"}>
         <Image
           src="/suntaili-logo.svg"
-          alt="Suntaili 三泰利企業有限公司"
+          alt="三泰利企業有限公司 Logo"
           fill
           sizes="48px"
           className="object-contain"

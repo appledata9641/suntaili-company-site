@@ -6,27 +6,31 @@ export const productCategories: ProductCategoryDefinition[] = [
     slug: "camera",
     name: "網路攝影機",
     shortName: "攝影機",
-    description: "槍型、半球型、戶外型與網路攝影機等監控設備。",
+    description:
+      "室內外網路攝影機，支援日夜模式、事件偵測與遠端管理。",
   },
   {
     id: "recorder",
     slug: "recorder",
     name: "錄影主機",
-    shortName: "錄影主機",
-    description: "NVR / DVR 主機系列，支援多通道錄影、回放與遠端管理。",
+    shortName: "NVR / DVR",
+    description:
+      "提供多通道錄影、回放、儲存管理與遠端查看功能。",
   },
   {
     id: "accessory",
     slug: "accessory",
-    name: "監控周邊與傳輸設備",
-    shortName: "周邊/傳輸",
-    description: "PoE 交換器、無線網橋、延長器、線材與監控配件。",
+    name: "周邊設備",
+    shortName: "周邊",
+    description:
+      "PoE 交換器、無線橋接、影音延伸器等監控配套設備。",
   },
   {
     id: "access-control",
     slug: "access-control",
-    name: "門禁設備",
+    name: "門禁系統",
     shortName: "門禁",
-    description: "門禁控制器、讀卡機與出入口管理整合設備。",
+    description:
+      "門禁控制器與相關管理工具，適用於商辦與廠區管理需求。",
   },
 ];

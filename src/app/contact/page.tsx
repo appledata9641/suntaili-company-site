@@ -12,8 +12,8 @@ export default function ContactPage() {
       <main className="mx-auto max-w-7xl px-4 py-14">
         <SectionHeading
           eyebrow="聯絡我們"
-          title="產品諮詢、技術支援與韌體協助"
-          description="第一版先提供聯絡資訊與諮詢流程說明。後續若需要，可再加入表單送出、工單追蹤或會員登入功能。"
+          title="需要選型建議或技術支援"
+          description="可先提供型號、案場需求與目前遇到的問題，我們會在服務時段內回覆。"
         />
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
@@ -21,40 +21,40 @@ export default function ContactPage() {
 
           <div className="space-y-6">
             <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-slate-900">建議提供資訊（加快支援）</h2>
+              <h2 className="text-lg font-semibold text-slate-900">詢問前建議準備資料</h2>
               <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600">
-                <li>1. 產品型號與硬體版本（例如：SV-NVR-08-4K / HW Rev.B）</li>
-                <li>2. 目前韌體版本與預計升級版本</li>
-                <li>3. 現場症狀說明（畫面、錄影、連線、權限等）</li>
-                <li>4. 安裝環境資訊（網路架構、PoE、硬碟容量、通道數）</li>
+                <li>1. 產品型號與目前版本資訊</li>
+                <li>2. 問題發生情境與時間點</li>
+                <li>3. 已嘗試的排查步驟</li>
+                <li>4. 現場網路與供電條件（如 PoE）</li>
               </ul>
             </section>
 
             <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-slate-900">聯絡方式</h2>
+              <h2 className="text-lg font-semibold text-slate-900">快速入口</h2>
               <div className="mt-4 flex flex-wrap gap-3">
                 <Link
                   href={`mailto:${siteProfile.contact.email}`}
                   className="rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white"
                 >
-                  Email 聯絡
+                  寄送 Email
                 </Link>
                 <Link
                   href="/resources"
                   className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-800"
                 >
-                  先查下載中心
+                  前往文件下載
                 </Link>
               </div>
               <p className="mt-4 text-sm leading-7 text-slate-600">
-                若為大量設備升級或專案現場更新需求，建議先提供型號清單，我們可協助整理版本對照與更新順序建議。
+                若需要大量型號文件，建議先整理清單，我們可提供較完整的對應資訊與下載建議。
               </p>
             </section>
 
             <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-slate-900">服務時間與回覆原則</h2>
+              <h2 className="text-lg font-semibold text-slate-900">服務時段</h2>
               <p className="mt-3 text-sm leading-7 text-slate-600">
-                服務時間：{siteProfile.contact.serviceHours}。一般技術問題將於工作時段內回覆；若涉及現場設備停機，請於來電時先說明設備型號與緊急程度，以便優先處理。
+                服務時間為 {siteProfile.contact.serviceHours}。非服務時段收到的詢問會於下一個工作時段盡快回覆。
               </p>
             </section>
           </div>

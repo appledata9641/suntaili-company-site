@@ -99,13 +99,13 @@ export default async function ProductDetailPage({
         <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <SectionHeading
             eyebrow="相關下載"
-            title="此產品可用的韌體與文件"
-            description="第一版為前端假資料展示，後續可串接後端 API 與實際下載權限。"
+            title="可用說明文件與工具軟體"
+            description="目前為靜態資料展示，後續可改為 API 與權限控制下載。"
           />
 
           {relatedDownloads.length === 0 ? (
             <div className="mt-6 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-5 text-sm text-slate-600">
-              目前尚未建立此產品的下載資料。
+              目前尚未提供此型號的下載文件。
             </div>
           ) : (
             <div className="mt-6 space-y-3">
@@ -136,19 +136,19 @@ export default async function ProductDetailPage({
         </section>
 
         <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-950 p-6 text-white shadow-sm">
-          <h2 className="text-xl font-semibold">需要確認版本相容性或升級流程？</h2>
+          <h2 className="text-xl font-semibold">需要進一步選型或導入建議？</h2>
           <p className="mt-2 text-sm leading-7 text-slate-300">
-            提供產品型號、硬體版本與目前韌體版本，我們可協助確認升級順序與注意事項。
+            提供型號與需求情境，我們可協助你評估合適設備與後續部署方式。
           </p>
           <div className="mt-5 flex flex-wrap gap-3">
             <Link href="/contact" className="rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-900">
-              聯絡技術支援
+              聯絡技術窗口
             </Link>
             <Link
               href="/resources"
               className="rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white"
             >
-              回到下載中心
+              前往下載中心
             </Link>
           </div>
         </section>

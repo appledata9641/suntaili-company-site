@@ -3,15 +3,15 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "三泰利企業有限公司 Suntaili｜監控設備與韌體支援平台",
+    default: "三泰利企業有限公司 | 安防監控與弱電整合",
     template: "%s | Suntaili",
   },
   description:
-    "三泰利企業有限公司（Suntaili）B2B 監控設備官網前端示範版，提供產品資訊、韌體下載、工具程式與技術支援入口。",
+    "三泰利企業有限公司提供監控設備、錄影主機、門禁系統與弱電整合服務，並提供產品說明文件與工具軟體下載。",
   openGraph: {
-    title: "三泰利企業有限公司 Suntaili｜監控設備與韌體支援平台",
+    title: "三泰利企業有限公司 | Suntaili",
     description:
-      "提供監控設備、錄影主機、門禁整合、無線網橋與韌體/文件下載中心的企業官網前端示範版。",
+      "B2B 安防監控與弱電整合，提供產品展示與長期文件下載中心。",
     type: "website",
   },
 };

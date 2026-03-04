@@ -2,20 +2,20 @@ import SectionHeading from "@/components/SectionHeading";
 
 const features = [
   {
-    title: "穩定供貨與產品線規劃",
-    desc: "依專案規模提供攝影機、錄影主機、PoE 周邊與門禁設備搭配建議。",
+    title: "產品線完整、供貨穩定",
+    desc: "涵蓋攝影機、錄影主機、門禁與弱電周邊，方便一次整合採購。",
   },
   {
-    title: "韌體版本管理支援",
-    desc: "以產品型號為核心整理韌體與文件，降低現場誤刷版本風險。",
+    title: "文件與工具可快速取得",
+    desc: "下載中心提供說明書與工具軟體，現場部署與維護流程更順暢。",
   },
   {
-    title: "技術問題排查協助",
-    desc: "針對相容性、遠端連線、錄影異常等常見問題提供處理方向。",
+    title: "技術支援可追蹤",
+    desc: "針對型號、版本與案場情境提供明確的設定建議與問題排查方向。",
   },
   {
-    title: "專案交付文件整備",
-    desc: "可提供安裝手冊、設定工具與版本紀錄，協助工程商交付與維運。",
+    title: "商用專案導向",
+    desc: "以 B2B 專案需求為核心，重視交期、相容性與長期維運可行性。",
   },
 ];
 
@@ -25,16 +25,13 @@ export default function FeatureGrid() {
       <div className="mx-auto max-w-7xl px-4 py-16">
         <SectionHeading
           eyebrow="服務優勢"
-          title="讓設備導入與後續維護更順暢"
-          description="第一版網站以前端體驗為主，先把產品資訊與下載入口整理清楚，後續再接上後台與檔案儲存機制。"
+          title="聚焦專案落地與長期維運"
+          description="從產品選型到文件支援，提供可實際執行的工程導向方案。"
         />
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
           {features.map((feature) => (
-            <div
-              key={feature.title}
-              className="rounded-2xl border border-slate-200 bg-slate-50 p-6"
-            >
+            <div key={feature.title} className="rounded-2xl border border-slate-200 bg-slate-50 p-6">
               <h3 className="text-base font-semibold text-slate-900">{feature.title}</h3>
               <p className="mt-2 text-sm leading-7 text-slate-600">{feature.desc}</p>
             </div>

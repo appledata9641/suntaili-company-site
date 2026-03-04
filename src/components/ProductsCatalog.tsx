@@ -70,7 +70,7 @@ export default function ProductsCatalog({
       {filteredProducts.length === 0 ? (
         <EmptyState
           title="找不到符合條件的產品"
-          description="請調整分類或搜尋關鍵字，或清除條件後重新查看全部產品。"
+          description="請調整分類或搜尋關鍵字，或清除條件後重新查詢。"
           actionLabel="清除條件"
           onAction={() => {
             setActiveCategory("all");

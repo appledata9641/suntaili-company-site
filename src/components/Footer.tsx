@@ -21,7 +21,7 @@ export default function Footer() {
             </li>
             <li>
               <Link href="/resources" className="hover:text-slate-900">
-                下載中心
+                文件下載
               </Link>
             </li>
             <li>
@@ -49,7 +49,7 @@ export default function Footer() {
       </div>
       <div className="border-t border-slate-200">
         <div className="mx-auto max-w-7xl px-4 py-4 text-xs text-slate-500">
-          © {new Date().getFullYear()} {siteProfile.brandName}. All rights reserved.
+          © {new Date().getFullYear()} {siteProfile.companyName}. All rights reserved.
         </div>
       </div>
     </footer>

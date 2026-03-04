@@ -13,7 +13,7 @@ export default function ProductsPage() {
         <SectionHeading
           eyebrow="產品中心"
           title="監控設備與門禁產品一覽"
-          description="依產品線分類整理型號與規格摘要，方便客戶先了解產品定位，再進一步查看產品詳情與相關下載項目。"
+          description="依產品線分類整理型號與規格摘要，方便客戶先了解產品定位，再查看對應說明文件與工具軟體。"
         />
 
         <div className="mt-8">

@@ -8,7 +8,7 @@ import { siteProfile } from "@/data/site";
 
 const navItems = [
   { href: "/products", label: "產品中心" },
-  { href: "/resources", label: "下載中心" },
+  { href: "/resources", label: "文件下載" },
   { href: "/about", label: "關於我們" },
   { href: "/contact", label: "聯絡我們" },
 ];
@@ -55,6 +55,7 @@ export default function Header() {
             選單
           </button>
         </div>
+
         <div className="hidden pb-2 text-xs text-slate-500 md:block">{siteProfile.tagline}</div>
 
         {mobileOpen ? (

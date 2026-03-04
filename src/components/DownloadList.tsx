@@ -11,7 +11,7 @@ interface DownloadListProps {
 
 const typeLabelMap: Record<DownloadType, string> = {
   firmware: "韌體",
-  software: "軟體工具",
+  software: "軟體",
   manual: "說明文件",
 };
 
@@ -22,11 +22,11 @@ export default function DownloadList({ items }: DownloadListProps) {
         <table className="w-full text-left">
           <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
             <tr>
-              <th className="px-4 py-3">產品 / 檔案</th>
+              <th className="px-4 py-3">產品 / 文件</th>
               <th className="px-4 py-3">類型</th>
               <th className="px-4 py-3">版本</th>
               <th className="px-4 py-3">更新日期</th>
-              <th className="px-4 py-3">大小</th>
+              <th className="px-4 py-3">檔案大小</th>
               <th className="px-4 py-3 text-right">下載</th>
             </tr>
           </thead>
@@ -38,9 +38,7 @@ export default function DownloadList({ items }: DownloadListProps) {
                   <div className="mt-1 text-sm text-slate-600">
                     {item.productName} ({item.productModel})
                   </div>
-                  {item.notes ? (
-                    <div className="mt-1 text-xs text-slate-500">{item.notes}</div>
-                  ) : null}
+                  {item.notes ? <div className="mt-1 text-xs text-slate-500">{item.notes}</div> : null}
                 </td>
                 <td className="px-4 py-4 text-sm text-slate-700">{typeLabelMap[item.type]}</td>
                 <td className="px-4 py-4 text-sm text-slate-700">{item.version}</td>
@@ -78,7 +76,7 @@ export default function DownloadList({ items }: DownloadListProps) {
               <div>版本：{item.version}</div>
               <div>大小：{item.fileSize}</div>
               <div>日期：{item.releaseDate}</div>
-              {item.minHwVersion ? <div>硬體：{item.minHwVersion}</div> : null}
+              {item.minHwVersion ? <div>硬體需求：{item.minHwVersion}</div> : null}
             </div>
             {item.notes ? <p className="mt-3 text-xs text-slate-500">{item.notes}</p> : null}
             <Link
