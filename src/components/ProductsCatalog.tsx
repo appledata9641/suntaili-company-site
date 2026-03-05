@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useDeferredValue, useState } from "react";
 import CategoryPills from "@/components/CategoryPills";
@@ -11,18 +11,14 @@ interface ProductsCatalogProps {
   categories: ProductCategoryDefinition[];
 }
 
-export default function ProductsCatalog({
-  products,
-  categories,
-}: ProductsCatalogProps) {
+export default function ProductsCatalog({ products, categories }: ProductsCatalogProps) {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [searchTerm, setSearchTerm] = useState("");
   const deferredSearchTerm = useDeferredValue(searchTerm);
   const normalizedSearch = deferredSearchTerm.trim().toLowerCase();
 
   const filteredProducts = products.filter((product) => {
-    const matchesCategory =
-      activeCategory === "all" ? true : product.category === activeCategory;
+    const matchesCategory = activeCategory === "all" ? true : product.category === activeCategory;
     const matchesSearch =
       normalizedSearch.length === 0
         ? true
@@ -34,7 +30,7 @@ export default function ProductsCatalog({
     return matchesCategory && matchesSearch;
   });
 
-  const categoryNameMap = Object.fromEntries(categories.map((c) => [c.id, c.shortName]));
+  const categoryNameMap = Object.fromEntries(categories.map((category) => [category.id, category.shortName]));
 
   return (
     <div className="space-y-6">
@@ -46,7 +42,7 @@ export default function ProductsCatalog({
               type="search"
               value={searchTerm}
               onChange={(event) => setSearchTerm(event.target.value)}
-              placeholder="輸入型號、產品名稱或關鍵字"
+              placeholder="輸入型號、名稱或關鍵字"
               className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 outline-none focus:border-slate-500"
             />
           </label>
@@ -70,7 +66,7 @@ export default function ProductsCatalog({
       {filteredProducts.length === 0 ? (
         <EmptyState
           title="找不到符合條件的產品"
-          description="請調整分類或搜尋關鍵字，或清除條件後重新查詢。"
+          description="請調整分類或搜尋條件後重新查詢。"
           actionLabel="清除條件"
           onAction={() => {
             setActiveCategory("all");

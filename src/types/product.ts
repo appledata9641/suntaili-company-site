@@ -1,4 +1,4 @@
-export type ProductCategory =
+﻿export type ProductCategory =
   | "camera"
   | "recorder"
   | "accessory"
@@ -15,6 +15,7 @@ export interface Product {
   name: string;
   model: string;
   category: ProductCategory;
+  subcategoryKey: string;
   shortDescription: string;
   description: string;
   coverImage: string;

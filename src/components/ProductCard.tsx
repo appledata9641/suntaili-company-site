@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/types/product";
 
@@ -30,9 +30,7 @@ export default function ProductCard({ product, categoryName }: ProductCardProps)
           <span className="text-xs text-slate-500">{product.model}</span>
         </div>
         <h3 className="mt-3 text-base font-semibold text-slate-900">{product.name}</h3>
-        <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">
-          {product.shortDescription}
-        </p>
+        <p className="mt-2 line-clamp-2 text-sm leading-6 text-slate-600">{product.shortDescription}</p>
         <div className="mt-4 flex flex-wrap gap-2">
           {product.tags.slice(0, 3).map((tag) => (
             <span

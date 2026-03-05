@@ -1,4 +1,4 @@
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
@@ -13,11 +13,7 @@ export async function generateStaticParams() {
   return publishedProducts.map((product) => ({ slug: product.slug }));
 }
 
-export default async function ProductDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const product = publishedProducts.find((item) => item.slug === slug);
 
@@ -99,8 +95,8 @@ export default async function ProductDetailPage({
         <section className="mt-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
           <SectionHeading
             eyebrow="相關下載"
-            title="可用說明文件與工具軟體"
-            description="目前為靜態資料展示，後續可改為 API 與權限控制下載。"
+            title="此型號可用文件"
+            description="後續若改為受控下載，可再接 API 產生短效簽名網址。"
           />
 
           {relatedDownloads.length === 0 ? (
@@ -133,24 +129,6 @@ export default async function ProductDetailPage({
               ))}
             </div>
           )}
-        </section>
-
-        <section className="mt-10 rounded-2xl border border-slate-200 bg-slate-950 p-6 text-white shadow-sm">
-          <h2 className="text-xl font-semibold">需要進一步選型或導入建議？</h2>
-          <p className="mt-2 text-sm leading-7 text-slate-300">
-            提供型號與需求情境，我們可協助你評估合適設備與後續部署方式。
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Link href="/contact" className="rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-900">
-              聯絡技術窗口
-            </Link>
-            <Link
-              href="/resources"
-              className="rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white"
-            >
-              前往下載中心
-            </Link>
-          </div>
         </section>
       </main>
       <Footer />

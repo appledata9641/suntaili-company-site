@@ -1,4 +1,4 @@
-import type { ProductCategoryDefinition } from "@/types/product";
+﻿import type { ProductCategoryDefinition } from "@/types/product";
 
 export const productCategories: ProductCategoryDefinition[] = [
   {
@@ -6,31 +6,27 @@ export const productCategories: ProductCategoryDefinition[] = [
     slug: "camera",
     name: "網路攝影機",
     shortName: "攝影機",
-    description:
-      "室內外網路攝影機，支援日夜模式、事件偵測與遠端管理。",
+    description: "室內外網路攝影機，支援夜視、事件偵測與遠端管理。",
   },
   {
     id: "recorder",
     slug: "recorder",
     name: "錄影主機",
     shortName: "NVR / DVR",
-    description:
-      "提供多通道錄影、回放、儲存管理與遠端查看功能。",
+    description: "提供多通道錄影、回放、儲存管理與遠端查看。",
   },
   {
     id: "accessory",
     slug: "accessory",
     name: "周邊設備",
     shortName: "周邊",
-    description:
-      "PoE 交換器、無線橋接、影音延伸器等監控配套設備。",
+    description: "PoE 交換器、無線橋接器與影音延伸設備。",
   },
   {
     id: "access-control",
     slug: "access-control",
     name: "門禁系統",
     shortName: "門禁",
-    description:
-      "門禁控制器與相關管理工具，適用於商辦與廠區管理需求。",
+    description: "門禁控制器與權限管理工具，適用商辦與廠區。",
   },
 ];

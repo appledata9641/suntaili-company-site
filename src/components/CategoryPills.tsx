@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 interface CategoryPillItem {
   id: string;
@@ -11,11 +11,7 @@ interface CategoryPillsProps {
   onChange: (id: string) => void;
 }
 
-export default function CategoryPills({
-  items,
-  activeId,
-  onChange,
-}: CategoryPillsProps) {
+export default function CategoryPills({ items, activeId, onChange }: CategoryPillsProps) {
   return (
     <div className="flex flex-wrap gap-2" aria-label="產品分類切換">
       {items.map((item) => {

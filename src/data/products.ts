@@ -1,4 +1,4 @@
-import type { Product } from "@/types/product";
+﻿import type { Product } from "@/types/product";
 
 export const products: Product[] = [
   {
@@ -7,12 +7,11 @@ export const products: Product[] = [
     name: "Suntaili 2MP 室內半球網路攝影機",
     model: "STL-IPC-2M-DOME",
     category: "camera",
-    shortDescription:
-      "適合中小型商用空間，支援 H.265 壓縮、夜視與遠端管理。",
+    subcategoryKey: "ip-camera-2mp",
+    shortDescription: "適合店面與辦公室，支援 H.265、夜視與遠端監看。",
     description:
-      "此型號提供穩定的 Full HD 畫質與基本事件偵測功能，支援 ONVIF 與 PoE 供電，便於既有系統整合。",
-    coverImage:
-      "https://dummyimage.com/960x640/0f172a/e2e8f0&text=STL-IPC-2M-DOME",
+      "提供穩定的 Full HD 畫質與基本事件偵測功能，支援 ONVIF 與 PoE 供電，便於既有系統整合。",
+    coverImage: "https://dummyimage.com/960x640/0f172a/e2e8f0&text=STL-IPC-2M-DOME",
     featureBullets: [
       "2MP 解析度，支援 H.265",
       "紅外線夜視約 30 公尺",
@@ -34,18 +33,13 @@ export const products: Product[] = [
     name: "Suntaili 5MP 戶外槍型 AI 攝影機",
     model: "STL-IPC-5M-BULLET-AI",
     category: "camera",
-    shortDescription:
-      "高畫質戶外防護等級，支援 AI 偵測與遠端監看。",
+    subcategoryKey: "ip-camera-5mp",
+    shortDescription: "高畫質戶外防護等級，支援 AI 偵測與遠端警報通知。",
     description:
-      "主打戶外場域部署，具備 AI 偵測與防水防塵能力，適用工廠、停車場與大型出入口監控。",
+      "適用工廠、停車場與大型出入口監控，具備 AI 事件偵測與防水防塵能力。",
     coverImage:
       "https://dummyimage.com/960x640/172554/dbeafe&text=STL-IPC-5M-BULLET-AI",
-    featureBullets: [
-      "5MP 高畫質錄影",
-      "IP67 防水防塵",
-      "AI 人車事件偵測",
-      "支援遠端警報通知",
-    ],
+    featureBullets: ["5MP 高畫質錄影", "IP67 防水防塵", "AI 人車事件偵測", "支援遠端警報通知"],
     specs: [
       { label: "解析度", value: "2592 x 1944" },
       { label: "鏡頭", value: "4mm 固定焦距" },
@@ -61,18 +55,12 @@ export const products: Product[] = [
     name: "Suntaili 8 路 4K NVR 錄影主機",
     model: "STL-NVR-08-4K",
     category: "recorder",
-    shortDescription:
-      "支援多通道網路攝影機接入，適合中型專案錄影管理。",
+    subcategoryKey: "nvr",
+    shortDescription: "支援多通道網路攝影機接入，適合中型專案錄影管理。",
     description:
-      "提供 8 路 IP Camera 接入與 4K 輸出，支援回放、備份與遠端管理，滿足日常監控維運需求。",
-    coverImage:
-      "https://dummyimage.com/960x640/1f2937/f9fafb&text=STL-NVR-08-4K",
-    featureBullets: [
-      "最多 8 路網路攝影機接入",
-      "雙 SATA 硬碟擴充",
-      "HDMI 4K 影像輸出",
-      "支援手機與網頁遠端管理",
-    ],
+      "提供 8 路 IP Camera 接入與 4K 輸出，支援回放、備份與遠端管理。",
+    coverImage: "https://dummyimage.com/960x640/1f2937/f9fafb&text=STL-NVR-08-4K",
+    featureBullets: ["最多 8 路網路攝影機接入", "雙 SATA 硬碟擴充", "HDMI 4K 輸出", "支援手機與網頁遠端管理"],
     specs: [
       { label: "通道數", value: "8CH IPC" },
       { label: "影像輸出", value: "HDMI 4K / VGA" },
@@ -88,18 +76,12 @@ export const products: Product[] = [
     name: "Suntaili 16 路混合式 DVR 主機",
     model: "STL-DVR-16-HY",
     category: "recorder",
-    shortDescription:
-      "兼容類比與 IP 設備，適合舊案場升級與混合部署。",
+    subcategoryKey: "dvr",
+    shortDescription: "兼容類比與 IP 設備，適合舊案場升級與混合部署。",
     description:
-      "可同時接入類比與 IP 攝影機，降低既有案場改造成本，提供靈活的監控升級方案。",
-    coverImage:
-      "https://dummyimage.com/960x640/3f3f46/f4f4f5&text=STL-DVR-16-HY",
-    featureBullets: [
-      "16 路混合訊號接入",
-      "支援多種壓縮格式",
-      "具備排程錄影管理",
-      "支援 USB 備份匯出",
-    ],
+      "可同時接入類比與 IP 攝影機，降低既有案場改造成本，提供靈活升級方案。",
+    coverImage: "https://dummyimage.com/960x640/3f3f46/f4f4f5&text=STL-DVR-16-HY",
+    featureBullets: ["16 路混合訊號接入", "支援多種壓縮格式", "具備排程錄影管理", "支援 USB 備份匯出"],
     specs: [
       { label: "通道數", value: "16CH Hybrid" },
       { label: "壓縮格式", value: "H.265 / H.264" },
@@ -115,18 +97,12 @@ export const products: Product[] = [
     name: "Suntaili 8 埠 PoE 交換器",
     model: "STL-SW-POE-8P",
     category: "accessory",
-    shortDescription:
-      "監控專用 PoE 交換器，簡化佈線並提升供電管理效率。",
+    subcategoryKey: "poe-switch",
+    shortDescription: "監控專用 PoE 交換器，簡化佈線並提升供電管理效率。",
     description:
       "提供 8 埠 PoE 與 Uplink 介面，適合中小型監控網路，支援 VLAN 與延伸模式設定。",
-    coverImage:
-      "https://dummyimage.com/960x640/0b3b2e/d1fae5&text=STL-SW-POE-8P",
-    featureBullets: [
-      "8 埠 PoE + 2 埠 Uplink",
-      "支援 VLAN 隔離模式",
-      "長距離傳輸模式",
-      "安裝部署快速",
-    ],
+    coverImage: "https://dummyimage.com/960x640/0b3b2e/d1fae5&text=STL-SW-POE-8P",
+    featureBullets: ["8 埠 PoE + 2 埠 Uplink", "支援 VLAN 隔離模式", "長距離傳輸模式", "安裝部署快速"],
     specs: [
       { label: "PoE 埠數", value: "8" },
       { label: "Uplink", value: "2 x Gigabit" },
@@ -142,18 +118,12 @@ export const products: Product[] = [
     name: "Suntaili 2KM 無線網路橋接器",
     model: "STL-WB-2KM-AC",
     category: "accessory",
-    shortDescription:
-      "適用跨棟連線與遠距離網路傳輸，降低佈線限制。",
+    subcategoryKey: "wireless-bridge",
+    shortDescription: "適用跨棟連線與遠距離網路傳輸，降低佈線限制。",
     description:
       "可用於跨建物監控傳輸，支援點對點橋接，適合不易施工拉線的場域。",
-    coverImage:
-      "https://dummyimage.com/960x640/123b2a/e2fce9&text=STL-WB-2KM-AC",
-    featureBullets: [
-      "最遠可達 2 公里傳輸",
-      "支援 PoE 供電",
-      "可做 AP / 橋接模式切換",
-      "適合室外長距離連線",
-    ],
+    coverImage: "https://dummyimage.com/960x640/123b2a/e2fce9&text=STL-WB-2KM-AC",
+    featureBullets: ["最遠可達 2 公里傳輸", "支援 PoE 供電", "可做 AP / 橋接模式切換", "適合室外長距離連線"],
     specs: [
       { label: "傳輸距離", value: "最遠 2KM（依環境而異）" },
       { label: "供電", value: "24V PoE" },
@@ -169,18 +139,12 @@ export const products: Product[] = [
     name: "Suntaili 二門門禁控制器",
     model: "STL-AC-2D-C1",
     category: "access-control",
-    shortDescription:
-      "支援雙門控制與權限管理，適合商辦與廠區門禁需求。",
+    subcategoryKey: "door-controller",
+    shortDescription: "支援雙門控制與權限管理，適合商辦與廠區門禁需求。",
     description:
       "提供雙門進出控制與權限群組管理，支援網路連線與事件記錄，便於集中管理。",
-    coverImage:
-      "https://dummyimage.com/960x640/3b2f0b/fef3c7&text=STL-AC-2D-C1",
-    featureBullets: [
-      "支援雙門控制",
-      "具備事件記錄查詢",
-      "可設定多層權限群組",
-      "支援管理工具匯入設定",
-    ],
+    coverImage: "https://dummyimage.com/960x640/3b2f0b/fef3c7&text=STL-AC-2D-C1",
+    featureBullets: ["支援雙門控制", "具備事件記錄查詢", "可設定多層權限群組", "支援管理工具匯入設定"],
     specs: [
       { label: "控制門數", value: "2 門" },
       { label: "介面", value: "Wiegand" },
@@ -196,18 +160,12 @@ export const products: Product[] = [
     name: "Suntaili HDMI 網路延伸器 30M",
     model: "STL-EXT-HDMI-30M",
     category: "accessory",
-    shortDescription:
-      "支援 1080P 影音傳輸，適合會議室與展示環境。",
+    subcategoryKey: "video-extender",
+    shortDescription: "支援 1080P 影音傳輸，適合會議室與展示環境。",
     description:
-      "透過網路線延伸 HDMI 訊號，降低長距離佈線成本，適用於會議室、展示空間與控制室。",
-    coverImage:
-      "https://dummyimage.com/960x640/1e293b/e2e8f0&text=STL-EXT-HDMI-30M",
-    featureBullets: [
-      "1080P 影音傳輸",
-      "支援 CAT5e / CAT6",
-      "安裝快速，維護便利",
-      "適合弱電整合專案",
-    ],
+      "透過網路線延伸 HDMI 訊號，降低長距離佈線成本，適用會議室與控制室。",
+    coverImage: "https://dummyimage.com/960x640/1e293b/e2e8f0&text=STL-EXT-HDMI-30M",
+    featureBullets: ["1080P 影音傳輸", "支援 CAT5e / CAT6", "安裝快速，維護便利", "適合弱電整合專案"],
     specs: [
       { label: "傳輸距離", value: "最長 30 公尺" },
       { label: "最高解析度", value: "1080P" },
