@@ -227,22 +227,41 @@ export default function Header() {
               onMouseEnter={openDesktopProductsMenu}
               onMouseLeave={closeDesktopProductsMenuWithDelay}
             >
-              <button
-                type="button"
-                onClick={() => {
-                  clearCloseTimer();
-                  setDesktopProductsOpen((open) => !open);
-                }}
+              <div
                 className={
                   productsActive || desktopProductsOpen
-                    ? "rounded-full bg-slate-900 px-4 py-2 text-sm text-white"
-                    : "rounded-full px-4 py-2 text-sm text-slate-700 hover:bg-slate-100"
+                    ? "inline-flex items-center overflow-hidden rounded-full bg-slate-900"
+                    : "inline-flex items-center overflow-hidden rounded-full border border-slate-300 bg-white"
                 }
-                aria-expanded={desktopProductsOpen}
-                aria-haspopup="true"
               >
-                產品介紹 {desktopProductsOpen ? "▲" : "▼"}
-              </button>
+                <Link
+                  href="/products"
+                  className={
+                    productsActive || desktopProductsOpen
+                      ? "px-4 py-2 text-sm text-white"
+                      : "px-4 py-2 text-sm text-slate-700 hover:bg-slate-100"
+                  }
+                >
+                  產品介紹
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    clearCloseTimer();
+                    setDesktopProductsOpen((open) => !open);
+                  }}
+                  className={
+                    productsActive || desktopProductsOpen
+                      ? "border-l border-slate-700 px-3 py-2 text-sm text-white"
+                      : "border-l border-slate-300 px-3 py-2 text-sm text-slate-700 hover:bg-slate-100"
+                  }
+                  aria-label="切換產品分類選單"
+                  aria-expanded={desktopProductsOpen}
+                  aria-haspopup="true"
+                >
+                  {desktopProductsOpen ? "▲" : "▼"}
+                </button>
+              </div>
 
               {desktopProductsOpen ? (
                 <div className="absolute right-0 top-full z-50 w-[min(1120px,calc(100vw-2rem))] pt-2">
