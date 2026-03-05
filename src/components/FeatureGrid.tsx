@@ -3,7 +3,7 @@ import SectionHeading from "@/components/SectionHeading";
 const features = [
   {
     title: "產品線完整、供貨穩定",
-    desc: "涵蓋攝影機、錄影主機、門禁與弱電周邊，方便一次整合採購。",
+    desc: "涵蓋攝影機、錄影主機與弱電周邊，方便一次整合採購。",
   },
   {
     title: "文件與工具可快速取得",

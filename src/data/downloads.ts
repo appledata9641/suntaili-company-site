@@ -5,15 +5,15 @@ const BASE_URL = process.env.NEXT_PUBLIC_DOWNLOAD_URL || "/downloads";
 export const downloads: DownloadItem[] = [
   {
     id: "test-vms-manual-1",
-    productSlug: "suntaili-poe-switch-8p",
-    productModel: "VMS",
+    productSlug: "suntaili-vms-software",
+    productModel: "三泰利 VMS",
     category: "accessory",
-    type: "manual",
-    title: "VMS Pro說明書繁體.doc",
+    type: "software",
+    title: "VMS",
     version: "V1.1.6",
     releaseDate: "2026-03-04",
-    fileSize: "16.6 MB",
-    downloadUrl: `${BASE_URL}/manual/VMS/${encodeURIComponent("VMS Pro說明書繁體.doc")}`,
+    fileSize: "152.9 MB",
+    downloadUrl: "https://drive.google.com/file/d/1q0LLfF_YosaF2870T0DvpcYpu_6ma-It/view?usp=drive_link",
   },
   {
     id: "test-th-ch258m3nd-catalog-1",

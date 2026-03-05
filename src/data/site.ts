@@ -5,7 +5,7 @@ export const siteProfile: SiteProfile = {
   brandName: "Suntaili",
   tagline: "B2B 安防監控、弱電整合與文件下載支援",
   shortDescription:
-    "三泰利企業有限公司專注於監控設備、錄影主機、門禁系統與弱電整合，提供穩定供貨與技術支援。",
+    "三泰利企業有限公司專注於弱電整合、監控器材批發與台灣組裝 AHD 客製化，提供穩定供貨與技術支援。",
   contact: {
     phone: "(02)2991-8878",
     email: "service@monitorplayer.com.tw",

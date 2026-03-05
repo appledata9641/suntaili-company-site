@@ -12,7 +12,7 @@ export default function Hero() {
           </p>
           <h1 className="mt-5 text-4xl font-semibold tracking-tight text-slate-950 md:text-5xl">
             {siteProfile.brandName}
-            <span className="block text-slate-700">企業級監控與門禁解決方案</span>
+            <span className="block text-slate-700">企業級監控與弱電整合方案</span>
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
             {siteProfile.shortDescription}

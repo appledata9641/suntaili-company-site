@@ -10,27 +10,55 @@ export default function Home() {
       <Header />
 
       <main>
-        <section className="border-b border-slate-200 bg-gradient-to-b from-slate-100 via-white to-white">
-          <div className="mx-auto max-w-7xl px-4 py-14 md:py-18">
-            <p className="inline-flex rounded-full border border-sky-200 bg-white px-3 py-1 text-xs font-medium text-sky-800">
-              安防監控與弱電整合
-            </p>
-            <h1 className="mt-4 text-3xl font-semibold tracking-tight text-slate-950 md:text-5xl">
-              {siteProfile.companyName}
-            </h1>
-            <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-600 md:text-base">
-              {siteProfile.shortDescription}
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/products" className="rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white">
-                查看產品
-              </Link>
-              <Link
-                href="/resources"
-                className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-800"
-              >
-                文件下載
-              </Link>
+        <section
+          className="border-b border-slate-900 bg-slate-950"
+          style={{
+            backgroundImage:
+              "linear-gradient(180deg, rgba(2,6,23,0.94) 0%, rgba(2,6,23,0.9) 100%), url('/images/home-hero.jpg')",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        >
+          <div className="mx-auto max-w-[1600px] px-4 py-6 md:py-8">
+            <div className="overflow-hidden rounded-2xl border border-slate-700">
+              <div className="min-h-[520px]">
+                <div
+                  className="relative flex min-h-[520px] items-end"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(90deg, rgba(2,6,23,0.78) 0%, rgba(2,6,23,0.52) 35%, rgba(2,6,23,0.35) 100%), url('/images/home-hero.jpg')",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                  }}
+                >
+                  <div className="w-full p-6 md:p-10">
+                    <p className="inline-flex rounded-full border border-sky-200/40 bg-slate-900/60 px-3 py-1 text-xs font-medium text-sky-200">
+                      安防監控與弱電整合
+                    </p>
+                    <h1 className="mt-4 text-3xl font-semibold tracking-tight text-white md:text-5xl">
+                      {siteProfile.companyName}
+                    </h1>
+                    <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-200 md:text-base">
+                      {siteProfile.shortDescription}
+                    </p>
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      <Link
+                        href="/products"
+                        className="rounded-full bg-cyan-500 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-cyan-400"
+                      >
+                        查看產品
+                      </Link>
+                      <Link
+                        href="/resources"
+                        className="rounded-full border border-slate-300/50 bg-slate-900/30 px-5 py-3 text-sm font-medium text-white"
+                      >
+                        文件下載
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>

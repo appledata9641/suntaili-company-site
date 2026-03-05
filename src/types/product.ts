@@ -1,8 +1,4 @@
-﻿export type ProductCategory =
-  | "camera"
-  | "recorder"
-  | "accessory"
-  | "access-control";
+export type ProductCategory = "camera" | "recorder" | "accessory";
 
 export interface ProductSpec {
   label: string;

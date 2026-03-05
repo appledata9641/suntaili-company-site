@@ -71,7 +71,7 @@ export default function DownloadFilters({
             type="search"
             value={searchTerm}
             onChange={(event) => onSearchTermChange(event.target.value)}
-            placeholder="例如：NVR、門禁、說明書、工具"
+            placeholder="例如：NVR、AHD、說明書、工具"
             className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 outline-none focus:border-slate-500"
           />
         </label>

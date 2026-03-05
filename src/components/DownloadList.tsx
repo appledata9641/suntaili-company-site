@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import type { DownloadItem, DownloadType } from "@/types/download";
 
 interface DownloadListRow extends DownloadItem {
@@ -16,6 +16,11 @@ const typeLabelMap: Record<DownloadType, string> = {
 };
 
 export default function DownloadList({ items }: DownloadListProps) {
+  const getProductDisplay = (item: DownloadListRow) =>
+    item.productName === item.productModel
+      ? item.productName
+      : `${item.productName} (${item.productModel})`;
+
   return (
     <>
       <div className="hidden overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm md:block">
@@ -27,7 +32,7 @@ export default function DownloadList({ items }: DownloadListProps) {
               <th className="px-4 py-3">版本</th>
               <th className="px-4 py-3">更新日期</th>
               <th className="px-4 py-3">檔案大小</th>
-              <th className="px-4 py-3 text-right">下載</th>
+              <th className="px-4 py-3 text-center">下載</th>
             </tr>
           </thead>
           <tbody>
@@ -35,19 +40,17 @@ export default function DownloadList({ items }: DownloadListProps) {
               <tr key={item.id} className="border-t border-slate-100 align-top">
                 <td className="px-4 py-4">
                   <div className="font-medium text-slate-900">{item.title}</div>
-                  <div className="mt-1 text-sm text-slate-600">
-                    {item.productName} ({item.productModel})
-                  </div>
+                  <div className="mt-1 text-sm text-slate-600">{getProductDisplay(item)}</div>
                   {item.notes ? <div className="mt-1 text-xs text-slate-500">{item.notes}</div> : null}
                 </td>
                 <td className="px-4 py-4 text-sm text-slate-700">{typeLabelMap[item.type]}</td>
                 <td className="px-4 py-4 text-sm text-slate-700">{item.version}</td>
                 <td className="px-4 py-4 text-sm text-slate-700">{item.releaseDate}</td>
                 <td className="px-4 py-4 text-sm text-slate-700">{item.fileSize}</td>
-                <td className="px-4 py-4 text-right">
+                <td className="px-4 py-4 text-center align-middle">
                   <Link
                     href={item.downloadUrl}
-                    className="inline-flex rounded-full border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-800 hover:border-slate-400"
+                    className="inline-flex items-center justify-center rounded-full border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-800 hover:border-slate-400"
                   >
                     下載
                   </Link>
@@ -64,9 +67,7 @@ export default function DownloadList({ items }: DownloadListProps) {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="text-sm font-semibold text-slate-900">{item.title}</div>
-                <div className="mt-1 text-xs text-slate-600">
-                  {item.productName} ({item.productModel})
-                </div>
+                <div className="mt-1 text-xs text-slate-600">{getProductDisplay(item)}</div>
               </div>
               <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs text-slate-700">
                 {typeLabelMap[item.type]}
@@ -76,7 +77,7 @@ export default function DownloadList({ items }: DownloadListProps) {
               <div>版本：{item.version}</div>
               <div>大小：{item.fileSize}</div>
               <div>日期：{item.releaseDate}</div>
-              {item.minHwVersion ? <div>硬體需求：{item.minHwVersion}</div> : null}
+              {item.minHwVersion ? <div>最低硬體版本：{item.minHwVersion}</div> : null}
             </div>
             {item.notes ? <p className="mt-3 text-xs text-slate-500">{item.notes}</p> : null}
             <Link

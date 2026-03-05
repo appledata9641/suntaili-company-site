@@ -3,7 +3,6 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ProductsExplorer from "@/components/ProductsExplorer";
 import SectionHeading from "@/components/SectionHeading";
-import { productCategories } from "@/data/categories";
 import { publishedProducts } from "@/data/products";
 
 export default function ProductsPage() {
@@ -14,7 +13,7 @@ export default function ProductsPage() {
         <SectionHeading
           eyebrow="產品中心"
           title="依需求快速找到產品"
-          description="可切換平鋪卡片與分級清單瀏覽。分級清單採產品線→子類→型號，查找效率更高。"
+          description="分級清單採產品線→子類→型號，可快速找到目標型號。"
         />
 
         <div className="mt-8">
@@ -25,7 +24,7 @@ export default function ProductsPage() {
               </div>
             }
           >
-            <ProductsExplorer products={publishedProducts} categories={productCategories} />
+            <ProductsExplorer products={publishedProducts} />
           </Suspense>
         </div>
       </main>
