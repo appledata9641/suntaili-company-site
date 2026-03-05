@@ -172,7 +172,10 @@ export default function Header() {
         <div className="hidden pb-2 text-xs text-slate-500 md:block">{siteProfile.tagline}</div>
 
         {mobileOpen ? (
-          <div id="mobile-menu" className="space-y-2 border-t border-slate-200 py-3 md:hidden">
+          <div
+            id="mobile-menu"
+            className="max-h-[calc(100svh-4rem)] overflow-y-auto space-y-2 border-t border-slate-200 py-3 pb-[calc(env(safe-area-inset-bottom)+1rem)] md:hidden"
+          >
             <nav aria-label="手機主選單" className="grid gap-2">
               <Link
                 href="/products"
@@ -217,7 +220,7 @@ export default function Header() {
               </button>
 
               {mobileTaxonomyOpen ? (
-                <div className="space-y-3 border-t border-slate-200 bg-slate-50 p-3">
+                <div className="relative space-y-3 border-t border-slate-200 bg-slate-50 p-3">
                   <div className="overflow-x-auto pb-1">
                     <div className="flex min-w-max gap-2">
                       <button
@@ -248,7 +251,7 @@ export default function Header() {
                     </div>
                   </div>
 
-                  <div className="max-h-[52vh] space-y-3 overflow-y-auto pr-1">
+                  <div className="max-h-[42svh] space-y-3 overflow-y-auto pr-1 pb-2">
                     {displayedMobileGroups.map((groupNode) => (
                     <div key={groupNode.group.key} className="space-y-2">
                       <div className="text-sm font-semibold text-slate-900">{groupNode.group.name}</div>
@@ -294,6 +297,16 @@ export default function Header() {
                       ))}
                     </div>
                     ))}
+                  </div>
+
+                  <div className="sticky bottom-0 z-10 -mx-3 border-t border-slate-200 bg-white/95 px-3 py-2 backdrop-blur">
+                    <button
+                      type="button"
+                      onClick={() => setMobileTaxonomyOpen(false)}
+                      className="w-full rounded-lg bg-slate-900 px-3 py-2 text-sm font-medium text-white"
+                    >
+                      收合產品分類
+                    </button>
                   </div>
                 </div>
               ) : null}
