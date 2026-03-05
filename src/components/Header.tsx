@@ -18,12 +18,17 @@ export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileTaxonomyOpen, setMobileTaxonomyOpen] = useState(false);
+  const [activeMobileGroupKey, setActiveMobileGroupKey] = useState<string>("all");
   const [desktopProductsOpen, setDesktopProductsOpen] = useState(false);
   const [openSubcategoryKeys, setOpenSubcategoryKeys] = useState<Record<string, boolean>>({});
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const taxonomyTree = useMemo(() => getTaxonomyTree(publishedProducts), []);
   const productsActive = pathname === "/products" || pathname.startsWith("/products/");
+  const displayedMobileGroups =
+    activeMobileGroupKey === "all"
+      ? taxonomyTree
+      : taxonomyTree.filter((groupNode) => groupNode.group.key === activeMobileGroupKey);
 
   const clearCloseTimer = () => {
     if (closeTimerRef.current) {
@@ -213,7 +218,38 @@ export default function Header() {
 
               {mobileTaxonomyOpen ? (
                 <div className="space-y-3 border-t border-slate-200 bg-slate-50 p-3">
-                  {taxonomyTree.map((groupNode) => (
+                  <div className="overflow-x-auto pb-1">
+                    <div className="flex min-w-max gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setActiveMobileGroupKey("all")}
+                        className={
+                          activeMobileGroupKey === "all"
+                            ? "rounded-full bg-slate-900 px-3 py-1.5 text-xs text-white"
+                            : "rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-700"
+                        }
+                      >
+                        全部
+                      </button>
+                      {taxonomyTree.map((groupNode) => (
+                        <button
+                          key={groupNode.group.key}
+                          type="button"
+                          onClick={() => setActiveMobileGroupKey(groupNode.group.key)}
+                          className={
+                            activeMobileGroupKey === groupNode.group.key
+                              ? "rounded-full bg-slate-900 px-3 py-1.5 text-xs text-white"
+                              : "rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-700"
+                          }
+                        >
+                          {groupNode.group.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="max-h-[52vh] space-y-3 overflow-y-auto pr-1">
+                    {displayedMobileGroups.map((groupNode) => (
                     <div key={groupNode.group.key} className="space-y-2">
                       <div className="text-sm font-semibold text-slate-900">{groupNode.group.name}</div>
                       {groupNode.categories.map((categoryNode) => (
@@ -257,7 +293,8 @@ export default function Header() {
                         </div>
                       ))}
                     </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               ) : null}
             </div>
