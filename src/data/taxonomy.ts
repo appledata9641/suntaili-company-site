@@ -48,13 +48,19 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
         children: [
           {
             key: "ahd-brand-self",
-            label: "自有品牌",
-            searchKeyword: "自有品牌 AHD",
+            label: "三泰利",
+            searchKeyword: "三泰利 AHD",
             children: [
               {
                 key: "ahd-self-2m",
                 label: "2MP",
-                productSlugs: ["suntaili-ahd-2mp-bullet"],
+                productSlugs: [
+                  "suntaili-ahd-2mp-bullet",
+                  "suntaili-ahd-2mp-ac-229d",
+                  "suntaili-ahd-2mp-ac-230",
+                  "suntaili-ahd-2mp-ac-238s",
+                  "suntaili-ahd-2mp-ac-260v",
+                ],
               },
               {
                 key: "ahd-self-5m",
@@ -105,26 +111,26 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
         children: [
           {
             key: "ahd-dvr-self",
-            label: "自有品牌",
-            searchKeyword: "自有品牌 DVR",
+            label: "三泰利",
+            searchKeyword: "三泰利 DVR",
             children: [
               {
                 key: "ahd-dvr-self-4ch",
                 label: "4路",
-                searchKeyword: "自有品牌 DVR 4路",
-                productSlugs: ["suntaili-dvr-4ch-hybrid"],
+                searchKeyword: "三泰利 DVR 4路",
+                productSlugs: ["suntaili-dvr-4ch-hybrid", "suntaili-dvr-rd-1304ah"],
               },
               {
                 key: "ahd-dvr-self-8ch",
                 label: "8路",
-                searchKeyword: "自有品牌 DVR 8路",
-                productSlugs: ["suntaili-dvr-8ch-hybrid"],
+                searchKeyword: "三泰利 DVR 8路",
+                productSlugs: ["suntaili-dvr-8ch-hybrid", "suntaili-dvr-rd-1308ah"],
               },
               {
                 key: "ahd-dvr-self-16ch",
                 label: "16路",
-                searchKeyword: "自有品牌 DVR 16路",
-                productSlugs: ["suntaili-dvr-16ch-hybrid"],
+                searchKeyword: "三泰利 DVR 16路",
+                productSlugs: ["suntaili-dvr-16ch-hybrid", "suntaili-dvr-rd-2316ah"],
               },
             ],
           },
@@ -193,8 +199,8 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
         children: [
           {
             key: "ip-self",
-            label: "自有品牌",
-            searchKeyword: "自有品牌 IPC",
+            label: "三泰利",
+            searchKeyword: "三泰利 IPC",
             children: [
               {
                 key: "ip-self-2m",
@@ -267,8 +273,8 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
         children: [
           {
             key: "ip-nvr-self",
-            label: "自有品牌",
-            searchKeyword: "自有品牌 NVR",
+            label: "三泰利",
+            searchKeyword: "三泰利 NVR",
             productSlugs: ["suntaili-nvr-8ch-4k"],
           },
           {
