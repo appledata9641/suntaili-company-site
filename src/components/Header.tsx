@@ -312,7 +312,7 @@ export default function Header() {
         {mobileOpen ? (
           <div
             id="mobile-menu"
-            className="max-h-[calc(100svh-4rem)] overflow-y-auto space-y-2 border-t border-slate-200 py-3 pb-[calc(env(safe-area-inset-bottom)+1rem)] md:hidden"
+            className="mobile-scroll-panel max-h-[calc(var(--app-vh)-4rem)] overflow-y-auto space-y-2 border-t border-slate-200 py-3 pb-[calc(env(safe-area-inset-bottom)+1rem)] md:hidden"
           >
             <nav aria-label="手機主選單" className="grid gap-2">
               <Link
@@ -389,7 +389,7 @@ export default function Header() {
                     </div>
                   </div>
 
-                  <div className="max-h-[42svh] space-y-3 overflow-y-auto pr-1 pb-2">
+                  <div className="mobile-scroll-panel max-h-[calc(var(--app-vh)-22rem)] space-y-3 overflow-y-auto pr-1 pb-2">
                     {displayedMobileGroups.map((group) => (
                       <div key={group.key} className="space-y-2">
                         <div className="text-sm font-semibold text-slate-900">{group.name}</div>
