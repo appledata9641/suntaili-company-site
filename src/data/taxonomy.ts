@@ -22,8 +22,11 @@ export const taxonomyGroups: ProductCategoryGroup[] = [
 ];
 
 export const taxonomySubcategories: ProductSubcategory[] = [
+  { key: "ahd-camera-2mp", name: "AHD 攝影機 2MP", categoryId: "camera" },
+  { key: "ahd-camera-5mp", name: "AHD 攝影機 5MP", categoryId: "camera" },
   { key: "ip-camera-2mp", name: "網路攝影機 2MP", categoryId: "camera" },
   { key: "ip-camera-5mp", name: "網路攝影機 5MP", categoryId: "camera" },
+  { key: "ip-camera-8mp", name: "網路攝影機 8MP", categoryId: "camera" },
   { key: "nvr", name: "NVR 錄影主機", categoryId: "recorder" },
   { key: "dvr", name: "DVR 錄影主機", categoryId: "recorder" },
   { key: "poe-switch", name: "PoE 交換器", categoryId: "accessory" },
