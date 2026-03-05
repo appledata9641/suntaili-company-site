@@ -109,11 +109,13 @@ export default function ProductHierarchyNavigator({
     .map((group) => ({
       key: group.key,
       name: group.name,
-      columns: group.columns.map((column) => buildColumnEntries(column)).filter((column): column is ColumnEntry => Boolean(column)),
+      columns: group.columns
+        .map((column) => buildColumnEntries(column))
+        .filter((column): column is ColumnEntry => Boolean(column)),
     }))
     .filter((group) => group.columns.length > 0);
 
-  const [activeGroupKey, setActiveGroupKey] = useState(groupEntries[0]?.key ?? "");
+  const [activeGroupKey, setActiveGroupKey] = useState<string>(groupEntries[0]?.key ?? "");
   const [activeColumnKeys, setActiveColumnKeys] = useState<Record<string, string>>({});
   const [activeBranchKeys, setActiveBranchKeys] = useState<Record<string, string>>({});
   const [openGroupKey, setOpenGroupKey] = useState<string>(groupEntries[0]?.key ?? "");
@@ -131,7 +133,8 @@ export default function ProductHierarchyNavigator({
   const activeColumn =
     activeGroup.columns.find((column) => column.key === activeColumnKeys[activeGroup.key]) ?? activeGroup.columns[0];
   const activeBranch =
-    activeColumn.branches.find((branch) => branch.key === activeBranchKeys[activeColumn.key]) ?? activeColumn.branches[0];
+    activeColumn.branches.find((branch) => branch.key === activeBranchKeys[activeColumn.key]) ??
+    activeColumn.branches[0];
 
   return (
     <section className={compact ? "space-y-4" : "space-y-6"}>
