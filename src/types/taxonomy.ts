@@ -30,6 +30,7 @@ export interface TaxonomyGroupNode {
 export interface TaxonomyMenuNode {
   key: string;
   label: string;
+  searchKeyword?: string;
   productSlugs?: string[];
   children?: TaxonomyMenuNode[];
 }
