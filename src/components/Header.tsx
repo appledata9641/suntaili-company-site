@@ -14,11 +14,30 @@ const navItems = [
   { href: "/contact", label: "聯絡我們" },
 ];
 
-function getNodeHref(node: TaxonomyMenuNode): string {
-  if (node.productSlugs && node.productSlugs.length > 0) {
-    return `/products/${node.productSlugs[0]}`;
+function getNodeKeyword(node: TaxonomyMenuNode, ancestors: TaxonomyMenuNode[]): string | undefined {
+  const directKeyword = node.searchKeyword?.trim();
+  if (directKeyword) return directKeyword;
+
+  const nearestAncestorKeyword = [...ancestors]
+    .reverse()
+    .find((ancestor) => Boolean(ancestor.searchKeyword?.trim()))
+    ?.searchKeyword?.trim();
+
+  const isLeaf = !node.children || node.children.length === 0;
+  if (!isLeaf) return undefined;
+
+  if (nearestAncestorKeyword) {
+    const normalizedLabel = node.label.replaceAll("/", " ");
+    return `${nearestAncestorKeyword} ${normalizedLabel}`.trim();
   }
-  return "/products";
+
+  return node.label.trim();
+}
+
+function getNodeHref(node: TaxonomyMenuNode, ancestors: TaxonomyMenuNode[]): string | undefined {
+  const keyword = getNodeKeyword(node, ancestors);
+  if (!keyword) return undefined;
+  return `/products?keyword=${encodeURIComponent(keyword)}`;
 }
 
 export default function Header() {
@@ -66,19 +85,35 @@ export default function Header() {
     }));
   };
 
-  const renderDesktopNode = (node: TaxonomyMenuNode, depth = 0): React.ReactNode => {
-    if (node.children && node.children.length > 0) {
-      const titleClass =
-        depth === 0
-          ? "text-sm font-semibold text-white"
-          : depth === 1
-            ? "text-sm text-slate-100"
-            : "text-xs text-slate-300";
+  const renderDesktopNode = (node: TaxonomyMenuNode, ancestors: TaxonomyMenuNode[] = []) => {
+    const hasChildren = Boolean(node.children && node.children.length > 0);
+    const href = getNodeHref(node, ancestors);
 
+    if (hasChildren) {
       return (
-        <div key={node.key} className={depth === 0 ? "space-y-2" : "space-y-1.5 pl-3"}>
-          <div className={titleClass}>{node.label}</div>
-          <div className="space-y-1">{node.children.map((child) => renderDesktopNode(child, depth + 1))}</div>
+        <div key={node.key} className="space-y-1.5">
+          {href ? (
+            <Link
+              href={href}
+              onClick={() => setDesktopProductsOpen(false)}
+              className="inline-block text-sm font-semibold text-white hover:text-sky-300"
+            >
+              {node.label}
+            </Link>
+          ) : (
+            <div className="text-sm font-semibold text-white">{node.label}</div>
+          )}
+          <div className="space-y-1 pl-3">
+            {node.children?.map((child) => renderDesktopNode(child, [...ancestors, node]))}
+          </div>
+        </div>
+      );
+    }
+
+    if (!href) {
+      return (
+        <div key={node.key} className="block text-sm text-slate-300">
+          {node.label}
         </div>
       );
     }
@@ -86,7 +121,7 @@ export default function Header() {
     return (
       <Link
         key={node.key}
-        href={getNodeHref(node)}
+        href={href}
         onClick={() => setDesktopProductsOpen(false)}
         className="block text-sm text-slate-300 hover:text-sky-300"
       >
@@ -95,14 +130,30 @@ export default function Header() {
     );
   };
 
-  const renderMobileNode = (node: TaxonomyMenuNode, depth = 0): React.ReactNode => {
+  const renderMobileNode = (node: TaxonomyMenuNode, ancestors: TaxonomyMenuNode[] = [], depth = 0) => {
     const hasChildren = Boolean(node.children && node.children.length > 0);
+    const href = getNodeHref(node, ancestors);
 
     if (!hasChildren) {
+      if (!href) {
+        return (
+          <div
+            key={node.key}
+            className={
+              depth === 0
+                ? "block rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700"
+                : "block rounded-md px-2 py-1.5 text-xs text-slate-700"
+            }
+          >
+            {node.label}
+          </div>
+        );
+      }
+
       return (
         <Link
           key={node.key}
-          href={getNodeHref(node)}
+          href={href}
           onClick={() => setMobileOpen(false)}
           className={
             depth === 0
@@ -116,24 +167,46 @@ export default function Header() {
     }
 
     const open = Boolean(openNodeKeys[node.key]);
+
     return (
       <div key={node.key} className="rounded-lg border border-slate-200 bg-white">
-        <button
-          type="button"
-          onClick={() => toggleNode(node.key)}
-          className={
-            depth === 0
-              ? "flex w-full items-center justify-between px-3 py-2 text-left text-sm font-medium text-slate-800"
-              : "flex w-full items-center justify-between px-2.5 py-2 text-left text-xs text-slate-700"
-          }
-          aria-expanded={open}
-        >
-          {node.label}
-          <span>{open ? "－" : "＋"}</span>
-        </button>
+        <div className="flex items-center justify-between gap-2 px-2.5 py-2">
+          <button
+            type="button"
+            onClick={() => toggleNode(node.key)}
+            className={
+              depth === 0
+                ? "flex-1 text-left text-sm font-medium text-slate-800"
+                : "flex-1 text-left text-xs text-slate-700"
+            }
+            aria-expanded={open}
+          >
+            {node.label}
+          </button>
+          <div className="flex items-center gap-2">
+            {href ? (
+              <Link
+                href={href}
+                onClick={() => setMobileOpen(false)}
+                className="rounded border border-slate-300 px-2 py-0.5 text-xs text-slate-600"
+              >
+                搜尋
+              </Link>
+            ) : null}
+            <button
+              type="button"
+              onClick={() => toggleNode(node.key)}
+              className="text-xs text-slate-500"
+              aria-label={`切換 ${node.label}`}
+            >
+              {open ? "－" : "＋"}
+            </button>
+          </div>
+        </div>
+
         {open ? (
           <div className="space-y-1 border-t border-slate-100 px-2.5 py-2">
-            {node.children?.map((child) => renderMobileNode(child, depth + 1))}
+            {node.children?.map((child) => renderMobileNode(child, [...ancestors, node], depth + 1))}
           </div>
         ) : null}
       </div>

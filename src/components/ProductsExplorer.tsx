@@ -1,6 +1,7 @@
 ﻿"use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import ProductHierarchyNavigator from "@/components/ProductHierarchyNavigator";
 import ProductsCatalog from "@/components/ProductsCatalog";
 import type { Product, ProductCategoryDefinition } from "@/types/product";
@@ -12,6 +13,11 @@ interface ProductsExplorerProps {
 
 export default function ProductsExplorer({ products, categories }: ProductsExplorerProps) {
   const [viewMode, setViewMode] = useState<"grid" | "hierarchy">("grid");
+  const searchParams = useSearchParams();
+
+  const initialKeyword = useMemo(() => {
+    return (searchParams.get("keyword") ?? "").trim();
+  }, [searchParams]);
 
   return (
     <div className="space-y-6">
@@ -41,7 +47,12 @@ export default function ProductsExplorer({ products, categories }: ProductsExplo
       </div>
 
       {viewMode === "grid" ? (
-        <ProductsCatalog products={products} categories={categories} />
+        <ProductsCatalog
+          key={`grid-${initialKeyword}`}
+          products={products}
+          categories={categories}
+          initialSearchTerm={initialKeyword}
+        />
       ) : (
         <ProductHierarchyNavigator products={products} compact />
       )}

@@ -1,4 +1,5 @@
-﻿import Footer from "@/components/Footer";
+﻿import { Suspense } from "react";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ProductsExplorer from "@/components/ProductsExplorer";
 import SectionHeading from "@/components/SectionHeading";
@@ -17,7 +18,15 @@ export default function ProductsPage() {
         />
 
         <div className="mt-8">
-          <ProductsExplorer products={publishedProducts} categories={productCategories} />
+          <Suspense
+            fallback={
+              <div className="rounded-2xl border border-slate-200 bg-white p-6 text-sm text-slate-600">
+                載入產品資料中...
+              </div>
+            }
+          >
+            <ProductsExplorer products={publishedProducts} categories={productCategories} />
+          </Suspense>
         </div>
       </main>
       <Footer />

@@ -22,11 +22,4 @@ export const productCategories: ProductCategoryDefinition[] = [
     shortName: "周邊",
     description: "PoE 交換器、無線橋接器與影音延伸設備。",
   },
-  {
-    id: "access-control",
-    slug: "access-control",
-    name: "門禁系統",
-    shortName: "門禁",
-    description: "門禁控制器與權限管理工具，適用商辦與廠區。",
-  },
 ];
