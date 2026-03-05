@@ -4,9 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
-import { publishedProducts } from "@/data/products";
 import { siteProfile } from "@/data/site";
-import { getTaxonomyTree } from "@/data/taxonomy";
+import { menuTaxonomyGroups } from "@/data/taxonomy";
+import type { TaxonomyMenuNode } from "@/types/taxonomy";
 
 const navItems = [
   { href: "/resources", label: "技術文件下載" },
@@ -14,21 +14,31 @@ const navItems = [
   { href: "/contact", label: "聯絡我們" },
 ];
 
+function getNodeHref(node: TaxonomyMenuNode): string {
+  if (node.productSlugs && node.productSlugs.length > 0) {
+    return `/products/${node.productSlugs[0]}`;
+  }
+  return "/products";
+}
+
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileTaxonomyOpen, setMobileTaxonomyOpen] = useState(false);
   const [activeMobileGroupKey, setActiveMobileGroupKey] = useState<string>("all");
   const [desktopProductsOpen, setDesktopProductsOpen] = useState(false);
-  const [openSubcategoryKeys, setOpenSubcategoryKeys] = useState<Record<string, boolean>>({});
+  const [openNodeKeys, setOpenNodeKeys] = useState<Record<string, boolean>>({});
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const taxonomyTree = useMemo(() => getTaxonomyTree(publishedProducts), []);
   const productsActive = pathname === "/products" || pathname.startsWith("/products/");
-  const displayedMobileGroups =
-    activeMobileGroupKey === "all"
-      ? taxonomyTree
-      : taxonomyTree.filter((groupNode) => groupNode.group.key === activeMobileGroupKey);
+
+  const displayedMobileGroups = useMemo(
+    () =>
+      activeMobileGroupKey === "all"
+        ? menuTaxonomyGroups
+        : menuTaxonomyGroups.filter((group) => group.key === activeMobileGroupKey),
+    [activeMobileGroupKey],
+  );
 
   const clearCloseTimer = () => {
     if (closeTimerRef.current) {
@@ -47,6 +57,87 @@ export default function Header() {
     closeTimerRef.current = setTimeout(() => {
       setDesktopProductsOpen(false);
     }, 160);
+  };
+
+  const toggleNode = (key: string) => {
+    setOpenNodeKeys((current) => ({
+      ...current,
+      [key]: !current[key],
+    }));
+  };
+
+  const renderDesktopNode = (node: TaxonomyMenuNode, depth = 0): React.ReactNode => {
+    if (node.children && node.children.length > 0) {
+      const titleClass =
+        depth === 0
+          ? "text-sm font-semibold text-white"
+          : depth === 1
+            ? "text-sm text-slate-100"
+            : "text-xs text-slate-300";
+
+      return (
+        <div key={node.key} className={depth === 0 ? "space-y-2" : "space-y-1.5 pl-3"}>
+          <div className={titleClass}>{node.label}</div>
+          <div className="space-y-1">{node.children.map((child) => renderDesktopNode(child, depth + 1))}</div>
+        </div>
+      );
+    }
+
+    return (
+      <Link
+        key={node.key}
+        href={getNodeHref(node)}
+        onClick={() => setDesktopProductsOpen(false)}
+        className="block text-sm text-slate-300 hover:text-sky-300"
+      >
+        {node.label}
+      </Link>
+    );
+  };
+
+  const renderMobileNode = (node: TaxonomyMenuNode, depth = 0): React.ReactNode => {
+    const hasChildren = Boolean(node.children && node.children.length > 0);
+
+    if (!hasChildren) {
+      return (
+        <Link
+          key={node.key}
+          href={getNodeHref(node)}
+          onClick={() => setMobileOpen(false)}
+          className={
+            depth === 0
+              ? "block rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700"
+              : "block rounded-md px-2 py-1.5 text-xs text-slate-700 hover:bg-slate-100"
+          }
+        >
+          {node.label}
+        </Link>
+      );
+    }
+
+    const open = Boolean(openNodeKeys[node.key]);
+    return (
+      <div key={node.key} className="rounded-lg border border-slate-200 bg-white">
+        <button
+          type="button"
+          onClick={() => toggleNode(node.key)}
+          className={
+            depth === 0
+              ? "flex w-full items-center justify-between px-3 py-2 text-left text-sm font-medium text-slate-800"
+              : "flex w-full items-center justify-between px-2.5 py-2 text-left text-xs text-slate-700"
+          }
+          aria-expanded={open}
+        >
+          {node.label}
+          <span>{open ? "－" : "＋"}</span>
+        </button>
+        {open ? (
+          <div className="space-y-1 border-t border-slate-100 px-2.5 py-2">
+            {node.children?.map((child) => renderMobileNode(child, depth + 1))}
+          </div>
+        ) : null}
+      </div>
+    );
   };
 
   return (
@@ -81,7 +172,7 @@ export default function Header() {
               </button>
 
               {desktopProductsOpen ? (
-                <div className="absolute right-0 top-full z-50 w-[min(980px,calc(100vw-2rem))] pt-2">
+                <div className="absolute right-0 top-full z-50 w-[min(1120px,calc(100vw-2rem))] pt-2">
                   <div className="overflow-hidden rounded-2xl border border-slate-700 bg-slate-900 p-6 text-slate-100 shadow-2xl">
                     <div className="mb-4 flex items-center justify-between">
                       <p className="text-sm font-semibold text-white">產品介紹</p>
@@ -91,41 +182,15 @@ export default function Header() {
                     </div>
 
                     <div className="grid gap-6 md:grid-cols-2">
-                      {taxonomyTree.map((groupNode) => (
-                        <section key={groupNode.group.key} className="space-y-4">
+                      {menuTaxonomyGroups.map((group) => (
+                        <section key={group.key} className="space-y-4">
                           <h3 className="border-b border-slate-700 pb-2 text-base font-semibold text-sky-300">
-                            {groupNode.group.name}
+                            {group.name}
                           </h3>
-
-                          <div className="space-y-4">
-                            {groupNode.categories.map((categoryNode) => (
-                              <div key={categoryNode.category.id}>
-                                <p className="mb-2 text-sm font-semibold text-white">{categoryNode.category.name}</p>
-                                <div className="space-y-2">
-                                  {categoryNode.subcategories.map((subcategoryNode) => (
-                                    <div key={subcategoryNode.subcategory.key} className="space-y-1">
-                                      <Link
-                                        href="/products"
-                                        className="text-sm text-slate-100 hover:text-sky-300"
-                                        onClick={() => setDesktopProductsOpen(false)}
-                                      >
-                                        {subcategoryNode.subcategory.name}
-                                      </Link>
-                                      <div className="flex flex-wrap gap-2 text-xs text-slate-400">
-                                        {subcategoryNode.products.slice(0, 3).map((product) => (
-                                          <Link
-                                            key={product.slug}
-                                            href={`/products/${product.slug}`}
-                                            onClick={() => setDesktopProductsOpen(false)}
-                                            className="rounded border border-slate-700 px-2 py-0.5 hover:border-slate-500 hover:text-slate-200"
-                                          >
-                                            {product.model}
-                                          </Link>
-                                        ))}
-                                      </div>
-                                    </div>
-                                  ))}
-                                </div>
+                          <div className="grid gap-4 md:grid-cols-2">
+                            {group.columns.map((column) => (
+                              <div key={column.key} className="space-y-1">
+                                {renderDesktopNode(column)}
                               </div>
                             ))}
                           </div>
@@ -234,68 +299,31 @@ export default function Header() {
                       >
                         全部
                       </button>
-                      {taxonomyTree.map((groupNode) => (
+                      {menuTaxonomyGroups.map((group) => (
                         <button
-                          key={groupNode.group.key}
+                          key={group.key}
                           type="button"
-                          onClick={() => setActiveMobileGroupKey(groupNode.group.key)}
+                          onClick={() => setActiveMobileGroupKey(group.key)}
                           className={
-                            activeMobileGroupKey === groupNode.group.key
+                            activeMobileGroupKey === group.key
                               ? "rounded-full bg-slate-900 px-3 py-1.5 text-xs text-white"
                               : "rounded-full border border-slate-300 bg-white px-3 py-1.5 text-xs text-slate-700"
                           }
                         >
-                          {groupNode.group.name}
+                          {group.name}
                         </button>
                       ))}
                     </div>
                   </div>
 
                   <div className="max-h-[42svh] space-y-3 overflow-y-auto pr-1 pb-2">
-                    {displayedMobileGroups.map((groupNode) => (
-                    <div key={groupNode.group.key} className="space-y-2">
-                      <div className="text-sm font-semibold text-slate-900">{groupNode.group.name}</div>
-                      {groupNode.categories.map((categoryNode) => (
-                        <div key={categoryNode.category.id} className="space-y-2">
-                          <div className="text-xs font-medium text-slate-700">{categoryNode.category.name}</div>
-                          {categoryNode.subcategories.map((subcategoryNode) => {
-                            const open = Boolean(openSubcategoryKeys[subcategoryNode.subcategory.key]);
-                            return (
-                              <div key={subcategoryNode.subcategory.key} className="rounded-lg border border-slate-200 bg-white">
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    setOpenSubcategoryKeys((current) => ({
-                                      ...current,
-                                      [subcategoryNode.subcategory.key]: !current[subcategoryNode.subcategory.key],
-                                    }))
-                                  }
-                                  className="flex w-full items-center justify-between px-2.5 py-2 text-left text-xs text-slate-700"
-                                  aria-expanded={open}
-                                >
-                                  {subcategoryNode.subcategory.name}
-                                  <span>{open ? "－" : "＋"}</span>
-                                </button>
-                                {open ? (
-                                  <div className="space-y-1 border-t border-slate-100 px-2.5 py-2">
-                                    {subcategoryNode.products.map((product) => (
-                                      <Link
-                                        key={product.slug}
-                                        href={`/products/${product.slug}`}
-                                        onClick={() => setMobileOpen(false)}
-                                        className="block rounded-md px-2 py-1.5 text-xs text-slate-700 hover:bg-slate-100"
-                                      >
-                                        {product.model}
-                                      </Link>
-                                    ))}
-                                  </div>
-                                ) : null}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      ))}
-                    </div>
+                    {displayedMobileGroups.map((group) => (
+                      <div key={group.key} className="space-y-2">
+                        <div className="text-sm font-semibold text-slate-900">{group.name}</div>
+                        {group.columns.map((column) => (
+                          <div key={column.key}>{renderMobileNode(column)}</div>
+                        ))}
+                      </div>
                     ))}
                   </div>
 

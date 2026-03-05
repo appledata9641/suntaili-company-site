@@ -5,6 +5,7 @@ import type {
   ProductSubcategory,
   TaxonomyCategoryNode,
   TaxonomyGroupNode,
+  TaxonomyMenuGroup,
 } from "@/types/taxonomy";
 
 export const taxonomyGroups: ProductCategoryGroup[] = [
@@ -33,6 +34,130 @@ export const taxonomySubcategories: ProductSubcategory[] = [
   { key: "other-recorder", name: "其他錄影主機", categoryId: "recorder" },
   { key: "other-accessory", name: "其他周邊", categoryId: "accessory" },
   { key: "other-access-control", name: "其他門禁設備", categoryId: "access-control" },
+];
+
+export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
+  {
+    key: "analog-hd",
+    name: "模擬類比高清商品",
+    columns: [
+      {
+        key: "ahd-camera",
+        label: "AHD 攝影機",
+        children: [
+          {
+            key: "ahd-brand-self",
+            label: "自有品牌",
+            children: [
+              { key: "ahd-self-2m", label: "2MP" },
+              { key: "ahd-self-5m", label: "5MP" },
+            ],
+          },
+          {
+            key: "ahd-brand-avtech",
+            label: "AVTECH",
+            children: [
+              { key: "ahd-avtech-2m", label: "2MP" },
+              { key: "ahd-avtech-5m", label: "5MP" },
+            ],
+          },
+          {
+            key: "ahd-brand-dahua",
+            label: "DAHUA",
+            children: [
+              { key: "ahd-dahua-2m", label: "2MP" },
+              { key: "ahd-dahua-5m", label: "5MP" },
+            ],
+          },
+        ],
+      },
+      {
+        key: "ahd-dvr",
+        label: "DVR 錄影機",
+        children: [{ key: "ahd-dvr-4ch", label: "4CH / 8CH / 16CH" }],
+      },
+      { key: "ahd-special", label: "特殊機種攝影機" },
+    ],
+  },
+  {
+    key: "ip-digital",
+    name: "數位網路高清商品",
+    columns: [
+      {
+        key: "ip-camera",
+        label: "網路攝影機",
+        children: [
+          {
+            key: "ip-self",
+            label: "自有品牌",
+            children: [
+              {
+                key: "ip-self-2m",
+                label: "2MP",
+                productSlugs: ["suntaili-2mp-dome-ip-camera"],
+              },
+              {
+                key: "ip-self-5m",
+                label: "5MP",
+                productSlugs: ["suntaili-5mp-outdoor-bullet-ai"],
+              },
+              { key: "ip-self-8m", label: "8MP" },
+            ],
+          },
+          { key: "ip-ptz", label: "PTZ 快速球型攝影機" },
+          { key: "ip-special", label: "特殊機種攝影機" },
+        ],
+      },
+      {
+        key: "ip-nvr",
+        label: "NVR 錄影機",
+        children: [
+          {
+            key: "ip-nvr-self",
+            label: "自有品牌",
+            productSlugs: ["suntaili-nvr-8ch-4k"],
+          },
+        ],
+      },
+      {
+        key: "platform-zone",
+        label: "平台設備專區",
+        children: [{ key: "vms-platform", label: "VMS 管理平台" }],
+      },
+      {
+        key: "ip-accessory",
+        label: "周邊配件",
+        children: [
+          {
+            key: "ip-poe-switch",
+            label: "PoE 交換器",
+            productSlugs: ["suntaili-poe-switch-8p"],
+          },
+          {
+            key: "ip-wireless-bridge",
+            label: "無線橋接器",
+            productSlugs: ["suntaili-wireless-bridge-2km"],
+          },
+          {
+            key: "ip-video-extender",
+            label: "影音延伸設備",
+            productSlugs: ["suntaili-hdmi-extender-30m"],
+          },
+        ],
+      },
+      {
+        key: "ip-access-control",
+        label: "門禁系統",
+        children: [
+          {
+            key: "door-controller",
+            label: "門禁控制器",
+            productSlugs: ["suntaili-ac-2door-controller"],
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 function getFallbackSubcategoryKey(category: ProductCategory): string {

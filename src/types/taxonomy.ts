@@ -26,3 +26,16 @@ export interface TaxonomyGroupNode {
   group: ProductCategoryGroup;
   categories: TaxonomyCategoryNode[];
 }
+
+export interface TaxonomyMenuNode {
+  key: string;
+  label: string;
+  productSlugs?: string[];
+  children?: TaxonomyMenuNode[];
+}
+
+export interface TaxonomyMenuGroup {
+  key: string;
+  name: string;
+  columns: TaxonomyMenuNode[];
+}
