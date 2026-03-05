@@ -17,7 +17,7 @@ export const taxonomyGroups: ProductCategoryGroup[] = [
   {
     key: "infrastructure",
     name: "周邊與管理設備",
-    categoryIds: ["accessory", "access-control"],
+    categoryIds: ["accessory"],
   },
 ];
 
@@ -29,11 +29,9 @@ export const taxonomySubcategories: ProductSubcategory[] = [
   { key: "poe-switch", name: "PoE 交換器", categoryId: "accessory" },
   { key: "wireless-bridge", name: "無線橋接器", categoryId: "accessory" },
   { key: "video-extender", name: "影音延伸設備", categoryId: "accessory" },
-  { key: "door-controller", name: "門禁控制器", categoryId: "access-control" },
   { key: "other-camera", name: "其他攝影機", categoryId: "camera" },
   { key: "other-recorder", name: "其他錄影主機", categoryId: "recorder" },
   { key: "other-accessory", name: "其他周邊", categoryId: "accessory" },
-  { key: "other-access-control", name: "其他門禁設備", categoryId: "access-control" },
 ];
 
 export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
@@ -48,25 +46,52 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
           {
             key: "ahd-brand-self",
             label: "自有品牌",
+            searchKeyword: "自有品牌 AHD",
             children: [
-              { key: "ahd-self-2m", label: "2MP" },
-              { key: "ahd-self-5m", label: "5MP" },
+              {
+                key: "ahd-self-2m",
+                label: "2MP",
+                productSlugs: ["suntaili-ahd-2mp-bullet"],
+              },
+              {
+                key: "ahd-self-5m",
+                label: "5MP",
+                productSlugs: ["suntaili-ahd-5mp-bullet"],
+              },
             ],
           },
           {
             key: "ahd-brand-avtech",
             label: "AVTECH",
+            searchKeyword: "AVTECH AHD",
             children: [
-              { key: "ahd-avtech-2m", label: "2MP" },
-              { key: "ahd-avtech-5m", label: "5MP" },
+              {
+                key: "ahd-avtech-2m",
+                label: "2MP",
+                productSlugs: ["avtech-ahd-2mp-dome"],
+              },
+              {
+                key: "ahd-avtech-5m",
+                label: "5MP",
+                productSlugs: ["avtech-ahd-5mp-dome"],
+              },
             ],
           },
           {
             key: "ahd-brand-dahua",
             label: "DAHUA",
+            searchKeyword: "DAHUA AHD",
             children: [
-              { key: "ahd-dahua-2m", label: "2MP" },
-              { key: "ahd-dahua-5m", label: "5MP" },
+              {
+                key: "ahd-dahua-2m",
+                label: "2MP",
+                productSlugs: ["dahua-ahd-2mp-bullet"],
+              },
+              {
+                key: "ahd-dahua-5m",
+                label: "5MP",
+                productSlugs: ["dahua-ahd-5mp-bullet"],
+              },
             ],
           },
         ],
@@ -74,7 +99,83 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
       {
         key: "ahd-dvr",
         label: "DVR 錄影機",
-        children: [{ key: "ahd-dvr-4ch", label: "4CH / 8CH / 16CH" }],
+        children: [
+          {
+            key: "ahd-dvr-self",
+            label: "自有品牌",
+            searchKeyword: "自有品牌 DVR",
+            children: [
+              {
+                key: "ahd-dvr-self-4ch",
+                label: "4路",
+                searchKeyword: "自有品牌 DVR 4路",
+                productSlugs: ["suntaili-dvr-4ch-hybrid"],
+              },
+              {
+                key: "ahd-dvr-self-8ch",
+                label: "8路",
+                searchKeyword: "自有品牌 DVR 8路",
+                productSlugs: ["suntaili-dvr-8ch-hybrid"],
+              },
+              {
+                key: "ahd-dvr-self-16ch",
+                label: "16路",
+                searchKeyword: "自有品牌 DVR 16路",
+                productSlugs: ["suntaili-dvr-16ch-hybrid"],
+              },
+            ],
+          },
+          {
+            key: "ahd-dvr-avtech",
+            label: "AVTECH",
+            searchKeyword: "AVTECH DVR",
+            children: [
+              {
+                key: "ahd-dvr-avtech-4ch",
+                label: "4路",
+                searchKeyword: "AVTECH DVR 4路",
+                productSlugs: ["avtech-dvr-4ch-hybrid"],
+              },
+              {
+                key: "ahd-dvr-avtech-8ch",
+                label: "8路",
+                searchKeyword: "AVTECH DVR 8路",
+                productSlugs: ["avtech-dvr-8ch-hybrid"],
+              },
+              {
+                key: "ahd-dvr-avtech-16ch",
+                label: "16路",
+                searchKeyword: "AVTECH DVR 16路",
+                productSlugs: ["avtech-dvr-16ch-hybrid"],
+              },
+            ],
+          },
+          {
+            key: "ahd-dvr-dahua",
+            label: "DAHUA",
+            searchKeyword: "DAHUA DVR",
+            children: [
+              {
+                key: "ahd-dvr-dahua-4ch",
+                label: "4路",
+                searchKeyword: "DAHUA DVR 4路",
+                productSlugs: ["dahua-dvr-4ch-hybrid"],
+              },
+              {
+                key: "ahd-dvr-dahua-8ch",
+                label: "8路",
+                searchKeyword: "DAHUA DVR 8路",
+                productSlugs: ["dahua-dvr-8ch-hybrid"],
+              },
+              {
+                key: "ahd-dvr-dahua-16ch",
+                label: "16路",
+                searchKeyword: "DAHUA DVR 16路",
+                productSlugs: ["dahua-dvr-16ch-hybrid"],
+              },
+            ],
+          },
+        ],
       },
       { key: "ahd-special", label: "特殊機種攝影機" },
     ],
@@ -90,6 +191,7 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
           {
             key: "ip-self",
             label: "自有品牌",
+            searchKeyword: "自有品牌 IPC",
             children: [
               {
                 key: "ip-self-2m",
@@ -101,7 +203,55 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
                 label: "5MP",
                 productSlugs: ["suntaili-5mp-outdoor-bullet-ai"],
               },
-              { key: "ip-self-8m", label: "8MP" },
+              {
+                key: "ip-self-8m",
+                label: "8MP",
+                productSlugs: ["suntaili-8mp-4k-ip-bullet"],
+              },
+            ],
+          },
+          {
+            key: "ip-avtech",
+            label: "AVTECH",
+            searchKeyword: "AVTECH IPC",
+            children: [
+              {
+                key: "ip-avtech-2m",
+                label: "2MP",
+                productSlugs: ["avtech-ipc-2mp-mini-dome"],
+              },
+              {
+                key: "ip-avtech-5m",
+                label: "5MP",
+                productSlugs: ["avtech-ipc-5mp-ai-bullet"],
+              },
+              {
+                key: "ip-avtech-8m",
+                label: "8MP",
+                productSlugs: ["avtech-ipc-8mp-4k-bullet"],
+              },
+            ],
+          },
+          {
+            key: "ip-dahua",
+            label: "DAHUA",
+            searchKeyword: "DAHUA IPC",
+            children: [
+              {
+                key: "ip-dahua-2m",
+                label: "2MP",
+                productSlugs: ["dahua-ipc-2mp-lite-dome"],
+              },
+              {
+                key: "ip-dahua-5m",
+                label: "5MP",
+                productSlugs: ["dahua-ipc-5mp-pro-bullet"],
+              },
+              {
+                key: "ip-dahua-8m",
+                label: "8MP",
+                productSlugs: ["dahua-ipc-8mp-4k-ai"],
+              },
             ],
           },
           { key: "ip-ptz", label: "PTZ 快速球型攝影機" },
@@ -115,7 +265,20 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
           {
             key: "ip-nvr-self",
             label: "自有品牌",
+            searchKeyword: "自有品牌 NVR",
             productSlugs: ["suntaili-nvr-8ch-4k"],
+          },
+          {
+            key: "ip-nvr-avtech",
+            label: "AVTECH",
+            searchKeyword: "AVTECH NVR",
+            productSlugs: ["avtech-nvr-16ch-4k"],
+          },
+          {
+            key: "ip-nvr-dahua",
+            label: "DAHUA",
+            searchKeyword: "DAHUA NVR",
+            productSlugs: ["dahua-nvr-16ch-4k"],
           },
         ],
       },
@@ -142,17 +305,6 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
             key: "ip-video-extender",
             label: "影音延伸設備",
             productSlugs: ["suntaili-hdmi-extender-30m"],
-          },
-        ],
-      },
-      {
-        key: "ip-access-control",
-        label: "門禁系統",
-        children: [
-          {
-            key: "door-controller",
-            label: "門禁控制器",
-            productSlugs: ["suntaili-ac-2door-controller"],
           },
         ],
       },

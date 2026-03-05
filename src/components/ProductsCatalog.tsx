@@ -9,23 +9,31 @@ import type { Product, ProductCategoryDefinition } from "@/types/product";
 interface ProductsCatalogProps {
   products: Product[];
   categories: ProductCategoryDefinition[];
+  initialSearchTerm?: string;
 }
 
-export default function ProductsCatalog({ products, categories }: ProductsCatalogProps) {
+export default function ProductsCatalog({
+  products,
+  categories,
+  initialSearchTerm = "",
+}: ProductsCatalogProps) {
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(initialSearchTerm);
   const deferredSearchTerm = useDeferredValue(searchTerm);
   const normalizedSearch = deferredSearchTerm.trim().toLowerCase();
+  const searchTokens = normalizedSearch.split(/\s+/).filter(Boolean);
 
   const filteredProducts = products.filter((product) => {
     const matchesCategory = activeCategory === "all" ? true : product.category === activeCategory;
-    const matchesSearch =
-      normalizedSearch.length === 0
-        ? true
-        : [product.name, product.model, product.shortDescription, product.tags.join(" ")]
-            .join(" ")
-            .toLowerCase()
-            .includes(normalizedSearch);
+    const matchesSearch = (() => {
+      if (searchTokens.length === 0) return true;
+
+      const searchableText = [product.name, product.model, product.shortDescription, product.tags.join(" ")]
+        .join(" ")
+        .toLowerCase();
+
+      return searchTokens.every((token) => searchableText.includes(token));
+    })();
 
     return matchesCategory && matchesSearch;
   });
