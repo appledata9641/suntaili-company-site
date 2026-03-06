@@ -10,6 +10,7 @@ interface ProductHierarchyNavigatorProps {
   products: Product[];
   compact?: boolean;
   onNavigate?: () => void;
+  initialQuery?: string;
 }
 
 interface LeafEntry {
@@ -40,8 +41,9 @@ export default function ProductHierarchyNavigator({
   products,
   compact = false,
   onNavigate,
+  initialQuery = "",
 }: ProductHierarchyNavigatorProps) {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
   const deferredSearchQuery = useDeferredValue(searchQuery);
 
   const productBySlug = new Map(products.map((product) => [product.slug, product]));
