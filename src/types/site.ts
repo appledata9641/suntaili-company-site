@@ -1,8 +1,9 @@
 export interface SiteContact {
   phone: string;
   email: string;
-  lineId: string;
+  lineId?: string;
   address: string;
+  taxId?: string;
   serviceHours: string;
 }
 

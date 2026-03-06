@@ -1,4 +1,5 @@
-﻿import Link from "next/link";
+﻿import Image from "next/image";
+import Link from "next/link";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SectionHeading from "@/components/SectionHeading";
@@ -21,18 +22,18 @@ export default function Home() {
         >
           <div className="mx-auto max-w-[1600px] px-4 py-6 md:py-8">
             <div className="overflow-hidden rounded-2xl border border-slate-700">
-              <div className="min-h-[520px]">
-                <div
-                  className="relative flex min-h-[520px] items-end"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(90deg, rgba(2,6,23,0.78) 0%, rgba(2,6,23,0.52) 35%, rgba(2,6,23,0.35) 100%), url('/images/home-hero.jpg')",
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                  }}
-                >
-                  <div className="w-full p-6 md:p-10">
+              <div className="min-h-[420px] md:min-h-[520px]">
+                <div className="relative flex min-h-[420px] items-end md:min-h-[520px]">
+                  <Image
+                    src="/images/home-hero.jpg"
+                    alt="三泰利產品主視覺"
+                    fill
+                    priority
+                    className="object-contain object-center md:object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/55 to-slate-950/35" />
+
+                  <div className="relative z-10 w-full p-6 md:p-10">
                     <p className="inline-flex rounded-full border border-sky-200/40 bg-slate-900/60 px-3 py-1 text-xs font-medium text-sky-200">
                       安防監控與弱電整合
                     </p>
@@ -68,8 +69,8 @@ export default function Home() {
             <div>
               <SectionHeading
                 eyebrow="產品介紹"
-                title="從上方選單展開二級分類快速找型號"
-                description="桌機版請將滑鼠移到「產品介紹」，可直接看到群組分類與型號；手機版可在選單中展開產品分類。"
+                title="尋找理想的產品"
+                description=""
               />
               <div className="mt-5">
                 <Link
@@ -85,7 +86,8 @@ export default function Home() {
               <ul className="mt-4 space-y-2 text-sm text-slate-600">
                 <li>電話：{siteProfile.contact.phone}</li>
                 <li>Email：{siteProfile.contact.email}</li>
-                <li>LINE：{siteProfile.contact.lineId}</li>
+                <li>地址：{siteProfile.contact.address}</li>
+                <li>統編：{siteProfile.contact.taxId}</li>
                 <li>服務時間：{siteProfile.contact.serviceHours}</li>
               </ul>
             </div>

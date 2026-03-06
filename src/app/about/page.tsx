@@ -10,7 +10,7 @@ const strengths = [
     description: "以 B2B 專案需求為主，提供監控設備與周邊器材整合供應。",
   },
   {
-    title: "台灣組裝 AHD 客製化",
+    title: "台灣工廠直營 AHD組裝客製化",
     description: "可依專案需求提供 AHD 規格客製與整合建議，提升導入效率。",
   },
   {
@@ -31,7 +31,7 @@ export default function AboutPage() {
         <SectionHeading
           eyebrow="關於我們"
           title={siteProfile.companyName}
-          description="三泰利企業有限公司以 B2B 市場為主，專注於弱電整合、監控器材批發與台灣組裝 AHD 客製化，提供穩定供貨與長期技術支援。"
+          description="三泰利企業有限公司以 B2B 市場為主，專注於台灣工廠直營 AHD組裝客製化、安防監控、監控器材批發與弱電整合，提供穩定供貨與長期技術支援。"
         />
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">

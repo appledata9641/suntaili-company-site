@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     template: "%s | Suntaili",
   },
   description:
-    "三泰利企業有限公司提供弱電整合、監控器材批發與台灣組裝 AHD 客製化服務，並提供產品說明文件與工具軟體下載。",
+    "三泰利企業有限公司提供台灣工廠直營 AHD組裝客製化、安防監控、監控器材批發與弱電整合服務，並提供產品說明文件與工具軟體下載。",
   openGraph: {
     title: "三泰利企業有限公司 | Suntaili",
     description:

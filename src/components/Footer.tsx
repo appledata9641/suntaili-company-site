@@ -42,8 +42,8 @@ export default function Footer() {
           <ul className="mt-3 space-y-2 text-sm text-slate-600">
             <li>電話：{siteProfile.contact.phone}</li>
             <li>Email：{siteProfile.contact.email}</li>
-            <li>LINE：{siteProfile.contact.lineId}</li>
-            <li>{siteProfile.contact.address}</li>
+            <li>地址：{siteProfile.contact.address}</li>
+            <li>統編：{siteProfile.contact.taxId}</li>
           </ul>
         </div>
       </div>

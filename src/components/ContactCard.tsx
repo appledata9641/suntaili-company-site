@@ -1,4 +1,4 @@
-import { siteProfile } from "@/data/site";
+﻿import { siteProfile } from "@/data/site";
 
 export default function ContactCard() {
   const { contact } = siteProfile;
@@ -16,12 +16,12 @@ export default function ContactCard() {
           {contact.email}
         </p>
         <p>
-          <span className="font-medium text-slate-900">LINE：</span>
-          {contact.lineId}
-        </p>
-        <p>
           <span className="font-medium text-slate-900">地址：</span>
           {contact.address}
+        </p>
+        <p>
+          <span className="font-medium text-slate-900">統編：</span>
+          {contact.taxId}
         </p>
         <p>
           <span className="font-medium text-slate-900">服務時間：</span>
