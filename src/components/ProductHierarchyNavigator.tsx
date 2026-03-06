@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import Link from "next/link";
-import { useDeferredValue, useState } from "react";
+import { useDeferredValue, useEffect, useState } from "react";
 import { menuTaxonomyGroups } from "@/data/taxonomy";
 import type { TaxonomyMenuNode } from "@/types/taxonomy";
 import type { Product } from "@/types/product";
@@ -45,6 +45,10 @@ export default function ProductHierarchyNavigator({
 }: ProductHierarchyNavigatorProps) {
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const deferredSearchQuery = useDeferredValue(searchQuery);
+
+  useEffect(() => {
+    setSearchQuery(initialQuery);
+  }, [initialQuery]);
 
   const productBySlug = new Map(products.map((product) => [product.slug, product]));
 
