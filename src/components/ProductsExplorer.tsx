@@ -11,8 +11,8 @@ interface ProductsExplorerProps {
 export default function ProductsExplorer({ products }: ProductsExplorerProps) {
   const searchParams = useSearchParams();
   const keyword = searchParams.get("keyword")?.trim() ?? "";
-  const menuNonce = searchParams.get("menu") ?? "";
-  const resetKey = `${keyword}::${menuNonce}`;
+  const kseq = searchParams.get("kseq") ?? "";
+  const resetKey = `${keyword}::${kseq}`;
 
   return (
     <div className="space-y-6">

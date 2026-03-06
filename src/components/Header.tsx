@@ -35,21 +35,6 @@ function getNodeKeyword(node: TaxonomyMenuNode, ancestors: TaxonomyMenuNode[]): 
   return node.label.trim();
 }
 
-function getNodeHref(node: TaxonomyMenuNode, ancestors: TaxonomyMenuNode[]): string | undefined {
-  const keyword = getNodeKeyword(node, ancestors);
-  if (!keyword) return undefined;
-  return `/products?keyword=${encodeURIComponent(keyword)}`;
-}
-
-function dispatchProductKeyword(keyword?: string) {
-  if (!keyword || typeof window === "undefined") return;
-  window.dispatchEvent(
-    new CustomEvent("suntaili:product-keyword", {
-      detail: { keyword },
-    }),
-  );
-}
-
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
@@ -59,7 +44,7 @@ export default function Header() {
   const [desktopProductsOpen, setDesktopProductsOpen] = useState(false);
   const [openNodeKeys, setOpenNodeKeys] = useState<Record<string, boolean>>({});
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const menuTokenRef = useRef(0);
+  const kseqRef = useRef(0);
 
   const productsActive = pathname === "/products" || pathname.startsWith("/products/");
 
@@ -97,17 +82,21 @@ export default function Header() {
     }));
   };
 
-  const pushKeywordSearch = (keyword?: string) => {
-    if (!keyword) return;
-    menuTokenRef.current += 1;
-    const href = `/products?keyword=${encodeURIComponent(keyword)}&menu=${menuTokenRef.current}`;
-    router.push(href);
+  const pushProductSearch = (keyword?: string) => {
+    kseqRef.current += 1;
+    const params = new URLSearchParams();
+    const normalizedKeyword = keyword?.trim();
+    if (normalizedKeyword) {
+      params.set("keyword", normalizedKeyword);
+    }
+    params.set("kseq", String(kseqRef.current));
+    router.push(`/products?${params.toString()}`);
   };
 
   const renderDesktopNode = (node: TaxonomyMenuNode, ancestors: TaxonomyMenuNode[] = []) => {
     const hasChildren = Boolean(node.children && node.children.length > 0);
     const keyword = getNodeKeyword(node, ancestors);
-    const href = getNodeHref(node, ancestors);
+    const href = keyword ? `/products?keyword=${encodeURIComponent(keyword)}` : undefined;
 
     if (hasChildren) {
       return (
@@ -115,12 +104,7 @@ export default function Header() {
           {href ? (
             <Link
               href={href}
-              onClick={(event) => {
-                event.preventDefault();
-                dispatchProductKeyword(keyword);
-                pushKeywordSearch(keyword);
-                setDesktopProductsOpen(false);
-              }}
+              onClick={() => setDesktopProductsOpen(false)}
               className="inline-block text-sm font-semibold text-white hover:text-sky-300"
             >
               {node.label}
@@ -147,12 +131,7 @@ export default function Header() {
       <Link
         key={node.key}
         href={href}
-        onClick={(event) => {
-          event.preventDefault();
-          dispatchProductKeyword(keyword);
-          pushKeywordSearch(keyword);
-          setDesktopProductsOpen(false);
-        }}
+        onClick={() => setDesktopProductsOpen(false)}
         className="block text-sm text-slate-300 hover:text-sky-300"
       >
         {node.label}
@@ -163,7 +142,7 @@ export default function Header() {
   const renderMobileNode = (node: TaxonomyMenuNode, ancestors: TaxonomyMenuNode[] = [], depth = 0) => {
     const hasChildren = Boolean(node.children && node.children.length > 0);
     const keyword = getNodeKeyword(node, ancestors);
-    const href = getNodeHref(node, ancestors);
+    const href = keyword ? `/products?keyword=${encodeURIComponent(keyword)}` : undefined;
 
     if (!hasChildren) {
       if (!href) {
@@ -187,8 +166,7 @@ export default function Header() {
           href={href}
           onClick={(event) => {
             event.preventDefault();
-            dispatchProductKeyword(keyword);
-            pushKeywordSearch(keyword);
+            pushProductSearch(keyword);
             setMobileOpen(false);
           }}
           className={
@@ -207,33 +185,37 @@ export default function Header() {
     return (
       <div key={node.key} className="rounded-lg border border-slate-200 bg-white">
         <div className="flex items-center justify-between gap-2 px-2.5 py-2">
-          <button
-            type="button"
-            onClick={() => toggleNode(node.key)}
-            className={
-              depth === 0
-                ? "flex-1 text-left text-sm font-medium text-slate-800"
-                : "flex-1 text-left text-xs text-slate-700"
-            }
-            aria-expanded={open}
-          >
-            {node.label}
-          </button>
+          {href ? (
+            <Link
+              href={href}
+              onClick={(event) => {
+                event.preventDefault();
+                pushProductSearch(keyword);
+                setMobileOpen(false);
+              }}
+              className={
+                depth === 0
+                  ? "flex-1 text-left text-sm font-medium text-slate-800"
+                  : "flex-1 text-left text-xs text-slate-700"
+              }
+            >
+              {node.label}
+            </Link>
+          ) : (
+            <button
+              type="button"
+              onClick={() => toggleNode(node.key)}
+              className={
+                depth === 0
+                  ? "flex-1 text-left text-sm font-medium text-slate-800"
+                  : "flex-1 text-left text-xs text-slate-700"
+              }
+              aria-expanded={open}
+            >
+              {node.label}
+            </button>
+          )}
           <div className="flex items-center gap-2">
-            {href ? (
-              <Link
-                href={href}
-                onClick={(event) => {
-                  event.preventDefault();
-                  dispatchProductKeyword(keyword);
-                  pushKeywordSearch(keyword);
-                  setMobileOpen(false);
-                }}
-                className="rounded border border-slate-300 px-2 py-0.5 text-xs text-slate-600"
-              >
-                搜尋
-              </Link>
-            ) : null}
             <button
               type="button"
               onClick={() => toggleNode(node.key)}
@@ -377,7 +359,11 @@ export default function Header() {
             <nav aria-label="手機主選單" className="grid gap-2">
               <Link
                 href="/products"
-                onClick={() => setMobileOpen(false)}
+                onClick={(event) => {
+                  event.preventDefault();
+                  pushProductSearch();
+                  setMobileOpen(false);
+                }}
                 className={
                   productsActive
                     ? "rounded-xl bg-slate-900 px-3 py-2 text-sm text-white"

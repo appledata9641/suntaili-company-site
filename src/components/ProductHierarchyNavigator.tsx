@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import Link from "next/link";
-import { useDeferredValue, useEffect, useState } from "react";
+import { useDeferredValue, useState } from "react";
 import { menuTaxonomyGroups } from "@/data/taxonomy";
 import type { TaxonomyMenuNode } from "@/types/taxonomy";
 import type { Product } from "@/types/product";
@@ -45,20 +45,6 @@ export default function ProductHierarchyNavigator({
 }: ProductHierarchyNavigatorProps) {
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const deferredSearchQuery = useDeferredValue(searchQuery);
-
-  useEffect(() => {
-    const handleKeywordSync = (event: Event) => {
-      const customEvent = event as CustomEvent<{ keyword?: string }>;
-      const keyword = customEvent.detail?.keyword?.trim();
-      if (!keyword) return;
-      setSearchQuery(keyword);
-    };
-
-    window.addEventListener("suntaili:product-keyword", handleKeywordSync as EventListener);
-    return () => {
-      window.removeEventListener("suntaili:product-keyword", handleKeywordSync as EventListener);
-    };
-  }, []);
 
   const productBySlug = new Map(products.map((product) => [product.slug, product]));
 
