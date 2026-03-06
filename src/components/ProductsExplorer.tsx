@@ -11,10 +11,12 @@ interface ProductsExplorerProps {
 export default function ProductsExplorer({ products }: ProductsExplorerProps) {
   const searchParams = useSearchParams();
   const keyword = searchParams.get("keyword")?.trim() ?? "";
+  const menuNonce = searchParams.get("menu") ?? "";
+  const resetKey = `${keyword}::${menuNonce}`;
 
   return (
     <div className="space-y-6">
-      <ProductHierarchyNavigator products={products} compact initialQuery={keyword} />
+      <ProductHierarchyNavigator key={resetKey} products={products} compact initialQuery={keyword} />
     </div>
   );
 }

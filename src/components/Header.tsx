@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
 import { siteProfile } from "@/data/site";
@@ -50,6 +51,7 @@ function dispatchProductKeyword(keyword?: string) {
 }
 
 export default function Header() {
+  const router = useRouter();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileTaxonomyOpen, setMobileTaxonomyOpen] = useState(false);
@@ -57,6 +59,7 @@ export default function Header() {
   const [desktopProductsOpen, setDesktopProductsOpen] = useState(false);
   const [openNodeKeys, setOpenNodeKeys] = useState<Record<string, boolean>>({});
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const menuTokenRef = useRef(0);
 
   const productsActive = pathname === "/products" || pathname.startsWith("/products/");
 
@@ -94,6 +97,13 @@ export default function Header() {
     }));
   };
 
+  const pushKeywordSearch = (keyword?: string) => {
+    if (!keyword) return;
+    menuTokenRef.current += 1;
+    const href = `/products?keyword=${encodeURIComponent(keyword)}&menu=${menuTokenRef.current}`;
+    router.push(href);
+  };
+
   const renderDesktopNode = (node: TaxonomyMenuNode, ancestors: TaxonomyMenuNode[] = []) => {
     const hasChildren = Boolean(node.children && node.children.length > 0);
     const keyword = getNodeKeyword(node, ancestors);
@@ -105,8 +115,10 @@ export default function Header() {
           {href ? (
             <Link
               href={href}
-              onClick={() => {
+              onClick={(event) => {
+                event.preventDefault();
                 dispatchProductKeyword(keyword);
+                pushKeywordSearch(keyword);
                 setDesktopProductsOpen(false);
               }}
               className="inline-block text-sm font-semibold text-white hover:text-sky-300"
@@ -135,8 +147,10 @@ export default function Header() {
       <Link
         key={node.key}
         href={href}
-        onClick={() => {
+        onClick={(event) => {
+          event.preventDefault();
           dispatchProductKeyword(keyword);
+          pushKeywordSearch(keyword);
           setDesktopProductsOpen(false);
         }}
         className="block text-sm text-slate-300 hover:text-sky-300"
@@ -171,8 +185,10 @@ export default function Header() {
         <Link
           key={node.key}
           href={href}
-          onClick={() => {
+          onClick={(event) => {
+            event.preventDefault();
             dispatchProductKeyword(keyword);
+            pushKeywordSearch(keyword);
             setMobileOpen(false);
           }}
           className={
@@ -207,8 +223,10 @@ export default function Header() {
             {href ? (
               <Link
                 href={href}
-                onClick={() => {
+                onClick={(event) => {
+                  event.preventDefault();
                   dispatchProductKeyword(keyword);
+                  pushKeywordSearch(keyword);
                   setMobileOpen(false);
                 }}
                 className="rounded border border-slate-300 px-2 py-0.5 text-xs text-slate-600"

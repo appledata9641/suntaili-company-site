@@ -47,10 +47,6 @@ export default function ProductHierarchyNavigator({
   const deferredSearchQuery = useDeferredValue(searchQuery);
 
   useEffect(() => {
-    setSearchQuery(initialQuery);
-  }, [initialQuery]);
-
-  useEffect(() => {
     const handleKeywordSync = (event: Event) => {
       const customEvent = event as CustomEvent<{ keyword?: string }>;
       const keyword = customEvent.detail?.keyword?.trim();
