@@ -50,6 +50,20 @@ export default function ProductHierarchyNavigator({
     setSearchQuery(initialQuery);
   }, [initialQuery]);
 
+  useEffect(() => {
+    const handleKeywordSync = (event: Event) => {
+      const customEvent = event as CustomEvent<{ keyword?: string }>;
+      const keyword = customEvent.detail?.keyword?.trim();
+      if (!keyword) return;
+      setSearchQuery(keyword);
+    };
+
+    window.addEventListener("suntaili:product-keyword", handleKeywordSync as EventListener);
+    return () => {
+      window.removeEventListener("suntaili:product-keyword", handleKeywordSync as EventListener);
+    };
+  }, []);
+
   const productBySlug = new Map(products.map((product) => [product.slug, product]));
 
   const resolveProducts = (slugs?: string[]) =>

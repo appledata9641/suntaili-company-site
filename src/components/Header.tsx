@@ -40,6 +40,15 @@ function getNodeHref(node: TaxonomyMenuNode, ancestors: TaxonomyMenuNode[]): str
   return `/products?keyword=${encodeURIComponent(keyword)}`;
 }
 
+function dispatchProductKeyword(keyword?: string) {
+  if (!keyword || typeof window === "undefined") return;
+  window.dispatchEvent(
+    new CustomEvent("suntaili:product-keyword", {
+      detail: { keyword },
+    }),
+  );
+}
+
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -87,6 +96,7 @@ export default function Header() {
 
   const renderDesktopNode = (node: TaxonomyMenuNode, ancestors: TaxonomyMenuNode[] = []) => {
     const hasChildren = Boolean(node.children && node.children.length > 0);
+    const keyword = getNodeKeyword(node, ancestors);
     const href = getNodeHref(node, ancestors);
 
     if (hasChildren) {
@@ -95,7 +105,10 @@ export default function Header() {
           {href ? (
             <Link
               href={href}
-              onClick={() => setDesktopProductsOpen(false)}
+              onClick={() => {
+                dispatchProductKeyword(keyword);
+                setDesktopProductsOpen(false);
+              }}
               className="inline-block text-sm font-semibold text-white hover:text-sky-300"
             >
               {node.label}
@@ -122,7 +135,10 @@ export default function Header() {
       <Link
         key={node.key}
         href={href}
-        onClick={() => setDesktopProductsOpen(false)}
+        onClick={() => {
+          dispatchProductKeyword(keyword);
+          setDesktopProductsOpen(false);
+        }}
         className="block text-sm text-slate-300 hover:text-sky-300"
       >
         {node.label}
@@ -132,6 +148,7 @@ export default function Header() {
 
   const renderMobileNode = (node: TaxonomyMenuNode, ancestors: TaxonomyMenuNode[] = [], depth = 0) => {
     const hasChildren = Boolean(node.children && node.children.length > 0);
+    const keyword = getNodeKeyword(node, ancestors);
     const href = getNodeHref(node, ancestors);
 
     if (!hasChildren) {
@@ -154,7 +171,10 @@ export default function Header() {
         <Link
           key={node.key}
           href={href}
-          onClick={() => setMobileOpen(false)}
+          onClick={() => {
+            dispatchProductKeyword(keyword);
+            setMobileOpen(false);
+          }}
           className={
             depth === 0
               ? "block rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700"
@@ -187,7 +207,10 @@ export default function Header() {
             {href ? (
               <Link
                 href={href}
-                onClick={() => setMobileOpen(false)}
+                onClick={() => {
+                  dispatchProductKeyword(keyword);
+                  setMobileOpen(false);
+                }}
                 className="rounded border border-slate-300 px-2 py-0.5 text-xs text-slate-600"
               >
                 搜尋
