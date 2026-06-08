@@ -65,7 +65,13 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
               {
                 key: "ahd-self-5m",
                 label: "5MP",
-                productSlugs: ["suntaili-ahd-5mp-bullet"],
+                productSlugs: [
+                  "suntaili-ahd-5mp-bullet",
+                  "suntaili-ac-525d",
+                  "suntaili-ac-535",
+                  "suntaili-ac-526d",
+                  "suntaili-ac-536",
+                ],
               },
             ],
           },
