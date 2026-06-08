@@ -1,0 +1,39 @@
+
+> company-site@0.1.0 dev
+> next dev
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.56.1:3000
+
+✓ Starting...
+Creating turbopack project {
+  dir: 'C:\\Users\\admin\\Desktop\\postman\\company-site1',
+  testMode: true
+}
+✓ Ready in 1330ms
+ GET / 200 in 1856ms (compile: 1614ms, render: 242ms)
+ GET /products/ 200 in 1699ms (compile: 1659ms, render: 40ms)
+ GET /products/suntaili-ahd-2mp-ac-230/ 200 in 596ms (compile: 559ms, generate-params: 508ms, render: 37ms)
+ GET /products/dahua-ahd-2mp-bullet/ 200 in 49ms (compile: 13ms, generate-params: 8ms, render: 35ms)
+ GET / 200 in 32ms (compile: 5ms, render: 27ms)
+ GET /resources/ 200 in 269ms (compile: 237ms, render: 32ms)
+ GET /products/ 200 in 25ms (compile: 3ms, render: 22ms)
+ GET / 200 in 25ms (compile: 3ms, render: 22ms)
+ GET /products/ 200 in 36ms (compile: 6ms, render: 30ms)
+ GET /products/ 200 in 228ms (compile: 116ms, render: 111ms)
+ GET /products/ 200 in 61ms (compile: 3ms, render: 58ms)
+ GET /products/ 200 in 34ms (compile: 2ms, render: 32ms)
+ GET /products/ 200 in 236ms (compile: 5ms, render: 231ms)
+ GET /products/suntaili-ac-535/ 200 in 178ms (compile: 117ms, generate-params: 6ms, render: 61ms)
+ GET /products/ 200 in 563ms (compile: 168ms, render: 395ms)
+ GET /products/ 200 in 340ms (compile: 4ms, render: 337ms)
+ GET /products/ 200 in 113ms (compile: 5ms, render: 109ms)
+ GET /products/suntaili-ac-535/ 200 in 346ms (compile: 168ms, generate-params: 8ms, render: 178ms)
+ GET /products/suntaili-ac-535/ 200 in 84ms (compile: 4ms, generate-params: 24µs, render: 80ms)
+ GET /products/suntaili-ac-535/ 200 in 51ms (compile: 4ms, generate-params: 35µs, render: 47ms)
+Error: Failed to find Server Action "x". This request might be from an older or newer deployment.
+Read more: https://nextjs.org/docs/messages/failed-to-find-server-action
+    at ignore-listed frames
+ POST / 404 in 299ms (compile: 3ms, render: 296ms)
+ HEAD / 200 in 43ms (compile: 3ms, render: 40ms)
