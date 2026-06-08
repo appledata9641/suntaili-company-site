@@ -742,6 +742,130 @@ export const products: Product[] = [
     tags: ["延伸器", "HDMI", "RJ45", "周邊"],
     published: true,
   },
+  {
+    id: "p_cam_03",
+    slug: "suntaili-ac-525d",
+    name: "Suntaili 5MP 半球型監控攝影機 AC-525D",
+    model: "AC-525D",
+    category: "camera",
+    shortDescription: "5MP 高畫質半球型 AHD 攝影機，支援日夜切換與紅外夜視。",
+    description:
+      "5MP 半球型監控攝影機，支援 AHD/TVI/CVI/CVBS 四合一輸出、IR-CUT 日夜切換與微晶陣列紅外線夜視。",
+    coverImage: "/images/半球.jpg",
+    featureBullets: [
+      "5MP 高畫質 (2592 x 1944)",
+      "支援 AHD/TVI/CVI/CVBS 四合一輸出",
+      "日夜切換 (IR-CUT) 與微晶陣列紅外線 LED",
+      "內建多項影像優化：WDR、2D/3D DNR、白平衡、增益控制"
+    ],
+    specs: [
+      { label: "影像元件", value: "1/3\" 5MP CMOS" },
+      { label: "解析度", value: "2592 x 1944" },
+      { label: "鏡頭", value: "3.6mm / 6mm (F1.8)" },
+      { label: "最低照度", value: "0.01 Lux @ F1.8 / 0 Lux (IR)" },
+      { label: "紅外線距離", value: "20-25 m" },
+      { label: "輸出格式", value: "AHD / TVI / CVI / CVBS" },
+      { label: "供電", value: "DC12V ±10%" },
+      { label: "功耗", value: "最高 4.8 W" },
+      { label: "外觀尺寸", value: "Φ94 x 75 mm" },
+      { label: "工作溫度", value: "-10 ~ 50°C" }
+    ],
+    tags: ["5MP", "AHD", "夜視", "半球"],
+    published: true,
+  },
+  {
+    id: "p_cam_04",
+    slug: "suntaili-ac-535",
+    name: "Suntaili 5MP AHD 室外型攝影機 AC-535",
+    model: "AC-535",
+    category: "camera",
+    shortDescription: "5MP 四合一室外攝影機，支援高功率紅外夜視與 IP67 防護。",
+    description:
+      "5MP AHD 室外監控攝影機，具備強化紅外夜視 (30~40m)、IP67 防水等級與寬動態影像處理。",
+    coverImage: "/images/槍型.jpg",
+    featureBullets: [
+      "5MP 高畫質 (2592 x 1944)",
+      "室外防護 IP67 與堅固外殼",
+      "強化紅外線夜視 (30-40m) 與 IR-CUT",
+      "影像優化：WDR、3D DNR、白平衡、增益控制"
+    ],
+    specs: [
+      { label: "影像元件", value: "1/3\" 5MP CMOS" },
+      { label: "解析度", value: "2592 x 1944" },
+      { label: "鏡頭", value: "3.6mm / 6mm" },
+      { label: "紅外線距離", value: "30-40 m" },
+      { label: "輸出格式", value: "AHD / TVI / CVI / CVBS" },
+      { label: "供電", value: "DC12V ±10%" },
+      { label: "功耗", value: "最高 6 W" },
+      { label: "防護等級", value: "IP67" },
+      { label: "外觀尺寸", value: "Φ75 x 120 mm" },
+      { label: "工作溫度", value: "-10 ~ 50°C" }
+    ],
+    tags: ["5MP", "室外", "夜視", "IP67"],
+    published: true,
+  },
+  {
+    id: "p_cam_05",
+    slug: "suntaili-ac-526d",
+    name: "Suntaili 5MP 半球型監控攝影機 AC-526D",
+    model: "AC-526D",
+    category: "camera",
+    shortDescription: "5MP 半球型 AHD 攝影機，支援日夜切換與紅外夜視。",
+    description:
+      "AC-526D 為 5MP 半球型監控攝影機，支援 AHD/TVI/CVI/CVBS 四合一輸出，並具備 IR-CUT 日夜切換與紅外夜視。",
+    coverImage: "/images/半球.jpg",
+    featureBullets: [
+      "5MP 高畫質 (2592 x 1944)",
+      "支援 AHD/TVI/CVI/CVBS 四合一輸出",
+      "日夜切換 (IR-CUT) 與紅外夜視",
+      "影像優化：WDR、2D/3D DNR、白平衡、增益控制"
+    ],
+    specs: [
+      { label: "影像元件", value: "1/3\" 5MP CMOS" },
+      { label: "解析度", value: "2592 x 1944" },
+      { label: "鏡頭", value: "3.6mm / 6mm (F1.8)" },
+      { label: "最低照度", value: "0.01 Lux @ F1.8 / 0 Lux (IR)" },
+      { label: "紅外線距離", value: "20-25 m" },
+      { label: "輸出格式", value: "AHD / TVI / CVI / CVBS" },
+      { label: "供電", value: "DC12V ±10%" },
+      { label: "功耗", value: "最高 4.8 W" },
+      { label: "外觀尺寸", value: "Φ94 x 75 mm" },
+      { label: "工作溫度", value: "-10 ~ 50°C" }
+    ],
+    tags: ["5MP", "AHD", "夜視", "半球"],
+    published: true,
+  },
+  {
+    id: "p_cam_06",
+    slug: "suntaili-ac-536",
+    name: "Suntaili 5MP AHD 室外型攝影機 AC-536",
+    model: "AC-536",
+    category: "camera",
+    shortDescription: "5MP 室外型 AHD 攝影機，支援紅外夜視與 IP67 防護。",
+    description:
+      "AC-536 為 5MP AHD 室外監控攝影機，具備 30-40m 紅外夜視、IP67 防護與寬動態影像處理。",
+    coverImage: "/images/槍型.jpg",
+    featureBullets: [
+      "5MP 高畫質 (2592 x 1944)",
+      "室外防護 IP67 與堅固外殼",
+      "強化紅外線夜視 (30-40m) 與 IR-CUT",
+      "影像優化：WDR、3D DNR、白平衡、增益控制"
+    ],
+    specs: [
+      { label: "影像元件", value: "1/3\" 5MP CMOS" },
+      { label: "解析度", value: "2592 x 1944" },
+      { label: "鏡頭", value: "3.6mm / 6mm" },
+      { label: "紅外線距離", value: "30-40 m" },
+      { label: "輸出格式", value: "AHD / TVI / CVI / CVBS" },
+      { label: "供電", value: "DC12V ±10%" },
+      { label: "功耗", value: "最高 6 W" },
+      { label: "防護等級", value: "IP67" },
+      { label: "外觀尺寸", value: "Φ75 x 120 mm" },
+      { label: "工作溫度", value: "-10 ~ 50°C" }
+    ],
+    tags: ["5MP", "室外", "夜視", "IP67"],
+    published: true,
+  },
 ];
 
 export const publishedProducts = products.filter((product) => product.published);

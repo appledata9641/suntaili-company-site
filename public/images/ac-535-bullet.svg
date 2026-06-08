@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="AC-535 槍型攝影機圖像">
+  <rect width="640" height="480" rx="40" fill="#f8fafc"/>
+  <path d="M140 170c0-40 32-72 72-72h220c40 0 72 32 72 72v110c0 40-32 72-72 72H212c-40 0-72-32-72-72V170z" fill="#cbd5e1"/>
+  <circle cx="320" cy="230" r="80" fill="#0f172a"/>
+  <circle cx="320" cy="230" r="40" fill="#e2e8f0"/>
+  <path d="M462 195h90v40h-90z" fill="#94a3b8"/>
+  <path d="M170 260h65v45h-65z" fill="#334155" opacity="0.18"/>
+  <path d="M260 345h160v25c0 18-14 32-32 32H292c-18 0-32-14-32-32v-25z" fill="#0f172a"/>
+  <circle cx="320" cy="345" r="18" fill="#f8fafc"/>
+  <text x="320" y="70" font-family="Inter, sans-serif" text-anchor="middle" font-size="28" fill="#334155">AC-535</text>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-label="槍型攝影機圖示">
+  <rect width="640" height="480" rx="40" fill="#f8fafc"/>
+  <path d="M140 180c0-44 36-80 80-80h220c44 0 80 36 80 80v120c0 44-36 80-80 80H220c-44 0-80-36-80-80V180z" fill="#cbd5e1"/>
+  <path d="M320 155c44 0 80 36 80 80s-36 80-80 80-80-36-80-80 36-80 80-80z" fill="#0f172a"/>
+  <circle cx="320" cy="235" r="52" fill="#e2e8f0"/>
+  <path d="M460 210h80v40h-80z" fill="#94a3b8"/>
+  <path d="M140 235h70v55H140z" fill="#1e293b" opacity="0.18"/>
+  <path d="M250 340h160v20c0 22-18 40-40 40H290c-22 0-40-18-40-40v-20z" fill="#0f172a"/>
+  <path d="M360 335c0 12-10 22-22 22s-22-10-22-22 10-22 22-22 22 10 22 22z" fill="#f8fafc"/>
+  <polygon points="220,120 280,120 320,80 260,80" fill="#64748b" opacity="0.8"/>
+</svg>
