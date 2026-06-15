@@ -185,4 +185,17 @@ export const downloads: DownloadItem[] = [
     notes: "門禁周邊設定與維護說明。",
     downloadUrl: `${BASE_URL}/manual/AC-536.pdf`,
   },
+  {
+    id: "vms-pro-manual",
+    productSlug: "suntaili-vms-platform",
+    productModel: "VMS",
+    category: "accessory",
+    type: "manual",
+    title: "VMS Pro說明書繁體.doc",
+    version: "V1.1.6",
+    releaseDate: "2026-03-04",
+    fileSize: "16.6 MB",
+    notes: "VMS 管理平台操作說明書。",
+    downloadUrl: `${BASE_URL}/manual/VMS/${encodeURIComponent("VMS Pro說明書繁體.doc")}`,
+  },
 ];
