@@ -1,15 +1,37 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import JsonLd from "@/components/JsonLd";
 import SectionHeading from "@/components/SectionHeading";
 import { productCategories } from "@/data/categories";
 import { publishedProducts } from "@/data/products";
 import { getProductCategory } from "@/lib/product-content";
+import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return productCategories.map((category) => ({ slug: category.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const category = productCategories.find((item) => item.slug === slug);
+
+  if (!category) {
+    return pageMetadata({
+      title: "找不到產品分類",
+      description: "目前找不到此產品分類，請回到產品中心重新查詢。",
+      path: "/categories",
+    });
+  }
+
+  return pageMetadata({
+    title: `${category.name}分類`,
+    description: category.description,
+    path: `/categories/${category.slug}`,
+  });
 }
 
 export default async function CategoryDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -26,6 +48,15 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
     <div className="min-h-screen bg-slate-50">
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-14">
+        <JsonLd
+          id="category-breadcrumb-jsonld"
+          data={breadcrumbJsonLd([
+            { name: "首頁", path: "/" },
+            { name: "產品分類", path: "/categories" },
+            { name: category.name, path: `/categories/${category.slug}` },
+          ])}
+        />
+
         <nav aria-label="麵包屑" className="mb-6 text-sm text-slate-500">
           <Link href="/" className="hover:text-slate-900">
             首頁

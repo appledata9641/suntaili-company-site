@@ -1,8 +1,16 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SectionHeading from "@/components/SectionHeading";
 import { siteProfile } from "@/data/site";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: "常見問題",
+  description: "三泰利整理監控器材批發、AHD 攝影機客製、相容性確認、文件下載與專案詢價常見問題。",
+  path: "/faq",
+});
 
 const faqs = [
   {

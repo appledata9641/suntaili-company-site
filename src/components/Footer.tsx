@@ -60,8 +60,30 @@ export default function Footer() {
         <div>
           <div className="text-sm font-semibold text-slate-900">聯絡資訊</div>
           <ul className="mt-3 space-y-2 text-sm text-slate-600">
-            <li>電話：{siteProfile.contact.phone}</li>
-            <li>Email：{siteProfile.contact.email}</li>
+            <li>
+              電話：
+              <a
+                href={`tel:${siteProfile.contact.phone.replace(/[^\d+]/g, "")}`}
+                data-ga-event="phone_click"
+                data-ga-category="contact"
+                data-ga-label="footer_phone"
+                className="hover:text-slate-900"
+              >
+                {siteProfile.contact.phone}
+              </a>
+            </li>
+            <li>
+              Email：
+              <a
+                href={`mailto:${siteProfile.contact.email}`}
+                data-ga-event="email_click"
+                data-ga-category="contact"
+                data-ga-label="footer_email"
+                className="hover:text-slate-900"
+              >
+                {siteProfile.contact.email}
+              </a>
+            </li>
             <li>地址：{siteProfile.contact.address}</li>
             <li>統編：{siteProfile.contact.taxId}</li>
           </ul>

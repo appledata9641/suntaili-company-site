@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import JsonLd from "@/components/JsonLd";
 import SectionHeading from "@/components/SectionHeading";
 import { downloads } from "@/data/downloads";
 import { publishedProducts } from "@/data/products";
@@ -14,6 +16,7 @@ import {
   getRelatedProducts,
 } from "@/lib/product-content";
 import { sortDownloadsByDateDesc } from "@/lib/downloads";
+import { absoluteUrl, breadcrumbJsonLd, canonicalUrl, pageMetadata } from "@/lib/seo";
 
 function getDownloadAnchorProps(downloadUrl: string) {
   const isExternal = /^https?:\/\//i.test(downloadUrl);
@@ -32,6 +35,48 @@ function getDownloadAnchorProps(downloadUrl: string) {
 
 export async function generateStaticParams() {
   return publishedProducts.map((product) => ({ slug: product.slug }));
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const product = publishedProducts.find((item) => item.slug === slug);
+
+  if (!product) {
+    return pageMetadata({
+      title: "找不到產品",
+      description: "目前找不到此產品型號，請回到產品中心重新查詢。",
+      path: "/products",
+    });
+  }
+
+  return pageMetadata({
+    title: `${product.model} ${product.name}`,
+    description: product.shortDescription,
+    path: `/products/${product.slug}`,
+  });
+}
+
+function productJsonLd(product: (typeof publishedProducts)[number], categoryName?: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    sku: product.model,
+    mpn: product.model,
+    brand: {
+      "@type": "Brand",
+      name: product.name.includes("Suntaili") || product.name.includes("三泰利") ? "Suntaili" : product.tags[0],
+    },
+    category: categoryName,
+    description: product.description,
+    image: [absoluteUrl(product.coverImage)],
+    url: canonicalUrl(`/products/${product.slug}`),
+    additionalProperty: product.specs.map((spec) => ({
+      "@type": "PropertyValue",
+      name: spec.label,
+      value: spec.value,
+    })),
+  };
 }
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -54,6 +99,17 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     <div className="min-h-screen bg-slate-50">
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-14">
+        <JsonLd id="product-jsonld" data={productJsonLd(product, category?.name)} />
+        <JsonLd
+          id="product-breadcrumb-jsonld"
+          data={breadcrumbJsonLd([
+            { name: "首頁", path: "/" },
+            { name: "產品中心", path: "/products" },
+            ...(category ? [{ name: category.name, path: `/categories/${category.slug}` }] : []),
+            { name: product.model, path: `/products/${product.slug}` },
+          ])}
+        />
+
         <nav aria-label="麵包屑" className="mb-6 text-sm text-slate-500">
           <Link href="/" className="hover:text-slate-900">
             首頁
@@ -114,6 +170,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href={`/inquiry?model=${encodeURIComponent(product.model)}`}
+                  data-ga-event="inquiry_click"
+                  data-ga-category="lead"
+                  data-ga-label={product.model}
                   className="rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800"
                 >
                   詢問此型號

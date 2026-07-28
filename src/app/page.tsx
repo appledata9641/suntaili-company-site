@@ -1,10 +1,12 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SectionHeading from "@/components/SectionHeading";
 import { productCategories } from "@/data/categories";
 import { publishedProducts } from "@/data/products";
 import { siteProfile, solutionUseCases } from "@/data/site";
+import { pageMetadata } from "@/lib/seo";
 
 const b2bStrengths = [
   {
@@ -27,6 +29,13 @@ const cooperationSteps = [
   "回覆報價、交期與可替代方案",
   "出貨後提供必要技術文件與支援",
 ];
+
+export const metadata: Metadata = pageMetadata({
+  title: "三泰利企業有限公司 B2B 安防監控與 AHD 客製",
+  description:
+    "三泰利企業有限公司提供監控器材批發、AHD 攝影機組裝客製、NVR/DVR、PoE、門禁與弱電整合支援。",
+  path: "/",
+});
 
 export default function Home() {
   const categorySummaries = productCategories.map((category) => ({

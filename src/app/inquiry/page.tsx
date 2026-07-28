@@ -1,8 +1,16 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SectionHeading from "@/components/SectionHeading";
 import { siteProfile } from "@/data/site";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: "詢價合作",
+  description: "提供經銷合作、大量採購、專案配貨與 AHD 攝影機客製需求，三泰利協助確認型號與報價。",
+  path: "/inquiry",
+});
 
 const inputClass =
   "mt-2 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-slate-500";
@@ -27,6 +35,9 @@ export default function InquiryPage() {
             action={mailAction}
             method="post"
             encType="text/plain"
+            data-ga-event="inquiry_form_submit"
+            data-ga-category="lead"
+            data-ga-label="bulk_purchase"
             className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
           >
             <h2 className="text-lg font-semibold text-slate-950">經銷合作 / 大量採購詢價</h2>
@@ -86,6 +97,9 @@ export default function InquiryPage() {
               </button>
               <Link
                 href={`mailto:${siteProfile.contact.email}`}
+                data-ga-event="email_click"
+                data-ga-category="contact"
+                data-ga-label="inquiry_direct_email"
                 className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-800"
               >
                 直接寄信
@@ -97,6 +111,9 @@ export default function InquiryPage() {
             action={mailAction}
             method="post"
             encType="text/plain"
+            data-ga-event="inquiry_form_submit"
+            data-ga-category="lead"
+            data-ga-label="project_requirement"
             className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm"
           >
             <h2 className="text-lg font-semibold text-slate-950">專案需求表單</h2>

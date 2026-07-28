@@ -1,9 +1,17 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import ContactCard from "@/components/ContactCard";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SectionHeading from "@/components/SectionHeading";
 import { siteProfile } from "@/data/site";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: "聯絡我們",
+  description: "聯絡三泰利企業有限公司，洽詢監控器材批發、AHD 攝影機客製、NVR/DVR、PoE 與弱電整合需求。",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
@@ -35,6 +43,9 @@ export default function ContactPage() {
               <div className="mt-4 flex flex-wrap gap-3">
                 <Link
                   href={`mailto:${siteProfile.contact.email}`}
+                  data-ga-event="email_click"
+                  data-ga-category="contact"
+                  data-ga-label="contact_page_email"
                   className="rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white"
                 >
                   寄送 Email

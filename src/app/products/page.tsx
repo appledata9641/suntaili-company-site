@@ -1,11 +1,19 @@
 import { Suspense } from "react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import ProductsExplorer from "@/components/ProductsExplorer";
 import SectionHeading from "@/components/SectionHeading";
 import { productCategories } from "@/data/categories";
 import { publishedProducts } from "@/data/products";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: "產品中心",
+  description: "三泰利產品中心提供監控攝影機、NVR/DVR 錄影主機、PoE 與弱電周邊設備型號查詢。",
+  path: "/products",
+});
 
 export default function ProductsPage() {
   return (

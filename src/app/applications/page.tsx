@@ -1,7 +1,15 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SectionHeading from "@/components/SectionHeading";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: "應用場域",
+  description: "依商用空間、社區、工廠倉儲與弱電工程情境，規劃監控攝影機、錄影主機與周邊設備。",
+  path: "/applications",
+});
 
 const applicationGroups = [
   {

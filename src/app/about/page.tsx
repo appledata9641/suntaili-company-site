@@ -1,8 +1,16 @@
 import ContactCard from "@/components/ContactCard";
+import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SectionHeading from "@/components/SectionHeading";
 import { siteProfile } from "@/data/site";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: "關於三泰利",
+  description: "三泰利企業有限公司以 B2B 安防監控、監控器材批發、AHD 攝影機客製與弱電整合支援為主要服務。",
+  path: "/about",
+});
 
 const strengths = [
   {

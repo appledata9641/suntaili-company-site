@@ -1,9 +1,17 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SectionHeading from "@/components/SectionHeading";
 import { productCategories } from "@/data/categories";
 import { publishedProducts } from "@/data/products";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = pageMetadata({
+  title: "產品分類",
+  description: "依監控攝影機、錄影主機與弱電周邊分類瀏覽三泰利公開產品型號。",
+  path: "/categories",
+});
 
 export default function CategoriesPage() {
   return (

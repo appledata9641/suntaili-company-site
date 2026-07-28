@@ -9,11 +9,27 @@ export default function ContactCard() {
       <div className="mt-4 space-y-3 text-sm text-slate-700">
         <p>
           <span className="font-medium text-slate-900">電話：</span>
-          {contact.phone}
+          <a
+            href={`tel:${contact.phone.replace(/[^\d+]/g, "")}`}
+            data-ga-event="phone_click"
+            data-ga-category="contact"
+            data-ga-label="contact_card_phone"
+            className="hover:text-slate-950"
+          >
+            {contact.phone}
+          </a>
         </p>
         <p>
           <span className="font-medium text-slate-900">Email：</span>
-          {contact.email}
+          <a
+            href={`mailto:${contact.email}`}
+            data-ga-event="email_click"
+            data-ga-category="contact"
+            data-ga-label="contact_card_email"
+            className="hover:text-slate-950"
+          >
+            {contact.email}
+          </a>
         </p>
         <p>
           <span className="font-medium text-slate-900">地址：</span>

@@ -1,19 +1,49 @@
 import type { Metadata } from "next";
+import Analytics from "@/components/Analytics";
+import JsonLd from "@/components/JsonLd";
+import { siteProfile } from "@/data/site";
+import {
+  absoluteUrl,
+  defaultDescription,
+  localBusinessJsonLd,
+  organizationJsonLd,
+  siteUrl,
+  websiteJsonLd,
+} from "@/lib/seo";
 import "./globals.css";
 
+const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "三泰利企業有限公司 | Suntaili",
-    template: "%s | Suntaili",
+    default: `${siteProfile.companyName} | Suntaili`,
+    template: `%s | Suntaili`,
   },
-  description:
-    "三泰利企業有限公司提供台灣工廠直營 AHD組裝客製化、安防監控、監控器材批發與弱電整合服務，並提供產品說明文件與工具軟體下載。",
+  description: defaultDescription,
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
-    title: "三泰利企業有限公司 | Suntaili",
-    description:
-      "B2B 安防監控與弱電整合方案，提供產品導覽、技術文件下載與持續技術支援。",
+    title: `${siteProfile.companyName} | Suntaili`,
+    description: defaultDescription,
+    url: siteUrl,
+    siteName: `${siteProfile.companyName} Suntaili`,
+    locale: "zh_TW",
     type: "website",
+    images: [absoluteUrl("/images/home-hero.jpg")],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteProfile.companyName} | Suntaili`,
+    description: defaultDescription,
+    images: [absoluteUrl("/images/home-hero.jpg")],
+  },
+  verification: googleSiteVerification
+    ? {
+        google: googleSiteVerification,
+      }
+    : undefined,
 };
 
 export default function RootLayout({
@@ -23,7 +53,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-Hant" suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        <JsonLd
+          id="site-identity-jsonld"
+          data={[organizationJsonLd(), localBusinessJsonLd(), websiteJsonLd()]}
+        />
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
