@@ -12,7 +12,21 @@ npm run dev
 
 開啟 `http://localhost:3000`。
 
-## 2. 靜態建置（Cloudflare 使用）
+## 2. 環境變數
+
+可參考 `.env.example`。正式部署時在 Cloudflare Pages 的 Environment variables 設定：
+
+| 變數 | 用途 | 必填 |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | canonical、sitemap、JSON-LD 使用的正式網址，預設 `https://www.suntaili.com` | 否 |
+| `NEXT_PUBLIC_DOWNLOAD_URL` | 文件下載路徑前綴，預設 `/downloads` | 否 |
+| `NEXT_PUBLIC_GA4_ID` | GA4 Measurement ID；未設定時不載入追蹤碼 | 否 |
+| `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Google Search Console 驗證碼 | 否 |
+| `NEXT_PUBLIC_LINE_URL` | LINE 官方帳號或聯絡網址；未設定時不顯示 LINE CTA | 否 |
+
+不要把正式 GA4、GSC 或 LINE 管理資訊直接寫死在程式碼裡。
+
+## 3. 靜態建置（Cloudflare 使用）
 
 ```bash
 npm run build
@@ -20,7 +34,7 @@ npm run build
 
 建置完成後會輸出到 `out/`。
 
-## 3. 文件放置規則
+## 4. 文件放置規則
 
 目前下載連結由 `src/data/downloads.ts` 控制，預設前綴為：
 
@@ -31,9 +45,9 @@ npm run build
 - `public/downloads/manual/...`
 - `public/downloads/software/...`
 
-已先建立目錄骨架與 `README.txt` 提示檔，請把實際檔案覆蓋上去。
+產品 DM 放在各型號產品頁，不放在 `/resources/` 文件下載總頁。
 
-## 4. Cloudflare Pages 部署設定
+## 5. Cloudflare Pages 部署設定
 
 1. Cloudflare Dashboard -> Workers & Pages -> Create -> Pages
 2. 連接 GitHub repo
@@ -45,7 +59,7 @@ npm run build
 
 4. Deploy
 
-## 5. 綁定網域（suntaili.com）
+## 6. 綁定網域（suntaili.com）
 
 在 Cloudflare Pages 的 `Custom domains` 加入：
 
@@ -59,15 +73,19 @@ npm run build
 - `MX / SPF / DKIM / DMARC` 不要動（避免影響公司信箱）
 - 若已有舊站，建議先改 `www` 測試，確認後再切根網域 `@`
 
-## 6. 發佈流程（推薦）
+## 7. 發佈流程（推薦）
 
 1. 更新 `src/data/downloads.ts`
-2. 放入對應檔案到 `public/downloads/...`
-3. 本機 `npm run build` 檢查
+2. 放入對應檔案到 `public/downloads/...` 或 `public/DM/...`
+3. 本機檢查：
+   ```bash
+   npx.cmd eslint src
+   npm.cmd run build
+   ```
 4. push 到 GitHub
 5. Cloudflare Pages 自動重新部署
 
-## 7. 常見問題
+## 8. 常見問題
 
 ### Q1: 點下載出現 404
 - 檢查 `src/data/downloads.ts` 的路徑是否與 `public/downloads/...` 檔名一致。

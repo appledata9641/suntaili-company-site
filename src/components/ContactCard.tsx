@@ -2,6 +2,7 @@
 
 export default function ContactCard() {
   const { contact } = siteProfile;
+  const lineUrl = process.env.NEXT_PUBLIC_LINE_URL;
 
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -31,6 +32,22 @@ export default function ContactCard() {
             {contact.email}
           </a>
         </p>
+        {lineUrl ? (
+          <p>
+            <span className="font-medium text-slate-900">LINE：</span>
+            <a
+              href={lineUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-ga-event="line_click"
+              data-ga-category="contact"
+              data-ga-label="contact_card_line"
+              className="hover:text-slate-950"
+            >
+              加入 LINE 聯絡
+            </a>
+          </p>
+        ) : null}
         <p>
           <span className="font-medium text-slate-900">地址：</span>
           {contact.address}

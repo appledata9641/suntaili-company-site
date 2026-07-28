@@ -3,6 +3,8 @@ import BrandLogo from "@/components/BrandLogo";
 import { siteProfile } from "@/data/site";
 
 export default function Footer() {
+  const lineUrl = process.env.NEXT_PUBLIC_LINE_URL;
+
   return (
     <footer className="border-t border-slate-200 bg-white">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 md:grid-cols-[1.3fr_1fr_1fr]">
@@ -84,6 +86,22 @@ export default function Footer() {
                 {siteProfile.contact.email}
               </a>
             </li>
+            {lineUrl ? (
+              <li>
+                LINE：
+                <a
+                  href={lineUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-ga-event="line_click"
+                  data-ga-category="contact"
+                  data-ga-label="footer_line"
+                  className="hover:text-slate-900"
+                >
+                  加入 LINE 聯絡
+                </a>
+              </li>
+            ) : null}
             <li>地址：{siteProfile.contact.address}</li>
             <li>統編：{siteProfile.contact.taxId}</li>
           </ul>

@@ -82,7 +82,7 @@
 - 新增 Open Graph 與 Twitter Card。
 - 新增自訂 404 頁。
 - 產品頁與分類頁加入麵包屑與內部連結。
-- 電話、Email、產品詢價與表單 submit 加入 GA4 事件掛點。
+- 電話、Email、LINE、產品詢價與表單 submit 加入 GA4 事件掛點。
 - `_headers` 加入基本安全標頭與靜態資源快取。
 
 ## 尚需人工提供的內容
@@ -92,7 +92,7 @@
 | `NEXT_PUBLIC_GA4_ID` | 啟用 GA4 追蹤 |
 | `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` | Google Search Console 驗證 |
 | `NEXT_PUBLIC_SITE_URL` | 若正式網址不是 `https://www.suntaili.com` 才需要覆蓋 |
-| LINE 官方帳號網址或 ID | 目前程式尚未放 LINE CTA，需確認正式資訊後再加 |
+| `NEXT_PUBLIC_LINE_URL` | LINE 官方帳號或聯絡網址；未設定時不顯示 LINE CTA |
 | 各產品實拍圖 | 目前部分產品仍使用 placeholder 或既有簡圖 |
 | 各型號完整規格書 | 目前已有初步規格，正式 SEO 內容仍需補齊真實規格 |
 | 實際保固、退換、售後政策 | 不確定內容未自行杜撰 |
@@ -137,4 +137,4 @@
 
 - 目前工作區仍有先前庫存系統暫存檔與既有刪除狀態，這些沒有納入網站 commit。
 - `npm run lint` 會掃整個 repo，可能受那些非網站暫存 JS 檔影響；本次正式驗證使用 `npx.cmd eslint src`。
-- 未確認的公司資訊、保固政策、LINE 帳號、實際案場案例都未自行加入。
+- 未確認的公司資訊、保固政策、實際案場案例都未自行加入；LINE 只保留環境變數欄位，不填假連結。
