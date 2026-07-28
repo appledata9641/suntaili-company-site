@@ -1,5 +1,4 @@
 ﻿import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -8,6 +7,21 @@ import { productCategories } from "@/data/categories";
 import { downloads } from "@/data/downloads";
 import { publishedProducts } from "@/data/products";
 import { sortDownloadsByDateDesc } from "@/lib/downloads";
+
+function getDownloadAnchorProps(downloadUrl: string) {
+  const isExternal = /^https?:\/\//i.test(downloadUrl);
+
+  if (isExternal) {
+    return {
+      target: "_blank",
+      rel: "noopener noreferrer",
+    };
+  }
+
+  return {
+    download: true,
+  };
+}
 
 export async function generateStaticParams() {
   return publishedProducts.map((product) => ({ slug: product.slug }));
@@ -119,12 +133,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                       <p className="mt-1 text-xs leading-6 text-slate-500">{item.notes}</p>
                     ) : null}
                   </div>
-                  <Link
+                  <a
                     href={item.downloadUrl}
+                    {...getDownloadAnchorProps(item.downloadUrl)}
                     className="inline-flex rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-800"
                   >
                     下載
-                  </Link>
+                  </a>
                 </div>
               ))}
             </div>

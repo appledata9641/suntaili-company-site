@@ -1,4 +1,3 @@
-﻿import Link from "next/link";
 import type { DownloadItem, DownloadType } from "@/types/download";
 
 interface DownloadListRow extends DownloadItem {
@@ -14,6 +13,21 @@ const typeLabelMap: Record<DownloadType, string> = {
   software: "軟體",
   manual: "說明文件",
 };
+
+function getDownloadAnchorProps(downloadUrl: string) {
+  const isExternal = /^https?:\/\//i.test(downloadUrl);
+
+  if (isExternal) {
+    return {
+      target: "_blank",
+      rel: "noopener noreferrer",
+    };
+  }
+
+  return {
+    download: true,
+  };
+}
 
 export default function DownloadList({ items }: DownloadListProps) {
   const getProductDisplay = (item: DownloadListRow) =>
@@ -48,12 +62,13 @@ export default function DownloadList({ items }: DownloadListProps) {
                 <td className="px-4 py-4 text-sm text-slate-700">{item.releaseDate}</td>
                 <td className="px-4 py-4 text-sm text-slate-700">{item.fileSize}</td>
                 <td className="px-4 py-4 text-center align-middle">
-                  <Link
+                  <a
                     href={item.downloadUrl}
+                    {...getDownloadAnchorProps(item.downloadUrl)}
                     className="inline-flex items-center justify-center rounded-full border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-800 hover:border-slate-400"
                   >
                     下載
-                  </Link>
+                  </a>
                 </td>
               </tr>
             ))}
@@ -80,12 +95,13 @@ export default function DownloadList({ items }: DownloadListProps) {
               {item.minHwVersion ? <div>最低硬體版本：{item.minHwVersion}</div> : null}
             </div>
             {item.notes ? <p className="mt-3 text-xs text-slate-500">{item.notes}</p> : null}
-            <Link
+            <a
               href={item.downloadUrl}
+              {...getDownloadAnchorProps(item.downloadUrl)}
               className="mt-4 inline-flex rounded-full border border-slate-300 px-3 py-1.5 text-sm font-medium text-slate-800"
             >
               下載檔案
-            </Link>
+            </a>
           </div>
         ))}
       </div>
