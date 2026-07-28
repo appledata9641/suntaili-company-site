@@ -8,6 +8,8 @@ import { productCategories } from "@/data/categories";
 import { downloads } from "@/data/downloads";
 import { publishedProducts } from "@/data/products";
 
+const resourceDownloads = downloads.filter((item) => !item.id.startsWith("dm-"));
+
 export default function ResourcesPage() {
   return (
     <div className="min-h-screen bg-slate-50">
@@ -19,7 +21,7 @@ export default function ResourcesPage() {
           <ErrorBoundary>
             <Suspense fallback={<div className="text-sm text-slate-600">載入下載資料中...</div>}>
               <DownloadsExplorer
-                downloads={downloads}
+                downloads={resourceDownloads}
                 products={publishedProducts}
                 categories={productCategories}
               />
