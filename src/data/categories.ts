@@ -4,9 +4,9 @@ export const productCategories: ProductCategoryDefinition[] = [
   {
     id: "camera",
     slug: "camera",
-    name: "網路攝影機",
+    name: "監控攝影機",
     shortName: "攝影機",
-    description: "室內外網路攝影機，支援夜視、事件偵測與遠端管理。",
+    description: "AHD 與 IP 攝影機，支援室內外監控、夜視、防水與案場客製搭配。",
   },
   {
     id: "recorder",

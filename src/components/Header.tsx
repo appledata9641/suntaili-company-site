@@ -8,7 +8,9 @@ import { siteProfile } from "@/data/site";
 
 const navItems = [
   { href: "/products", label: "產品中心" },
+  { href: "/applications", label: "應用場域" },
   { href: "/resources", label: "文件下載" },
+  { href: "/inquiry", label: "詢價合作" },
   { href: "/about", label: "關於我們" },
   { href: "/contact", label: "聯絡我們" },
 ];
@@ -25,7 +27,7 @@ export default function Header() {
             <BrandLogo compact href="" />
           </Link>
 
-          <nav aria-label="主選單" className="hidden items-center gap-2 md:flex">
+          <nav aria-label="主選單" className="hidden items-center gap-1 md:flex">
             {navItems.map((item) => {
               const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
@@ -34,8 +36,8 @@ export default function Header() {
                   href={item.href}
                   className={
                     active
-                      ? "rounded-full bg-slate-900 px-4 py-2 text-sm text-white transition"
-                      : "rounded-full px-4 py-2 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+                      ? "rounded-full bg-slate-900 px-3 py-2 text-sm text-white transition lg:px-4"
+                      : "rounded-full px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900 lg:px-4"
                   }
                 >
                   {item.label}

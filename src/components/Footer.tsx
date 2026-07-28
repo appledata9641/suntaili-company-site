@@ -20,8 +20,28 @@ export default function Footer() {
               </Link>
             </li>
             <li>
+              <Link href="/categories" className="hover:text-slate-900">
+                產品分類
+              </Link>
+            </li>
+            <li>
+              <Link href="/applications" className="hover:text-slate-900">
+                應用場域
+              </Link>
+            </li>
+            <li>
               <Link href="/resources" className="hover:text-slate-900">
                 文件下載
+              </Link>
+            </li>
+            <li>
+              <Link href="/inquiry" className="hover:text-slate-900">
+                詢價合作
+              </Link>
+            </li>
+            <li>
+              <Link href="/faq" className="hover:text-slate-900">
+                常見問題
               </Link>
             </li>
             <li>
