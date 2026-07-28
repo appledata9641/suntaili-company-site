@@ -743,6 +743,32 @@ export const products: Product[] = [
     published: true,
   },
   {
+    id: "p_acc_04",
+    slug: "suntaili-vms-platform",
+    name: "三泰利 VMS 管理平台",
+    model: "VMS",
+    category: "accessory",
+    subcategoryKey: "vms-platform",
+    shortDescription: "監控系統電腦端集中管理平台，提供遠端監看與設備管理。",
+    description:
+      "三泰利 VMS 管理平台提供多設備集中監看、錄影回放、遠端連線與 RD 中控軟體下載資源，適合監控案場維護與日常管理。",
+    coverImage: "https://dummyimage.com/960x640/1e293b/e2e8f0&text=Suntaili+VMS",
+    featureBullets: [
+      "集中管理多台監控設備",
+      "支援 Windows 與 Mac 相關工具下載",
+      "提供 VMS Pro 繁體操作說明",
+      "適合案場維護、遠端監看與日常管理"
+    ],
+    specs: [
+      { label: "平台類型", value: "監控管理軟體" },
+      { label: "適用設備", value: "三泰利監控設備與 RD 系列管理工具" },
+      { label: "支援系統", value: "Windows / macOS" },
+      { label: "下載內容", value: "VMS、RD 中控軟體、操作說明書" }
+    ],
+    tags: ["VMS", "三泰利", "監控軟體", "中控"],
+    published: true,
+  },
+  {
     id: "p_cam_ac_525d",
     slug: "suntaili-ac-525d",
     name: "Suntaili 5MP 半球型監控攝影機 AC-525D",

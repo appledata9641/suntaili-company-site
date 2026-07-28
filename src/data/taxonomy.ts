@@ -300,7 +300,14 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
       {
         key: "platform-zone",
         label: "平台設備專區",
-        children: [{ key: "vms-platform", label: "VMS 管理平台" }],
+        children: [
+          {
+            key: "vms-platform",
+            label: "VMS 管理平台",
+            searchKeyword: "VMS 三泰利 RD 中控",
+            productSlugs: ["suntaili-vms-platform"],
+          },
+        ],
       },
       {
         key: "ip-accessory",
