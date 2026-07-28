@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent } from "react";
+import { FormEvent, MouseEvent } from "react";
 import { siteProfile } from "@/data/site";
 
 const inputClass =
@@ -8,15 +8,51 @@ const inputClass =
 
 const labelClass = "text-sm font-medium text-slate-800";
 
-function openMailFromForm(event: FormEvent<HTMLFormElement>, subject: string) {
+function buildMailDraft(form: HTMLFormElement, subject: string) {
+  const data = new FormData(form);
+  const lines = Array.from(data.entries())
+    .map(([key, value]) => [key, String(value).trim()] as const)
+    .filter(([, value]) => value)
+    .map(([key, value]) => `${key}: ${value}`);
+
+  const body = lines.join("\n");
+
+  return {
+    subject,
+    body,
+    to: siteProfile.contact.email,
+  };
+}
+
+function openGmailFromForm(event: FormEvent<HTMLFormElement>, subject: string) {
   event.preventDefault();
 
-  const form = event.currentTarget;
-  const data = new FormData(form);
-  const lines = Array.from(data.entries()).map(([key, value]) => `${key}: ${String(value).trim()}`);
-  const body = lines.join("\n");
-  const mailto = `mailto:${siteProfile.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const draft = buildMailDraft(event.currentTarget, subject);
+  const params = new URLSearchParams({
+    view: "cm",
+    fs: "1",
+    to: draft.to,
+    su: draft.subject,
+    body: draft.body,
+  });
 
+  const gmailWindow = window.open(
+    `https://mail.google.com/mail/?${params.toString()}`,
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+  if (gmailWindow) {
+    gmailWindow.opener = null;
+  }
+}
+
+function openDefaultMailFromButton(event: MouseEvent<HTMLButtonElement>, subject: string) {
+  const form = event.currentTarget.form;
+  if (!form) return;
+
+  const draft = buildMailDraft(form, subject);
+  const mailto = `mailto:${draft.to}?subject=${encodeURIComponent(draft.subject)}&body=${encodeURIComponent(draft.body)}`;
   window.location.href = mailto;
 }
 
@@ -24,7 +60,7 @@ export default function InquiryForms() {
   return (
     <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_1fr]">
       <form
-        onSubmit={(event) => openMailFromForm(event, "三泰利經銷合作 / 大量採購詢價")}
+        onSubmit={(event) => openGmailFromForm(event, "三泰利經銷合作 / 大量採購詢價")}
         data-ga-event="inquiry_form_submit"
         data-ga-category="lead"
         data-ga-label="bulk_purchase"
@@ -83,22 +119,23 @@ export default function InquiryForms() {
             type="submit"
             className="rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800"
           >
-            開啟 Email 送出
+            用 Gmail 送出
           </button>
-          <a
-            href={`mailto:${siteProfile.contact.email}`}
+          <button
+            type="button"
+            onClick={(event) => openDefaultMailFromButton(event, "三泰利經銷合作 / 大量採購詢價")}
             data-ga-event="email_click"
             data-ga-category="contact"
-            data-ga-label="inquiry_direct_email"
+            data-ga-label="inquiry_default_email"
             className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-800"
           >
-            直接寄信
-          </a>
+            用預設郵件
+          </button>
         </div>
       </form>
 
       <form
-        onSubmit={(event) => openMailFromForm(event, "三泰利專案需求表單")}
+        onSubmit={(event) => openGmailFromForm(event, "三泰利專案需求表單")}
         data-ga-event="inquiry_form_submit"
         data-ga-category="lead"
         data-ga-label="project_requirement"
@@ -150,12 +187,24 @@ export default function InquiryForms() {
             placeholder="例：配貨建議、替代型號、技術文件、主機相容性確認"
           />
         </label>
-        <button
-          type="submit"
-          className="mt-5 rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800"
-        >
-          開啟 Email 送出
-        </button>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <button
+            type="submit"
+            className="rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800"
+          >
+            用 Gmail 送出
+          </button>
+          <button
+            type="button"
+            onClick={(event) => openDefaultMailFromButton(event, "三泰利專案需求表單")}
+            data-ga-event="email_click"
+            data-ga-category="contact"
+            data-ga-label="project_default_email"
+            className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-800"
+          >
+            用預設郵件
+          </button>
+        </div>
       </form>
     </div>
   );
