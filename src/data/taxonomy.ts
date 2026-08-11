@@ -287,7 +287,16 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
             key: "ip-nvr-avtech",
             label: "AVTECH",
             searchKeyword: "AVTECH NVR",
-            productSlugs: ["avtech-nvr-16ch-4k"],
+            productSlugs: [
+              "avtech-nvr-dgh1103bx",
+              "avtech-nvr-dgh1107bx",
+              "avtech-nvr-avh2109ax",
+              "avtech-nvr-dgh2114bx",
+              "avtech-nvr-avh2117ax",
+              "avtech-nvr-dgh8516ax",
+              "avtech-nvr-dgh8536ax",
+              "avtech-nvr-16ch-4k",
+            ],
           },
           {
             key: "ip-nvr-dahua",
