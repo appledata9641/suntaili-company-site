@@ -7,8 +7,8 @@ function downloadUrl(path: string) {
   return `${BASE_URL}/${path.replace(/^\/+/, "")}`;
 }
 
-function dmUrl(folder: string, filename: string) {
-  return `${DM_BASE_URL}/${encodeURIComponent(folder)}/${encodeURIComponent(filename)}`;
+function dmUrl(...segments: string[]) {
+  return `${DM_BASE_URL}/${segments.map((segment) => encodeURIComponent(segment)).join("/")}`;
 }
 
 export const downloads: DownloadItem[] = [
@@ -258,6 +258,45 @@ export const downloads: DownloadItem[] = [
     fileSize: "251 KB",
     notes: "DVR 錄影機三泰利產品型錄。",
     downloadUrl: dmUrl("DVR錄影機三泰利", "RD-2316AH.pdf"),
+  },
+  {
+    id: "dm-th-d8104",
+    productSlug: "suntaili-dvr-th-d8104",
+    productModel: "TH-D8104",
+    category: "recorder",
+    type: "manual",
+    title: "TH-D8104 產品型錄",
+    version: "v1.0",
+    releaseDate: "2026-08-17",
+    fileSize: "1.63 MB",
+    notes: "三泰利 D8 系列 4 路五合一 Hybrid DVR 產品型錄。",
+    downloadUrl: dmUrl("DVR錄影機三泰利", "D8系列", "D8104DVR.jpg"),
+  },
+  {
+    id: "dm-th-d8108",
+    productSlug: "suntaili-dvr-th-d8108",
+    productModel: "TH-D8108",
+    category: "recorder",
+    type: "manual",
+    title: "TH-D8108 產品型錄",
+    version: "v1.0",
+    releaseDate: "2026-08-17",
+    fileSize: "1.65 MB",
+    notes: "三泰利 D8 系列 8 路五合一 Hybrid DVR 產品型錄。",
+    downloadUrl: dmUrl("DVR錄影機三泰利", "D8系列", "D8108DVR.jpg"),
+  },
+  {
+    id: "dm-th-d8116",
+    productSlug: "suntaili-dvr-th-d8116",
+    productModel: "TH-D8116",
+    category: "recorder",
+    type: "manual",
+    title: "TH-D8116 產品型錄",
+    version: "v1.0",
+    releaseDate: "2026-08-17",
+    fileSize: "1.73 MB",
+    notes: "三泰利 D8 系列 16 路五合一 Hybrid DVR 產品型錄。",
+    downloadUrl: dmUrl("DVR錄影機三泰利", "D8系列", "D8116.jpg"),
   },
   {
     id: "dm-avtech-avh2109ax",
