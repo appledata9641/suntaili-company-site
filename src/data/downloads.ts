@@ -227,7 +227,7 @@ export const downloads: DownloadItem[] = [
     title: "TH-CR-973P8-AHD3B 產品型錄",
     releaseDate: "2026-09-16",
     fileSize: "750 KB",
-    notes: "三泰利 200萬畫素 AHD 全彩半球攝影機產品型錄（圖片檔）。",
+    notes: "三泰利 200萬畫素 AHD 紅外線半球攝影機產品型錄（圖片檔）。",
     downloadUrl: dmUrl("總型錄", "半球型攝影機_200萬_全彩攝影機.jpg"),
   },
   {
