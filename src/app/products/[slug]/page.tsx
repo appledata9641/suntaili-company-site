@@ -179,6 +179,14 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 <span className="rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-600">
                   {product.model}
                 </span>
+                {product.legacyModels?.map((legacyModel) => (
+                  <span
+                    key={legacyModel}
+                    className="rounded-full border border-dashed border-slate-300 px-3 py-1 text-xs text-slate-500"
+                  >
+                    舊型號 {legacyModel}
+                  </span>
+                ))}
                 <span className="rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-600">
                   {brand.relationship === "distributor" ? `${brand.label}（三泰利經銷）` : brand.label}
                 </span>

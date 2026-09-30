@@ -141,7 +141,13 @@ export default function ProductHierarchyNavigator({
                       const leafHit = leaf.label.toLowerCase().includes(normalizedQuery);
 
                       const filteredProducts = leaf.products.filter((product) =>
-                        [product.model, product.name, product.shortDescription, ...(product.tags ?? [])]
+                        [
+                          product.model,
+                          ...(product.legacyModels ?? []),
+                          product.name,
+                          product.shortDescription,
+                          ...(product.tags ?? []),
+                        ]
                           .join(" ")
                           .toLowerCase()
                           .includes(normalizedQuery),

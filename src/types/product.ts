@@ -13,6 +13,8 @@ export interface Product {
   slug: string;
   name: string;
   model: string;
+  // 改過型號的產品，舊型號放這裡：產品頁會標示「舊型號」，搜尋舊型號也找得到
+  legacyModels?: string[];
   brand: ProductBrand;
   category: ProductCategory;
   subcategoryKey: string;
