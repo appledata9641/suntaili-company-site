@@ -37,7 +37,7 @@ export default function DownloadsExplorer({
       if (!deferredSearch) return true;
       return [
         item.title,
-        item.version,
+        item.version ?? "",
         item.productModel,
         getProductName(item) ?? "",
         item.notes ?? "",

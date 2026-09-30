@@ -292,7 +292,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   <div>
                     <div className="text-sm font-semibold text-slate-900">{item.title}</div>
                     <div className="mt-1 text-xs text-slate-600">
-                      {item.version} ・ {item.releaseDate} ・ {item.fileSize}
+                      {[item.version, item.releaseDate, item.fileSize].filter(Boolean).join(" ・ ")}
                     </div>
                     {item.notes ? (
                       <p className="mt-1 text-xs leading-6 text-slate-500">{item.notes}</p>

@@ -7,7 +7,7 @@ export const productCategories: ProductCategoryDefinition[] = [
     name: "監控攝影機",
     shortName: "攝影機",
     seoTitle: "監控攝影機：AHD 類比高清與 IP 網路攝影機",
-    description: "AHD 類比高清與 IP 網路攝影機，涵蓋半球型、槍型與變焦機種，支援紅外線夜視與室外防水，可依案場需求搭配。",
+    description: "AHD 類比高清與 IP 網路攝影機，200 萬到 800 萬畫素，涵蓋半球型、槍型、一體機與戶外防護罩，提供紅外線、全彩與帶聲音機種，可依案場需求搭配。",
   },
   {
     id: "recorder",

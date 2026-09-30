@@ -10,7 +10,8 @@ export interface DownloadItem {
   category: ProductCategory;
   type: DownloadType;
   title: string;
-  version: string;
+  // 型錄圖片這類沒有版本號的文件可以不填，頁面上就不顯示版本
+  version?: string;
   releaseDate: string;
   fileSize: string;
   checksum?: string;

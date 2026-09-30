@@ -58,7 +58,7 @@ export default function DownloadList({ items }: DownloadListProps) {
                   {item.notes ? <div className="mt-1 text-xs text-slate-500">{item.notes}</div> : null}
                 </td>
                 <td className="px-4 py-4 text-sm text-slate-700">{typeLabelMap[item.type]}</td>
-                <td className="px-4 py-4 text-sm text-slate-700">{item.version}</td>
+                <td className="px-4 py-4 text-sm text-slate-700">{item.version ?? "—"}</td>
                 <td className="px-4 py-4 text-sm text-slate-700">{item.releaseDate}</td>
                 <td className="px-4 py-4 text-sm text-slate-700">{item.fileSize}</td>
                 <td className="px-4 py-4 text-center align-middle">
@@ -89,7 +89,7 @@ export default function DownloadList({ items }: DownloadListProps) {
               </span>
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-slate-600">
-              <div>版本：{item.version}</div>
+              {item.version ? <div>版本：{item.version}</div> : null}
               <div>大小：{item.fileSize}</div>
               <div>日期：{item.releaseDate}</div>
               {item.minHwVersion ? <div>最低硬體版本：{item.minHwVersion}</div> : null}

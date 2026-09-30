@@ -24,6 +24,7 @@ export const taxonomyGroups: ProductCategoryGroup[] = [
 export const taxonomySubcategories: ProductSubcategory[] = [
   { key: "ahd-camera-2mp", name: "AHD 攝影機 2MP", categoryId: "camera" },
   { key: "ahd-camera-5mp", name: "AHD 攝影機 5MP", categoryId: "camera" },
+  { key: "ahd-camera-8mp", name: "AHD 攝影機 8MP", categoryId: "camera" },
   { key: "ip-camera-2mp", name: "網路攝影機 2MP", categoryId: "camera" },
   { key: "ip-camera-5mp", name: "網路攝影機 5MP", categoryId: "camera" },
   { key: "ip-camera-8mp", name: "網路攝影機 8MP", categoryId: "camera" },
@@ -47,28 +48,130 @@ export const menuTaxonomyGroups: TaxonomyMenuGroup[] = [
         label: "AHD 攝影機",
         children: [
           {
-            key: "ahd-brand-self",
-            label: "三泰利",
-            searchKeyword: "三泰利 AHD",
+            key: "ahd-self-2m",
+            label: "三泰利 2MP",
+            searchKeyword: "三泰利 AHD 2MP",
             children: [
               {
-                key: "ahd-self-2m",
-                label: "2MP",
+                key: "ahd-self-2m-dome",
+                label: "半球型",
                 productSlugs: [
                   "suntaili-ahd-2mp-ac-229d",
-                  "suntaili-ahd-2mp-ac-230",
-                  "suntaili-ahd-2mp-ac-238s",
-                  "suntaili-ahd-2mp-ac-260v",
+                  "suntaili-th-cr-973p8-ahd3b",
+                  "suntaili-th-cr-973p6-ahd3",
+                  "suntaili-th-cr-973p8-ahd5t",
+                  "suntaili-th-cr-973p8-ahd5",
                 ],
               },
               {
-                key: "ahd-self-5m",
-                label: "5MP",
+                key: "ahd-self-2m-bullet",
+                label: "槍型",
+                productSlugs: [
+                  "suntaili-ahd-2mp-ac-230",
+                  "suntaili-ahd-2mp-ac-238s",
+                  "suntaili-ahd-2mp-ac-260v",
+                  "suntaili-th-cr-970p6-ahd",
+                  "suntaili-th-cr-973p6-ahd1",
+                  "suntaili-th-cr-973p8-ahd4",
+                  "suntaili-th-cr-973p6-ahd2",
+                  "suntaili-th-cr-973p8-ahd",
+                ],
+              },
+              {
+                key: "ahd-self-2m-integrated",
+                label: "一體機",
+                productSlugs: [
+                  "suntaili-th-cr-973p8-ahdy",
+                  "suntaili-th-cr-973p8-ahdg",
+                ],
+              },
+            ],
+          },
+          {
+            key: "ahd-self-5m",
+            label: "三泰利 5MP",
+            searchKeyword: "三泰利 AHD 5MP",
+            children: [
+              {
+                key: "ahd-self-5m-dome",
+                label: "半球型",
                 productSlugs: [
                   "suntaili-ac-525d",
-                  "suntaili-ac-535",
                   "suntaili-ac-526d",
+                  "suntaili-th-cr-973p8-tvi500-d",
+                  "suntaili-th-cr-970p6-500ahd-z",
+                  "suntaili-th-cr-970p6-500ahd-y",
+                  "suntaili-th-cr-973p8-tvi500-b",
+                  "suntaili-th-cr-973p8-500ahdp",
+                ],
+              },
+              {
+                key: "ahd-self-5m-bullet",
+                label: "槍型",
+                productSlugs: [
+                  "suntaili-ac-535",
                   "suntaili-ac-536",
+                  "suntaili-th-cr-970p6-500ahd-a",
+                  "suntaili-th-cr-970p6-500ahd-r",
+                  "suntaili-th-cr-970p6-500ahd-g",
+                  "suntaili-th-cr-973p8-ahd500",
+                ],
+              },
+              {
+                key: "ahd-self-5m-integrated",
+                label: "一體機",
+                productSlugs: [
+                  "suntaili-th-cr-973p8-tvi500-a",
+                  "suntaili-th-cr-973p8-tvi500-c",
+                ],
+              },
+              {
+                key: "ahd-self-5m-housing",
+                label: "防護罩",
+                productSlugs: [
+                  "suntaili-th-cr-970p6-500ahd-b",
+                  "suntaili-th-cr-970p6-500ahd7",
+                  "suntaili-th-cr-970p6-500ahd8",
+                  "suntaili-th-cr-973p8-ahd500a",
+                  "suntaili-th-cr-973p8-ahd500s",
+                ],
+              },
+            ],
+          },
+          {
+            key: "ahd-self-8m",
+            label: "三泰利 8MP",
+            searchKeyword: "三泰利 AHD 8MP",
+            children: [
+              {
+                key: "ahd-self-8m-dome",
+                label: "半球型",
+                productSlugs: [
+                  "suntaili-th-cr-970p6-800ahd-z",
+                  "suntaili-th-cr-970p6-800ahd-y",
+                ],
+              },
+              {
+                key: "ahd-self-8m-bullet",
+                label: "槍型",
+                productSlugs: [
+                  "suntaili-th-cr-970p6-800ahd9",
+                ],
+              },
+              {
+                key: "ahd-self-8m-integrated",
+                label: "一體機",
+                productSlugs: [
+                  "suntaili-th-cr-970p6-800ahd-x",
+                ],
+              },
+              {
+                key: "ahd-self-8m-housing",
+                label: "防護罩",
+                productSlugs: [
+                  "suntaili-th-cr-970p6-800ahd6",
+                  "suntaili-th-cr-970p6-800ahd7",
+                  "suntaili-th-cr-970p6-800ahd8",
                 ],
               },
             ],
