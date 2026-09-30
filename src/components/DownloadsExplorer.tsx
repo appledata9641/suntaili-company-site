@@ -26,7 +26,9 @@ export default function DownloadsExplorer({
 
   const deferredSearch = useDeferredValue(searchTerm).trim().toLowerCase();
   const isSearching = deferredSearch !== searchTerm.trim().toLowerCase();
-  const productNameMap = Object.fromEntries(products.map((p) => [p.slug, p.name]));
+  const productNameMap: Record<string, string> = Object.fromEntries(products.map((p) => [p.slug, p.name]));
+  const getProductName = (item: DownloadItem) =>
+    item.productSlug ? productNameMap[item.productSlug] : undefined;
 
   const filteredItems = sortDownloadsByDateDesc(downloads)
     .filter((item) => (category === "all" ? true : item.category === category))
@@ -37,7 +39,7 @@ export default function DownloadsExplorer({
         item.title,
         item.version,
         item.productModel,
-        productNameMap[item.productSlug] ?? "",
+        getProductName(item) ?? "",
         item.notes ?? "",
       ]
         .join(" ")
@@ -46,7 +48,7 @@ export default function DownloadsExplorer({
     })
     .map((item) => ({
       ...item,
-      productName: productNameMap[item.productSlug] ?? item.productModel,
+      productName: getProductName(item) ?? item.productModel,
     }));
 
   const resetFilters = () => {

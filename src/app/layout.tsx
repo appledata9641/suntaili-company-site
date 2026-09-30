@@ -17,15 +17,16 @@ const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteProfile.companyName} | Suntaili`,
-    template: `%s | Suntaili`,
+    default: `${siteProfile.companyName} Suntaili`,
+    // 台灣客戶多半用中文品牌名搜尋，後綴用「三泰利」
+    template: `%s | 三泰利`,
   },
   description: defaultDescription,
   alternates: {
     canonical: siteUrl,
   },
   openGraph: {
-    title: `${siteProfile.companyName} | Suntaili`,
+    title: `${siteProfile.companyName} Suntaili`,
     description: defaultDescription,
     url: siteUrl,
     siteName: `${siteProfile.companyName} Suntaili`,
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteProfile.companyName} | Suntaili`,
+    title: `${siteProfile.companyName} Suntaili`,
     description: defaultDescription,
     images: [absoluteUrl("/images/home-hero.jpg")],
   },
@@ -52,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-Hant" suppressHydrationWarning>
+    <html lang="zh-Hant-TW" suppressHydrationWarning>
       <body>
         <JsonLd
           id="site-identity-jsonld"

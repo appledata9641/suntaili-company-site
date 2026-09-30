@@ -7,7 +7,7 @@ import { siteProfile } from "@/data/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "詢價合作",
+  title: "監控器材批發詢價與經銷合作",
   description: "提供經銷合作、大量採購、專案配貨與 AHD 攝影機客製需求，三泰利協助確認型號與報價。",
   path: "/inquiry",
 });
@@ -18,6 +18,7 @@ export default function InquiryPage() {
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-14">
         <SectionHeading
+          as="h1"
           eyebrow="詢價合作"
           title="經銷合作、批發採購與專案需求"
           description="提供型號、數量、案場條件與交期，三泰利會依需求協助確認產品搭配、報價與替代方案。"

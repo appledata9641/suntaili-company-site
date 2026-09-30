@@ -8,7 +8,7 @@ import { publishedProducts } from "@/data/products";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "產品分類",
+  title: "產品分類：監控攝影機、錄影主機與周邊",
   description: "依監控攝影機、錄影主機與弱電周邊分類瀏覽三泰利公開產品型號。",
   path: "/categories",
 });
@@ -19,8 +19,9 @@ export default function CategoriesPage() {
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-14">
         <SectionHeading
+          as="h1"
           eyebrow="產品分類"
-          title="依產品類型瀏覽型號"
+          title="依產品類型瀏覽監控攝影機與錄影主機"
           description="分類頁提供伺服器輸出的產品清單，適合快速查找攝影機、錄影主機與弱電周邊。"
         />
 

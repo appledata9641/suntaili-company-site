@@ -7,7 +7,7 @@ import { siteProfile } from "@/data/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "常見問題",
+  title: "監控器材批發與 AHD 客製常見問題",
   description: "三泰利整理監控器材批發、AHD 攝影機客製、相容性確認、文件下載與專案詢價常見問題。",
   path: "/faq",
 });
@@ -51,6 +51,7 @@ export default function FAQPage() {
       <Header />
       <main className="mx-auto max-w-4xl px-4 py-14">
         <SectionHeading
+          as="h1"
           eyebrow="常見問題"
           title="監控器材批發、客製與文件下載 FAQ"
           description="整理系統整合商與經銷夥伴在詢價、配貨與售後支援時最常遇到的問題。"

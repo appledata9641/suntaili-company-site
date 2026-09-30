@@ -6,7 +6,7 @@ import SectionHeading from "@/components/SectionHeading";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "應用場域",
+  title: "監控系統應用場域與配置建議",
   description: "依商用空間、社區、工廠倉儲與弱電工程情境，規劃監控攝影機、錄影主機與周邊設備。",
   path: "/applications",
 });
@@ -40,6 +40,7 @@ export default function ApplicationsPage() {
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-14">
         <SectionHeading
+          as="h1"
           eyebrow="應用場域"
           title="依案場情境規劃監控與弱電設備"
           description="三泰利以 B2B 供貨與技術支援為主，協助工程商、系統整合商與經銷夥伴確認產品組合。"

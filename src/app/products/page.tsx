@@ -10,7 +10,7 @@ import { publishedProducts } from "@/data/products";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "產品中心",
+  title: "監控攝影機、DVR／NVR 錄影主機產品中心",
   description: "三泰利產品中心提供監控攝影機、NVR/DVR 錄影主機、PoE 與弱電周邊設備型號查詢。",
   path: "/products",
 });
@@ -21,9 +21,10 @@ export default function ProductsPage() {
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-14">
         <SectionHeading
+          as="h1"
           eyebrow="產品中心"
-          title="依需求快速找到產品"
-          description="分級清單採產品線、子類與型號整理，可快速找到目標型號。"
+          title="監控攝影機、DVR／NVR 錄影主機產品中心"
+          description="依產品線、品牌與型號整理三泰利自有品牌與 AVTECH 等經銷產品，可快速找到目標型號。"
         />
 
         <div className="mt-8">

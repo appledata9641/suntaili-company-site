@@ -33,16 +33,22 @@ export function pageMetadata({
   title,
   description = defaultDescription,
   path = "/",
+  image: imagePath = ogImagePath,
+  titleAbsolute = false,
 }: {
   title: string;
   description?: string;
   path?: string;
+  // 分享到 LINE / Facebook 時顯示的圖片；產品頁用產品圖
+  image?: string;
+  // 標題本身已含「三泰利」時設為 true，不再加「| 三泰利」後綴
+  titleAbsolute?: boolean;
 }): Metadata {
   const url = canonicalUrl(path);
-  const image = absoluteUrl(ogImagePath);
+  const image = absoluteUrl(imagePath);
 
   return {
-    title,
+    title: titleAbsolute ? { absolute: title } : title,
     description,
     alternates: {
       canonical: url,
@@ -65,20 +71,41 @@ export function pageMetadata({
   };
 }
 
+export const organizationId = `${siteUrl}/#organization`;
+
+function postalAddressJsonLd() {
+  const { addressParts } = siteProfile.contact;
+
+  return {
+    "@type": "PostalAddress",
+    postalCode: addressParts.postalCode,
+    addressRegion: addressParts.region,
+    addressLocality: addressParts.locality,
+    streetAddress: addressParts.street,
+    addressCountry: "TW",
+  };
+}
+
 export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": organizationId,
     name: siteProfile.companyName,
-    alternateName: siteProfile.brandName,
+    alternateName: [siteProfile.brandName, "三泰利"],
     url: siteUrl,
     logo: absoluteUrl("/suntaili-logo.svg"),
     email: siteProfile.contact.email,
-    telephone: siteProfile.contact.phone,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: siteProfile.contact.address,
-      addressCountry: "TW",
+    telephone: siteProfile.contact.phoneInternational,
+    taxID: siteProfile.contact.taxId,
+    address: postalAddressJsonLd(),
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "sales",
+      telephone: siteProfile.contact.phoneInternational,
+      email: siteProfile.contact.email,
+      areaServed: "TW",
+      availableLanguage: ["zh-Hant"],
     },
   };
 }
@@ -87,18 +114,20 @@ export function localBusinessJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
+    "@id": `${siteUrl}/#localbusiness`,
     name: siteProfile.companyName,
     image: absoluteUrl(ogImagePath),
+    logo: absoluteUrl("/suntaili-logo.svg"),
     url: siteUrl,
-    telephone: siteProfile.contact.phone,
+    telephone: siteProfile.contact.phoneInternational,
     email: siteProfile.contact.email,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: siteProfile.contact.address,
-      addressCountry: "TW",
+    address: postalAddressJsonLd(),
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "18:00",
     },
-    openingHours: "Mo-Fr 09:00-18:00",
-    priceRange: "$$",
   };
 }
 
@@ -108,6 +137,8 @@ export function websiteJsonLd() {
     "@type": "WebSite",
     name: `${siteProfile.companyName} Suntaili`,
     url: siteUrl,
+    inLanguage: "zh-Hant-TW",
+    publisher: { "@id": organizationId },
     potentialAction: {
       "@type": "SearchAction",
       target: `${canonicalUrl("/products")}?keyword={search_term_string}`,

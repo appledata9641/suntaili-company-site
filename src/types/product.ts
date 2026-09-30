@@ -1,5 +1,8 @@
 export type ProductCategory = "camera" | "recorder" | "accessory";
 
+// suntaili = 三泰利自有品牌；avtech、dahua = 三泰利經銷的品牌
+export type ProductBrand = "suntaili" | "avtech" | "dahua";
+
 export interface ProductSpec {
   label: string;
   value: string;
@@ -10,6 +13,7 @@ export interface Product {
   slug: string;
   name: string;
   model: string;
+  brand: ProductBrand;
   category: ProductCategory;
   subcategoryKey: string;
   shortDescription: string;
@@ -28,4 +32,6 @@ export interface ProductCategoryDefinition {
   name: string;
   shortName: string;
   description: string;
+  // 分類頁的 <title>，沒填就用「{name}分類」
+  seoTitle?: string;
 }

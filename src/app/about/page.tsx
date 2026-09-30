@@ -7,7 +7,7 @@ import { siteProfile } from "@/data/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "關於三泰利",
+  title: "關於我們：AHD 攝影機組裝客製與監控器材批發",
   description: "三泰利企業有限公司以 B2B 安防監控、監控器材批發、AHD 攝影機客製與弱電整合支援為主要服務。",
   path: "/about",
 });
@@ -37,6 +37,7 @@ export default function AboutPage() {
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-14">
         <SectionHeading
+          as="h1"
           eyebrow="關於我們"
           title={siteProfile.companyName}
           description="三泰利企業有限公司以 B2B 市場為主，專注於台灣工廠直營 AHD組裝客製化、安防監控、監控器材批發與弱電整合，提供穩定供貨與長期技術支援。"

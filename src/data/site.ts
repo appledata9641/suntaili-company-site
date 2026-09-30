@@ -8,8 +8,15 @@ export const siteProfile: SiteProfile = {
     "三泰利企業有限公司專注於台灣工廠直營 AHD組裝客製化、安防監控、監控器材批發與弱電整合，提供穩定供貨與技術支援。",
   contact: {
     phone: "(02)2991-8878",
+    phoneInternational: "+886-2-2991-8878",
     email: "hsu@suntaili.com",
     address: "242新北市新莊區思源路110號",
+    addressParts: {
+      postalCode: "242",
+      region: "新北市",
+      locality: "新莊區",
+      street: "思源路110號",
+    },
     taxId: "28766429",
     serviceHours: "週一至週五 09:00 - 18:00",
   },

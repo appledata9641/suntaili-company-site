@@ -79,7 +79,6 @@ export const downloads: DownloadItem[] = [
   },
   {
     id: "dahua-cms-2-software-64bit",
-    productSlug: "dahua-nvr-16ch-4k",
     productModel: "DAHUA CMS 2.0",
     category: "recorder",
     type: "software",
@@ -92,7 +91,6 @@ export const downloads: DownloadItem[] = [
   },
   {
     id: "rd-hybrid-dvr-quick-manual",
-    productSlug: "suntaili-dvr-16ch-hybrid",
     productModel: "RD 新版混合式 DVR",
     category: "recorder",
     type: "manual",
@@ -105,11 +103,11 @@ export const downloads: DownloadItem[] = [
   },
   {
     id: "dm-th-ch258m3nd-catalog",
-    productSlug: "suntaili-5mp-outdoor-bullet-ai",
-    productModel: "TH-CH258M3ND",
+    productSlug: "suntaili-th-ch258m3nd",
+    productModel: "TH-CH258M3ND-DF-A2812PW",
     category: "camera",
     type: "manual",
-    title: "TH-CH258M3ND 產品型錄圖",
+    title: "TH-CH258M3ND 產品型錄",
     version: "V1.1.6",
     releaseDate: "2026-03-04",
     fileSize: "440 KB",

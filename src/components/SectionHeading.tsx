@@ -3,6 +3,8 @@ interface SectionHeadingProps {
   title: string;
   description?: string;
   align?: "left" | "center";
+  // 每頁的主標題請用 as="h1"，其餘區塊維持 h2
+  as?: "h1" | "h2";
 }
 
 export default function SectionHeading({
@@ -10,6 +12,7 @@ export default function SectionHeading({
   title,
   description,
   align = "left",
+  as: HeadingTag = "h2",
 }: SectionHeadingProps) {
   const alignClass = align === "center" ? "text-center items-center" : "text-left";
 
@@ -20,9 +23,9 @@ export default function SectionHeading({
           {eyebrow}
         </p>
       ) : null}
-      <h2 className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">
+      <HeadingTag className="text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">
         {title}
-      </h2>
+      </HeadingTag>
       {description ? (
         <p className="max-w-3xl text-sm leading-7 text-slate-600 md:text-base">
           {description}

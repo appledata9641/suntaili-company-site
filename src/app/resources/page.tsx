@@ -13,7 +13,7 @@ import { pageMetadata } from "@/lib/seo";
 const resourceDownloads = downloads.filter((item) => !item.id.startsWith("dm-"));
 
 export const metadata: Metadata = pageMetadata({
-  title: "文件下載",
+  title: "監控系統說明書與工具軟體下載",
   description: "下載三泰利監控系統工具軟體、VMS 說明書與產品操作文件，產品 DM 請至各型號頁查看。",
   path: "/resources",
 });
@@ -23,7 +23,7 @@ export default function ResourcesPage() {
     <div className="min-h-screen bg-slate-50">
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-14">
-        <SectionHeading eyebrow="文件下載" title="產品說明書與工具軟體" />
+        <SectionHeading as="h1" eyebrow="文件下載" title="監控系統說明書與工具軟體下載" />
 
         <div className="mt-8">
           <ErrorBoundary>

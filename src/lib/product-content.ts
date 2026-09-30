@@ -55,10 +55,20 @@ export function getCompatibility(product: Product) {
   const specsText = product.specs.map((spec) => `${spec.label} ${spec.value}`).join(" ");
   const allText = [product.name, product.description, product.tags.join(" "), specsText].join(" ");
   const items = new Set<string>();
+  const hasAnalogHd = allText.includes("AHD") || allText.includes("TVI") || allText.includes("CVI");
+  // 只有規格明確寫出四種格式的攝影機才標示四合一，避免把單一 AHD 輸出的機種寫錯
+  const isFourInOneCamera = /AHD\s*\/\s*TVI\s*\/\s*CVI\s*\/\s*CVBS/.test(specsText);
 
-  if (allText.includes("AHD") || allText.includes("TVI") || allText.includes("CVI")) {
-    items.add("AHD / TVI / CVI / CVBS 四合一輸出設備");
-    items.add("相容支援對應訊號格式的 DVR 主機");
+  if (product.category === "camera" && hasAnalogHd) {
+    if (isFourInOneCamera) {
+      items.add("AHD / TVI / CVI / CVBS 四合一輸出，可切換搭配不同訊號格式的 DVR");
+    } else {
+      items.add("AHD 訊號輸出，需搭配支援 AHD 的 DVR 主機");
+    }
+  }
+
+  if (product.category === "recorder" && hasAnalogHd) {
+    items.add("可接 AHD / TVI / CVI 類比高清攝影機，並可另接 IP 攝影機（路數依型號）");
   }
 
   if (allText.includes("PoE")) {

@@ -8,7 +8,7 @@ import { siteProfile } from "@/data/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "聯絡我們",
+  title: "聯絡我們：監控器材詢價與技術支援",
   description: "聯絡三泰利企業有限公司，洽詢監控器材批發、AHD 攝影機客製、NVR/DVR、PoE 與弱電整合需求。",
   path: "/contact",
 });
@@ -19,8 +19,9 @@ export default function ContactPage() {
       <Header />
       <main className="mx-auto max-w-7xl px-4 py-14">
         <SectionHeading
+          as="h1"
           eyebrow="聯絡我們"
-          title="需要選型建議或技術支援"
+          title="聯絡三泰利：選型建議與技術支援"
           description="可先提供型號、案場需求與目前遇到的問題，我們會在服務時段內回覆。"
         />
 

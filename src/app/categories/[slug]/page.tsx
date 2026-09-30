@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   return pageMetadata({
-    title: `${category.name}分類`,
+    title: category.seoTitle ?? `${category.name}分類`,
     description: category.description,
     path: `/categories/${category.slug}`,
   });
@@ -69,7 +69,7 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
           <span className="text-slate-900">{category.name}</span>
         </nav>
 
-        <SectionHeading eyebrow="產品分類" title={category.name} description={category.description} />
+        <SectionHeading as="h1" eyebrow="產品分類" title={category.name} description={category.description} />
 
         <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => {
@@ -81,13 +81,13 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
                 href={`/products/${product.slug}`}
                 className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:border-slate-300"
               >
-                <div className="relative aspect-[16/10] bg-slate-100">
+                <div className="relative aspect-[16/10] bg-white">
                   <Image
                     src={product.coverImage}
                     alt={product.name}
                     fill
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-cover"
+                    className="object-contain"
                   />
                 </div>
                 <div className="p-5">

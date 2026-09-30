@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
 import SectionHeading from "@/components/SectionHeading";
+import { productBrands } from "@/data/brands";
 import { downloads } from "@/data/downloads";
 import { publishedProducts } from "@/data/products";
 import {
@@ -16,7 +17,7 @@ import {
   getRelatedProducts,
 } from "@/lib/product-content";
 import { sortDownloadsByDateDesc } from "@/lib/downloads";
-import { absoluteUrl, breadcrumbJsonLd, canonicalUrl, pageMetadata } from "@/lib/seo";
+import { absoluteUrl, breadcrumbJsonLd, canonicalUrl, organizationId, pageMetadata } from "@/lib/seo";
 
 function getDownloadAnchorProps(downloadUrl: string) {
   const isExternal = /^https?:\/\//i.test(downloadUrl);
@@ -31,6 +32,23 @@ function getDownloadAnchorProps(downloadUrl: string) {
   return {
     download: true,
   };
+}
+
+type PublishedProduct = (typeof publishedProducts)[number];
+
+// 產品名稱已含型號時不再重複加型號，避免標題出現「AC-229D ... AC-229D」
+function productTitle(product: PublishedProduct) {
+  return product.name.includes(product.model) ? product.name : `${product.model} ${product.name}`;
+}
+
+function productMetaDescription(product: PublishedProduct) {
+  const brand = productBrands[product.brand];
+  const suffix =
+    brand.relationship === "distributor"
+      ? `三泰利經銷 ${brand.name}，提供規格、型錄下載與批發詢價。`
+      : "提供規格、型錄下載與批發詢價。";
+
+  return `${product.shortDescription}${suffix}`;
 }
 
 export async function generateStaticParams() {
@@ -49,24 +67,34 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     });
   }
 
+  const title = productTitle(product);
+
   return pageMetadata({
-    title: `${product.model} ${product.name}`,
-    description: product.shortDescription,
+    title,
+    description: productMetaDescription(product),
     path: `/products/${product.slug}`,
+    image: product.coverImage,
+    titleAbsolute: title.includes("三泰利"),
   });
 }
 
-function productJsonLd(product: (typeof publishedProducts)[number], categoryName?: string) {
+function productJsonLd(product: PublishedProduct, categoryName?: string) {
+  const brand = productBrands[product.brand];
+
   return {
     "@context": "https://schema.org",
     "@type": "Product",
+    "@id": `${canonicalUrl(`/products/${product.slug}`)}#product`,
     name: product.name,
+    model: product.model,
     sku: product.model,
     mpn: product.model,
     brand: {
       "@type": "Brand",
-      name: product.name.includes("Suntaili") || product.name.includes("三泰利") ? "Suntaili" : product.tags[0],
+      name: brand.name,
+      ...(brand.alternateName ? { alternateName: brand.alternateName } : {}),
     },
+    ...(brand.relationship === "own" ? { manufacturer: { "@id": organizationId } } : {}),
     category: categoryName,
     description: product.description,
     image: [absoluteUrl(product.coverImage)],
@@ -88,6 +116,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   }
 
   const category = getProductCategory(product);
+  const brand = productBrands[product.brand];
   const applications = getApplicationFields(product);
   const compatibility = getCompatibility(product);
   const relatedProducts = getRelatedProducts(product, publishedProducts);
@@ -132,13 +161,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
         <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
           <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-            <div className="relative aspect-[16/10] bg-slate-100">
+            <div className="relative aspect-[16/10] bg-white">
               <Image
                 src={product.coverImage}
-                alt={product.name}
+                alt={productTitle(product)}
                 fill
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-cover"
+                className="object-contain"
                 priority
               />
             </div>
@@ -149,6 +178,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                 </span>
                 <span className="rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-600">
                   {product.model}
+                </span>
+                <span className="rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-600">
+                  {brand.relationship === "distributor" ? `${brand.label}（三泰利經銷）` : brand.label}
                 </span>
               </div>
               <h1 className="mt-4 text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">
@@ -289,13 +321,13 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
                   href={`/products/${item.slug}`}
                   className="overflow-hidden rounded-xl border border-slate-200 bg-slate-50 hover:bg-white"
                 >
-                  <div className="relative aspect-[16/10] bg-slate-100">
+                  <div className="relative aspect-[16/10] bg-white">
                     <Image
                       src={item.coverImage}
                       alt={item.name}
                       fill
                       sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-                      className="object-cover"
+                      className="object-contain"
                     />
                   </div>
                   <div className="p-4">
