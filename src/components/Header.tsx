@@ -6,49 +6,57 @@ import { useState } from "react";
 import BrandLogo from "@/components/BrandLogo";
 import { siteProfile } from "@/data/site";
 
+// 依設計稿：主選單 5 項，「詢價合作」改成右側的「立即諮詢」按鈕
 const navItems = [
   { href: "/products", label: "產品中心" },
   { href: "/applications", label: "應用場域" },
   { href: "/resources", label: "文件下載" },
-  { href: "/inquiry", label: "詢價合作" },
   { href: "/about", label: "關於我們" },
   { href: "/contact", label: "聯絡我們" },
 ];
 
+const mobileNavItems = [...navItems.slice(0, 3), { href: "/inquiry", label: "詢價合作" }, ...navItems.slice(3)];
+
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
-      <div className="mx-auto max-w-7xl px-4">
-        <div className="flex h-16 items-center justify-between gap-4">
+    <>
+      <header className="sticky top-0 z-50 border-b border-slate-200/70 bg-white/95 backdrop-blur">
+        <div className="mx-auto flex h-[72px] max-w-[1110px] items-center justify-between gap-4 px-4 md:h-[110px] md:px-5">
           <Link href="/" className="min-w-0" onClick={() => setMobileOpen(false)}>
-            <BrandLogo compact href="" />
+            <BrandLogo href="" variant="masthead" />
           </Link>
 
-          <nav aria-label="主選單" className="hidden items-center gap-1 md:flex">
+          <nav aria-label="主選單" className="hidden items-center gap-5 md:flex lg:gap-7">
             {navItems.map((item) => {
-              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              const active = isActive(item.href);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={
-                    active
-                      ? "rounded-full bg-slate-900 px-3 py-2 text-sm text-white transition lg:px-4"
-                      : "rounded-full px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900 lg:px-4"
-                  }
+                  aria-current={active ? "page" : undefined}
+                  className={`border-b-2 py-2 text-sm font-bold tracking-[0.1em] text-brand-navy ${
+                    active ? "border-brand-navy" : "border-transparent hover:border-brand-navy/40"
+                  }`}
                 >
                   {item.label}
                 </Link>
               );
             })}
+            <Link
+              href="/inquiry"
+              className="ml-2 inline-flex h-[38px] items-center rounded-[3px] border border-brand-navy px-5 text-sm font-bold tracking-[0.1em] text-brand-navy hover:bg-brand-navy hover:text-white lg:px-[22px]"
+            >
+              立即諮詢
+            </Link>
           </nav>
 
           <button
             type="button"
-            className="rounded-xl border border-slate-300 px-3 py-2 text-sm text-slate-800 md:hidden"
+            className="rounded-[3px] border border-brand-navy px-3 py-2 text-sm font-bold text-brand-navy md:hidden"
             onClick={() => setMobileOpen((open) => !open)}
             aria-expanded={mobileOpen}
             aria-controls="mobile-menu"
@@ -58,26 +66,19 @@ export default function Header() {
           </button>
         </div>
 
-        <div className="hidden pb-2 text-xs text-slate-500 md:block">{siteProfile.tagline}</div>
-
         {mobileOpen ? (
-          <nav
-            id="mobile-menu"
-            aria-label="手機主選單"
-            className="grid gap-2 border-t border-slate-200 py-3 md:hidden"
-          >
-            {navItems.map((item) => {
-              const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
+          <nav id="mobile-menu" aria-label="手機主選單" className="grid gap-1 border-t border-slate-200 px-4 py-3 md:hidden">
+            {mobileNavItems.map((item) => {
+              const active = isActive(item.href);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className={
-                    active
-                      ? "rounded-xl bg-slate-900 px-3 py-2 text-sm text-white"
-                      : "rounded-xl px-3 py-2 text-sm text-slate-700 hover:bg-slate-100"
-                  }
+                  aria-current={active ? "page" : undefined}
+                  className={`rounded-[3px] px-3 py-2 text-sm font-bold tracking-[0.08em] ${
+                    active ? "bg-brand-navy text-white" : "text-brand-navy hover:bg-slate-100"
+                  }`}
                 >
                   {item.label}
                 </Link>
@@ -85,7 +86,11 @@ export default function Header() {
             })}
           </nav>
         ) : null}
+      </header>
+
+      <div className="bg-brand-blue px-4 py-[5px] text-center text-xs font-bold tracking-[0.08em] text-white">
+        {siteProfile.tagline}
       </div>
-    </header>
+    </>
   );
 }

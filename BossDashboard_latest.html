@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    /* 看板採單頁渲染：Apps Script 回傳資料後，由下方 JavaScript 填入各區塊。 */
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #172033;
+      --muted: #687385;
+      --line: #e8edf5;
+      --blue: #1a73e8;
+      --blue-soft: #edf4ff;
+      --green: #1f9d55;
+      --red: #d93025;
+      --shadow: 0 2px 12px rgba(28, 39, 60, .08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 18px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, "Microsoft JhengHei", sans-serif;
+    }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      background: var(--blue);
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      min-height: 40px;
+      padding: 10px 14px;
+    }
+
+    .nav button {
+      flex: 1;
+      background: var(--blue-soft);
+      color: var(--blue);
+    }
+
+    .nav button.active {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      margin: 0 0 6px;
+      font-size: 24px;
+    }
+
+    .time {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .card,
+    .section {
+      background: var(--card);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .card {
+      min-height: 96px;
+      padding: 16px;
+    }
+
+    .label {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .value {
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .value.positive {
+      color: var(--green);
+    }
+
+    .value.negative {
+      color: var(--red);
+    }
+
+    .section {
+      margin-bottom: 14px;
+      padding: 16px;
+    }
+
+    .section h3 {
+      margin: 0 0 10px;
+      font-size: 17px;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 13px;
+      margin: -2px 0 12px;
+    }
+
+    .category-block {
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+      margin-top: 12px;
+    }
+
+    .category-block:first-child {
+      border-top: 0;
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    .category-title {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: minmax(150px, 260px) 1fr 80px;
+      gap: 10px;
+      align-items: center;
+      min-height: 28px;
+      margin: 8px 0;
+      font-size: 14px;
+    }
+
+    .name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .bar-bg {
+      height: 12px;
+      background: var(--line);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      min-width: 2px;
+      background: var(--blue);
+      border-radius: 999px;
+    }
+
+    .bar.negative {
+      background: var(--red);
+    }
+
+    .bar.positive {
+      background: var(--green);
+    }
+
+    .qty {
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .empty {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 4px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 9px 8px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #fafcff;
+      color: #344054;
+      font-weight: 700;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    @media (max-width: 800px) {
+      body {
+        padding: 12px;
+      }
+
+      .topbar {
+        display: block;
+      }
+
+      .topbar button {
+        margin-top: 12px;
+        width: 100%;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .bar-row {
+        grid-template-columns: 1fr 70px;
+      }
+
+      .bar-bg {
+        grid-column: 1 / -1;
+        grid-row: 2;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- 頁面切換：表單頁由 Apps Script Web App 的 page=form 開啟。 -->
+    <div class="nav">
+      <button type="button" onclick="openFormPage()">出入庫表單</button>
+      <button class="active" type="button">庫存看板</button>
+    </div>
+
+    <div class="topbar">
+      <div>
+        <h2>庫存看板</h2>
+        <div class="time" id="time">載入中...</div>
+      </div>
+      <button type="button" onclick="loadData()">重新整理</button>
+    </div>
+
+    <!-- 四個總覽數字，對應 getBossDashboardData() 的 today/month。 -->
+    <div class="grid">
+      <div class="card">
+        <div class="label">今日出庫</div>
+        <div class="value" id="todayOut">-</div>
+      </div>
+      <div class="card">
+        <div class="label">今日入庫</div>
+        <div class="value positive" id="todayIn">-</div>
+      </div>
+      <div class="card">
+        <div class="label">本月出庫</div>
+        <div class="value" id="monthOut">-</div>
+      </div>
+      <div class="card">
+        <div class="label">本月淨變化</div>
+        <div class="value" id="monthNet">-</div>
+      </div>
+    </div>
+
+    <!-- 分類排行：每個分類各自顯示 Top 10。 -->
+    <div class="section">
+      <h3>今日出庫｜各分類 Top 10</h3>
+      <div id="todayOutCategoryTop"></div>
+    </div>
+
+    <!-- 全品項排行：不分分類，直接取 Top 10。 -->
+    <div class="section">
+      <h3>今日入庫｜各分類 Top 10</h3>
+      <div id="todayInCategoryTop"></div>
+    </div>
+
+    <!-- 庫存警示：由總庫存表的安全庫存與目前庫存計算。 -->
+    <div class="section">
+      <h3>本月出庫｜各分類 Top 10</h3>
+      <div id="monthOutCategoryTop"></div>
+    </div>
+
+    <div class="section">
+      <h3>本月淨變化｜各分類 Top 10</h3>
+      <div class="hint">負數 = 本月淨消耗，正數 = 本月淨增加</div>
+      <div id="monthNetCategoryTop"></div>
+    </div>
+
+    <div class="section">
+      <h3>今日出庫品項 Top 10</h3>
+      <div id="todayOutTop"></div>
+    </div>
+
+    <div class="section">
+      <h3>今日入庫品項 Top 10</h3>
+      <div id="todayInTop"></div>
+    </div>
+
+    <div class="section">
+      <h3>本月出庫品項 Top 10</h3>
+      <div id="monthOutTop"></div>
+    </div>
+
+    <div class="section">
+      <h3>本月淨變化品項 Top 10</h3>
+      <div class="hint">負數 = 本月淨消耗，正數 = 本月淨增加</div>
+      <div id="monthNetTop"></div>
+    </div>
+
+    <div class="section">
+      <h3>低庫存商品</h3>
+      <div id="lowStock"></div>
+    </div>
+
+    <div class="section">
+      <h3>零庫存商品</h3>
+      <div id="zeroStock"></div>
+    </div>
+  </div>
+
+  <script>
+    const WEB_APP_URL = "<?= webAppUrl ?>";
+
+    function loadData() {
+      // 入口函式：向 Code.gs 的 getBossDashboardData() 取資料。
+      setText("time", "載入中...");
+
+      google.script.run
+        .withSuccessHandler(function(data) {
+          render(data || {});
+        })
+        .withFailureHandler(function(err) {
+          setText("time", "讀取失敗：" + ((err && err.message) || JSON.stringify(err)));
+        })
+        .getBossDashboardData();
+    }
+
+    function render(data) {
+      // 將 Apps Script 回傳的完整資料分派到各個畫面區塊。
+      const today = data.today || {};
+      const month = data.month || {};
+      const categoryTop = data.categoryTop || {};
+
+      setText("time", "更新時間：" + valueOrDash(data.generatedAt) + "｜統計月份：" + valueOrDash(month.label));
+      setText("todayOut", numberText(today.outQty));
+      setText("todayIn", numberText(today.inQty));
+      setText("monthOut", numberText(month.outQty));
+      setText("monthNet", signedText(month.net));
+
+      setNetColor("monthNet", Number(month.net) || 0);
+
+      renderCategoryTop("todayOutCategoryTop", categoryTop.todayOut || {}, false);
+      renderCategoryTop("todayInCategoryTop", categoryTop.todayIn || {}, false);
+      renderCategoryTop("monthOutCategoryTop", categoryTop.monthOut || {}, false);
+      renderCategoryTop("monthNetCategoryTop", categoryTop.monthNet || {}, true);
+
+      renderRank("todayOutTop", data.todayOutTop || [], false);
+      renderRank("todayInTop", data.todayInTop || [], false);
+      renderRank("monthOutTop", data.monthOutTop || [], false);
+      renderRank("monthNetTop", data.monthNetTop || [], true);
+
+      renderStockTable("lowStock", data.lowStock || []);
+      renderStockTable("zeroStock", data.zeroStock || []);
+    }
+
+    function renderCategoryTop(id, groups, signed) {
+      // groups 格式：{分類名稱: [{productId, name, qty}, ...]}。
+      const box = document.getElementById(id);
+      const names = Object.keys(groups || {}).filter(function(name) {
+        return groups[name] && groups[name].length;
+      });
+
+      box.innerHTML = "";
+
+      if (!names.length) {
+        box.innerHTML = '<div class="empty">目前沒有資料</div>';
+        return;
+      }
+
+      names.sort().forEach(function(category) {
+        const block = document.createElement("div");
+        block.className = "category-block";
+        block.innerHTML = '<div class="category-title">' + escapeHtml(category) + '</div>';
+
+        const list = document.createElement("div");
+        block.appendChild(list);
+        box.appendChild(block);
+
+        renderRankInto(list, groups[category], signed);
+      });
+    }
+
+    function renderRank(id, rows, signed) {
+      // 渲染單一排行區塊，空資料時顯示提示。
+      const box = document.getElementById(id);
+      box.innerHTML = "";
+
+      if (!rows || !rows.length) {
+        box.innerHTML = '<div class="empty">目前沒有資料</div>';
+        return;
+      }
+
+      renderRankInto(box, rows, signed);
+    }
+
+    function renderRankInto(box, rows, signed) {
+      // 共用排行列渲染；signed=true 時顯示 + / - 並用紅綠色區分。
+      const max = Math.max.apply(null, rows.map(function(item) {
+        return Math.abs(Number(item.qty) || 0);
+      }));
+
+      rows.forEach(function(item) {
+        const qty = Number(item.qty) || 0;
+        const percent = max ? Math.round((Math.abs(qty) / max) * 100) : 0;
+        const displayQty = signed ? signedText(qty) : numberText(qty);
+        const tone = signed ? (qty < 0 ? " negative" : " positive") : "";
+
+        const row = document.createElement("div");
+        row.className = "bar-row";
+        row.innerHTML =
+          '<div class="name" title="' + escapeHtml(item.name) + '">' + escapeHtml(item.name) + '</div>' +
+          '<div class="bar-bg"><div class="bar' + tone + '" style="width:' + percent + '%"></div></div>' +
+          '<div class="qty">' + displayQty + '</div>';
+
+        box.appendChild(row);
+      });
+    }
+
+    function renderStockTable(id, rows) {
+      // 低庫存與零庫存共用同一張表格樣式。
+      const box = document.getElementById(id);
+
+      if (!rows || !rows.length) {
+        box.innerHTML = '<div class="empty">目前沒有資料</div>';
+        return;
+      }
+
+      let html =
+        '<table>' +
+          '<thead>' +
+            '<tr>' +
+              '<th>商品ID</th>' +
+              '<th>品名</th>' +
+              '<th>分類</th>' +
+              '<th>庫存</th>' +
+              '<th>安全庫存</th>' +
+            '</tr>' +
+          '</thead>' +
+          '<tbody>';
+
+      rows.forEach(function(item) {
+        html +=
+          '<tr>' +
+            '<td>' + escapeHtml(item.productId) + '</td>' +
+            '<td>' + escapeHtml(item.name) + '</td>' +
+            '<td>' + escapeHtml(item.category) + '</td>' +
+            '<td>' + numberText(item.stock) + '</td>' +
+            '<td>' + numberText(item.safety) + '</td>' +
+          '</tr>';
+      });
+
+      html += '</tbody></table>';
+      box.innerHTML = html;
+    }
+
+    function openFormPage() {
+      navigateToPage("form", "出入庫表單");
+    }
+
+    function navigateToPage(page, label) {
+      const baseUrl = String(WEB_APP_URL || "").trim();
+
+      if (!baseUrl || baseUrl.indexOf("<?= ") === 0) {
+        alert("找不到 Web App 網址，請確認已部署為網頁應用程式。");
+        return;
+      }
+
+      const separator = baseUrl.indexOf("?") >= 0 ? "&" : "?";
+      const targetUrl = baseUrl + separator + "page=" + encodeURIComponent(page);
+
+      try {
+        window.top.location.href = targetUrl;
+        return;
+      } catch (err) {}
+
+      try {
+        window.location.href = targetUrl;
+        return;
+      } catch (err) {}
+
+      const opened = window.open(targetUrl, "_blank", "noopener");
+      if (!opened) {
+        alert("開啟" + label + "失敗，請允許瀏覽器開啟新分頁。");
+      }
+    }
+
+    function setText(id, text) {
+      // 小工具：集中處理文字填入，讓 render() 比較乾淨。
+      document.getElementById(id).textContent = text;
+    }
+
+    function setNetColor(id, value) {
+      // 本月淨變化：正數綠色、負數紅色、0 用預設色。
+      const el = document.getElementById(id);
+      el.classList.toggle("positive", value > 0);
+      el.classList.toggle("negative", value < 0);
+    }
+
+    function valueOrDash(value) {
+      // 空值顯示為 -，避免畫面出現 undefined/null。
+      return value === null || value === undefined || value === "" ? "-" : String(value);
+    }
+
+    function numberText(value) {
+      // 數字格式化：無效值以 0 顯示。
+      const num = Number(value);
+      return Number.isFinite(num) ? String(num) : "0";
+    }
+
+    function signedText(value) {
+      // 淨變化用：正數補上 + 號。
+      const num = Number(value) || 0;
+      return num > 0 ? "+" + num : String(num);
+    }
+
+    function escapeHtml(value) {
+      // 所有來自試算表的文字都先 escape，避免 HTML 被資料內容干擾。
+      return String(value == null ? "" : value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    loadData();
+  </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+處理結果	舊P商品ID	舊P品名	轉移庫存	BOM商品ID	BOM品名	BOM原庫存	BOM新庫存	備註
+已補SKU轉移	P0016	黑光網 8MP 半球 3.6mm	8	BLACKNET-8MP-DOME-3P6MM	黑光網 8MP 半球 3.6mm	0	8	依例外清單補SKU
+已補SKU轉移	P0017	Sony 415 槍型 2.8mm	10	SONY415-BULLET-IR-8P-2P8MM	Sony 415 槍型 2.8mm	0	10	依例外清單補SKU
+已補SKU轉移	P0018	Sony 415 槍型 3.6mm	10	SONY415-BULLET-IR-8P-3P6MM	Sony 415 槍型 3.6mm	0	10	依例外清單補SKU
+已補SKU轉移	P0019	防爆半球 Sony 307-2441 2.8-12mm	15	SONY307-VANDAL-DOME-2P8-12MM	防爆半球 Sony 307-2441 2.8-12mm	0	15	依例外清單補SKU
+已轉移	P0020	V22 塑膠一體機 紅外線 3.6mm	249	V22-AIO-IR-4P-3P6MM	V22 一體機紅外線 4P 攝影機 - V22 3.6mm	0	307	已精準對應
+已轉移	P0021	V22 塑膠一體機 全彩 3.6mm	97	V22-AIO-YELLOW-4P-3P6MM	V22 一體機黃光 4P 攝影機 - V22 3.6mm	0	102	已精準對應
+已轉移	P0022	V22 塑膠一體機 全彩 2.8mm	200	V22-AIO-YELLOW-4P-2P8MM	V22 一體機黃光 4P 攝影機 - V22 2.8mm	0	344	已精準對應
+已轉移	P0023	V22 金屬一體機 紅外線 3.6mm	56	V22-AIO-IR-4P-3P6MM	V22 一體機紅外線 4P 攝影機 - V22 3.6mm	0	307	已精準對應
+已轉移	P0024	V22 金屬一體機 全彩 2.8mm	144	V22-AIO-YELLOW-4P-2P8MM	V22 一體機黃光 4P 攝影機 - V22 2.8mm	0	344	已精準對應
+已補SKU轉移	P0025	V22 半球帶聲音 1.8mm	43	V22-DOME-COAXAUDIO-2P-1P8MM	V22 半球帶聲音 1.8mm	0	43	依例外清單補SKU
+已補SKU轉移	P0026	V22 半球型 紅外線 1.8mm	35	V22-DOME-WIDE1P8-2MP-IR-8P-1P8MM	V22 半球型 紅外線 1.8mm	0	35	依例外清單補SKU
+已轉移	P0027	V22 一體G 黃光 同軸聲音 6mm	2	V22-AIO-YELLOW-4P-6MM	V22 一體機黃光 4P 攝影機 - V22 6mm	0	2	已精準對應
+已轉移	P0028	V22 一體G 黃光 同軸聲音 3.6mm	5	V22-AIO-YELLOW-4P-3P6MM	V22 一體機黃光 4P 攝影機 - V22 3.6mm	0	102	已精準對應
+已轉移	P0029	V22 一體G 紅外線 同軸聲音3.6mm	2	V22-AIO-IR-4P-3P6MM	V22 一體機紅外線 4P 攝影機 - V22 3.6mm	0	307	已精準對應
+已轉移	P0030	V22 一體G 紅外線 同軸聲音 6mm	5	V22-AIO-IR-4P-6MM	V22 一體機紅外線 4P 攝影機 - V22 6mm	0	5	已精準對應
+未轉移	P0031	V22 紅外線 同軸聲音 3.6mm	28					缺少系列/外型/焦距，不自動轉移
+已轉移	P0032	V22 半球型 紅外線 同軸聲音 3.6mm	19	V22-DOME-COAXAUDIO-2P-3P6MM	半球形同軸聲音紅外線 2P 攝影機 - V22 3.6mm	0	19	已精準對應
+已補SKU轉移	P0033	V22 半球型 黃光 同軸聲音 3.6mm	31	V22-DOME-YELLOW-COAXAUDIO-2P-3P6MM	V22 半球型 黃光 同軸聲音 3.6mm	0	31	依例外清單補SKU
+已轉移	P0034	Sony 335 槍型 紅外線 8P 1.8mm	35	SONY335-BULLET-WIDE1P8-5MP-IR-8P-1P8MM	超廣角1.8MM 五百萬槍型紅外線 8P 攝影機 - Sony335 1.8mm	0	45	已精準對應
+已補SKU轉移	P0035	Sony 335 槍型 紅外線 6P 3.6mm	17	SONY335-BULLET-IR-6P-3P6MM	Sony 335 槍型 紅外線 6P 3.6mm	0	17	依例外清單補SKU
+已補SKU轉移	P0036	Sony 335 槍型 紅外線 6P 8mm	2	SONY335-BULLET-IR-6P-8MM	Sony 335 槍型 紅外線 6P 8mm	0	2	依例外清單補SKU
+已轉移	P0037	Sony 335 槍型 紅外線 8P 1.8mm	10	SONY335-BULLET-WIDE1P8-5MP-IR-8P-1P8MM	超廣角1.8MM 五百萬槍型紅外線 8P 攝影機 - Sony335 1.8mm	0	45	已精準對應
+已轉移	P0038	Sony 335 半球型 紅外線 18P 3.6mm	8	SONY335-DOME-IR-18P-3P6MM	Sony335 半球形紅外線 18P 攝影機 - Sony335 3.6mm	0	8	已精準對應
+已轉移	P0039	Sony 335 半球型 紅外線 1.8mm	12	SONY335-DOME-WIDE1P8-SPECIAL-5MP-IR-8P-1P8MM	超廣角1.8MM專用 五百萬半球形紅外線 8P 攝影機 - Sony335 1.8mm	0	12	已精準對應
+已補SKU轉移	P0040	Sony 335 防護罩 紅外線 4mm	7	SONY335-SHIELD-IR-12P-4MM	Sony 335 防護罩 紅外線 4mm	0	7	依例外清單補SKU
+已補SKU轉移	P0041	Sony 335 防護罩 黃光 3.6mm	0	SONY335-SHIELD-YELLOW-12P-3P6MM	Sony 335 防護罩 黃光 3.6mm	0	0	依例外清單補SKU
+已轉移	P0042	Sony 323 槍型紅外線 8P 6mm	62	SONY323-BULLET-IR-8P-6MM	Sony323 槍型紅外線 8P 攝影機 - Sony323 6mm	0	62	已精準對應
+已轉移	P0043	Sony 323 槍型 紅外線 8P 1.8mm	0	SONY323-BULLET-WIDE1P8-2MP-IR-8P-1P8MM	超廣角1.8MM 兩百萬槍型紅外線 8P 攝影機 - Sony323 1.8mm	0	0	已精準對應
+已轉移	P0044	Sony 323 槍型 紅外線 8P 2.8mm	113	SONY323-BULLET-IR-8P-2P8MM	Sony323 槍型紅外線 8P 攝影機 - Sony323 2.8mm	0	113	已精準對應
+已轉移	P0045	Sony 323 槍型 紅外線 8P 3.6mm	18	SONY323-BULLET-IR-8P-3P6MM	Sony323 槍型紅外線 8P 攝影機 - Sony323 3.6mm	0	18	已精準對應
+已轉移	P0046	Sony 323 槍型 紅外線 8P 8mm	24	SONY323-BULLET-IR-8P-8MM	Sony323 槍型紅外線 8P 攝影機 - Sony323 8mm	0	24	已精準對應
+已補SKU轉移	P0047	Sony 323 槍型 紅外線 6P 2.8mm	0	SONY323-BULLET-IR-6P-2P8MM	Sony 323 槍型 紅外線 6P 2.8mm	0	0	依例外清單補SKU
+已補SKU轉移	P0048	Sony 323 槍型 紅外線 6P 3.6mm	25	SONY323-BULLET-IR-6P-3P6MM	Sony 323 槍型 紅外線 6P 3.6mm	0	25	依例外清單補SKU
+已補SKU轉移	P0049	Sony 323 槍型 紅外線 6P 6mm	5	SONY323-BULLET-IR-6P-6MM	Sony 323 槍型 紅外線 6P 6mm	0	5	依例外清單補SKU
+已補SKU轉移	P0050	Sony 323 槍型 紅外線 6P 8mm	4	SONY323-BULLET-IR-6P-8MM	Sony 323 槍型 紅外線 6P 8mm	0	4	依例外清單補SKU
+未轉移	P0051	Sony 323 一體機 1.8mm	77					找不到 BOM ID：SONY323-AIO-IR-4P-1P8MM
+已補SKU轉移	P0052	Sony 323 頂煙型 紅外線 3.7mm	17	SONY323-TOPSMOKE-IR-3P7MM	Sony 323 頂煙型 紅外線 3.7mm	0	17	依例外清單補SKU
+已轉移	P0053	Sony 323 半球型 紅外線 2P 1.8mm	0	SONY323-DOME-WIDE1P8-2MP-IR-8P-1P8MM	超廣角1.8MM 兩百萬半球形紅外線 8P 攝影機 - Sony323 1.8mm	0	0	已精準對應
+已轉移	P0054	Sony 307 星光級 半球型 紅外線 18P 3.6mm	5	SONY307-DOME-IR-18P-3P6MM	Sony307 半球形紅外線 18P 攝影機 - Sony307 3.6mm	0	5	已精準對應
+已轉移	P0055	Sony 307 星光級 槍型 紅外線 V2IR 8P 3.6mm	10	SONY307-BULLET-IR-8P-3P6MM	Sony307 槍型紅外線 8P 攝影機 - Sony307 3.6mm	0	10	已精準對應
+已轉移	P0056	Sony 307 自動變焦 防護罩 紅外線 2.8-12mm	4	SONY307-SHIELD-IR-12P-2P8-12MM	Sony307 200萬防護罩紅外線 12P 攝影機 - Sony307 2.8-12mm	0	6	已精準對應
+已轉移	P0057	Sony 307 防護罩 紅外線 2.8-12mm	2	SONY307-SHIELD-IR-12P-2P8-12MM	Sony307 200萬防護罩紅外線 12P 攝影機 - Sony307 2.8-12mm	0	6	已精準對應
+已轉移	P0058	4653 8MP 槍型 紅外線 8P 3.6mm	5	4653-BULLET-IR-8P-3P6MM	4653 槍型紅外線 8P 攝影機 - 4653 3.6mm	0	18	已精準對應
+已補SKU轉移	P0059	4653 8MP 半球型 紅外線 同軸聲音 1.8mm	32	4653-DOME-COAXAUDIO-2P-1P8MM	4653 8MP 半球型 紅外線 同軸聲音 1.8mm	0	32	依例外清單補SKU
+已轉移	P0060	4653 8MP 半球型 紅外線 同軸聲音 2.8mm	3	4653-DOME-COAXAUDIO-2P-2P8MM	半球形同軸聲音紅外線 2P 攝影機 - 4653 2.8mm	0	3	已精準對應
+已轉移	P0061	4653 8MP 半球型 紅外線 同軸聲音 3.6mm	4	4653-DOME-COAXAUDIO-2P-3P6MM	半球形同軸聲音紅外線 2P 攝影機 - 4653 3.6mm	0	4	已精準對應
+已轉移	P0062	4653 5MP 槍型 紅外線 3.6mm	13	4653-BULLET-IR-8P-3P6MM	4653 槍型紅外線 8P 攝影機 - 4653 3.6mm	0	18	已精準對應
+已轉移	P0063	4653 5MP 槍型 紅外線 2.8mm	12	4653-BULLET-IR-8P-2P8MM	4653 槍型紅外線 8P 攝影機 - 4653 2.8mm	0	12	已精準對應
+已轉移	P0064	4653 8MP 槍型 紅外線 8P 1.8mm	7	4653-BULLET-WIDE1P8-5MP-IR-8P-1P8MM	超廣角1.8MM 五百萬槍型紅外線 8P 攝影機 - 4653 1.8mm	0	7	已精準對應
+已轉移	P0065	4653 槍型 紅外線 8P 1.8mm	0	4653-BULLET-WIDE1P8-5MP-IR-8P-1P8MM	超廣角1.8MM 五百萬槍型紅外線 8P 攝影機 - 4653 1.8mm	0	7	已精準對應
+未轉移	P0066	4653 一體機 紅外線 4P 1.8mm	0					找不到 BOM ID：4653-AIO-IR-4P-1P8MM
+已轉移	P0067	4653 一體機 紅外線 4P 2.8mm	1	4653-AIO-IR-4P-2P8MM	4653 一體機紅外線 4P 攝影機 - 4653 2.8mm	0	1	已精準對應
+已補目前庫存	P0068	4653 一體機 紅外線 4P 3.6mm	10	4653-AIO-IR-4P-3P6MM	4653 一體機紅外線 4P 攝影機 - 4653 3.6mm	0	10	依目前庫存系統補對應
+已轉移	P0069	4653 一體機 紅外線 4P 6mm	0	4653-AIO-IR-4P-6MM	4653 一體機紅外線 4P 攝影機 - 4653 6mm	0	0	已精準對應
+已轉移	P0070	4653 一體機 紅外線 4P 8mm	0	4653-AIO-IR-4P-8MM	4653 一體機紅外線 4P 攝影機 - 4653 8mm	0	0	已精準對應
+未轉移	P0071	4653 一體機 黃光 4P 1.8mm	0					找不到 BOM ID：4653-AIO-YELLOW-4P-1P8MM
+已轉移	P0072	4653 一體機 黃光 4P 2.8mm	10	4653-AIO-YELLOW-4P-2P8MM	4653 一體機黃光 4P 攝影機 - 4653 2.8mm	0	10	已精準對應
+已轉移	P0073	4653 一體機 黃光 4P 3.6mm	0	4653-AIO-YELLOW-4P-3P6MM	4653 一體機黃光 4P 攝影機 - 4653 3.6mm	0	0	已精準對應
+已轉移	P0074	4653 一體機 黃光 4P 6mm	10	4653-AIO-YELLOW-4P-6MM	4653 一體機黃光 4P 攝影機 - 4653 6mm	0	10	已精準對應
+已轉移	P0075	4653 一體機 黃光 4P 8mm	0	4653-AIO-YELLOW-4P-8MM	4653 一體機黃光 4P 攝影機 - 4653 8mm	0	0	已精準對應
+已補SKU轉移	P0076	4653 防護罩 黃光 3.6mm	0	4653-SHIELD-YELLOW-12P-3P6MM	4653 防護罩 黃光 3.6mm	0	0	依例外清單補SKU
+已轉移	P0077	V20 槍型紅外線 8P 3.6mm	88	V20-BULLET-IR-8P-3P6MM	V20 槍型紅外線 8P 攝影機 - V20 3.6mm	0	88	已精準對應
+已轉移	P0078	V20 槍型紅外線 8P 2.8mm	60	V20-BULLET-IR-8P-2P8MM	V20 槍型紅外線 8P 攝影機 - V20 2.8mm	0	60	已精準對應
+已轉移	P0079	V20 槍型 紅外線 8P 1.8mm	2	V20-BULLET-WIDE1P8-2MP-IR-8P-1P8MM	超廣角1.8MM 兩百萬槍型紅外線 8P 攝影機 - V20 1.8mm	0	2	已精準對應
+已轉移	P0080	V20 槍型 紅外線 6P 2.8mm	72	V20-BULLET-IR-6P-2P8MM	V20 槍型紅外線 6P 攝影機 - V20 2.8mm	0	73	已精準對應
+已轉移	P0081	V20 槍型 紅外線 6P 3.6mm	45	V20-BULLET-IR-6P-3P6MM	V20 槍型紅外線 6P 攝影機 - V20 3.6mm	0	51	已精準對應
+已轉移	P0082	V20 槍型 紅外線 6P 6mm	56	V20-BULLET-IR-6P-6MM	V20 槍型紅外線 6P 攝影機 - V20 6mm	0	117	已精準對應
+已轉移	P0083	V20 槍型 紅外線 6P 8mm	11	V20-BULLET-IR-6P-8MM	V20 槍型紅外線 6P 攝影機 - V20 8mm	0	12	已精準對應
+已轉移	P0084	V20 半球型 紅外線 18P 3.6mm	20	V20-DOME-IR-18P-3P6MM	V20 半球形紅外線 18P 攝影機 - V20 3.6mm	0	20	已精準對應
+已轉移	P0085	V20 雪狼槍型 紅外線 6P 3.6mm	6	V20-BULLET-IR-6P-3P6MM	V20 槍型紅外線 6P 攝影機 - V20 3.6mm	0	51	已精準對應
+已轉移	P0086	V20 雪狼機槍型 紅外線 6P 2.8mm	1	V20-BULLET-IR-6P-2P8MM	V20 槍型紅外線 6P 攝影機 - V20 2.8mm	0	73	已精準對應
+已轉移	P0087	V20 雪狼機槍型 紅外線 6P 8mm	1	V20-BULLET-IR-6P-8MM	V20 槍型紅外線 6P 攝影機 - V20 8mm	0	12	已精準對應
+已轉移	P0088	V20 防護罩 紅外線 2.8-12mm	11	V20-SHIELD-IR-12P-2P8-12MM	V20 防護罩紅外線 12P 攝影機 - V20 2.8-12mm	0	11	已精準對應
+已補SKU轉移	P0089	V20 防護罩 紅外線 4mm	18	V20-SHIELD-IR-12P-4MM	V20 防護罩 紅外線 4mm	0	18	依例外清單補SKU
+已補SKU轉移	P0090	V20 半球型 紅外線 同軸聲音 6mm	3	V20-DOME-COAXAUDIO-2P-6MM	V20 半球型 紅外線 同軸聲音 6mm	0	3	依例外清單補SKU
+已轉移	P0091	V20 槍型 紅外線 6P 6mm	61	V20-BULLET-IR-6P-6MM	V20 槍型紅外線 6P 攝影機 - V20 6mm	0	117	已精準對應
+已轉移	P0092	5083 半球型 紅外線 18P 3.6mm	36	5083-DOME-IR-18P-3P6MM	5083 半球形紅外線 18P 攝影機 - 5083 3.6mm	0	36	已精準對應
+已轉移	P0093	5083 半球型 紅外線 18P 2.8mm	12	5083-DOME-IR-18P-2P8MM	5083 半球形紅外線 18P 攝影機 - 5083 2.8mm	0	12	已精準對應
+已補SKU轉移	P0094	5083 半球型 紅外線 同軸聲音 1.8mm	19	5083-DOME-COAXAUDIO-2P-1P8MM	5083 半球型 紅外線 同軸聲音 1.8mm	0	19	依例外清單補SKU
+已轉移	P0095	5083 半球型 紅外線 同軸聲音 2.8mm	0	5083-DOME-COAXAUDIO-2P-2P8MM	半球形同軸聲音紅外線 2P 攝影機 - 5083 2.8mm	0	0	已精準對應
+已轉移	P0096	5083 半球型 紅外線 同軸聲音 3.6mm	28	5083-DOME-COAXAUDIO-2P-3P6MM	半球形同軸聲音紅外線 2P 攝影機 - 5083 3.6mm	0	28	已精準對應
+已轉移	P0097	5083 槍型 紅外線 8P 1.8mm	0	5083-BULLET-WIDE1P8-5MP-IR-8P-1P8MM	超廣角1.8MM 五百萬槍型紅外線 8P 攝影機 - 5083 1.8mm	0	0	已精準對應
+已轉移	P0098	5083 槍型 紅外線 8P 2.8mm	12	5083-BULLET-IR-8P-2P8MM	5083 槍型紅外線 8P 攝影機 - 5083 2.8mm	0	12	已精準對應
+已轉移	P0099	5083 槍型 紅外線 8P 3.6mm	32	5083-BULLET-IR-8P-3P6MM	5083 槍型紅外線 8P 攝影機 - 5083 3.6mm	0	32	已精準對應
+已轉移	P0100	5083 槍型 紅外線 8P 6mm	19	5083-BULLET-IR-8P-6MM	5083 槍型紅外線 8P 攝影機 - 5083 6mm	0	19	已精準對應
+已轉移	P0101	5083 槍型 紅外線 8P 8mm	9	5083-BULLET-IR-8P-8MM	5083 槍型紅外線 8P 攝影機 - 5083 8mm	0	9	已精準對應
+已轉移	P0102	5083 防護罩 紅外線 2.8-12mm	9	5083-SHIELD-IR-12P-2P8-12MM	5083 防護罩紅外線 12P 攝影機 - 5083 2.8-12mm	0	9	已精準對應
+已轉移	P0103	5083 半球型 紅外線 1.8mm	24	5083-DOME-WIDE1P8-SPECIAL-5MP-IR-8P-1P8MM	超廣角1.8MM專用 五百萬半球形紅外線 8P 攝影機 - 5083 1.8mm	0	24	已精準對應
+已補SKU轉移	P0104	5083 5MP 頂煙型 紅外線 2.5mm	8	5083-TOPSMOKE-IR-2P5MM	5083 5MP 頂煙型 紅外線 2.5mm	0	8	依例外清單補SKU
+已轉移	P0105	5083 一體G 黃光 同軸聲音 4P 6mm	2	5083-AIO-YELLOW-4P-6MM	5083 一體機黃光 4P 攝影機 - 5083 6mm	0	2	已精準對應
+已轉移	P0106	5083 一體G 黃光 同軸聲音 4P 3.6mm	33	5083-AIO-YELLOW-4P-3P6MM	5083 一體機黃光 4P 攝影機 - 5083 3.6mm	0	33	已精準對應
+已轉移	P0107	5083 一體G 紅外線 同軸聲音 3.6mm	16	5083-AIO-IR-4P-3P6MM	5083 一體機紅外線 4P 攝影機 - 5083 3.6mm	0	16	已精準對應
+已補SKU轉移	P0108	5083 防護罩 紅外線 4mm	14	5083-SHIELD-IR-12P-4MM	5083 防護罩 紅外線 4mm	0	14	依例外清單補SKU
+已補SKU轉移	P0109	5083 防護罩 黃光 2.8mm	2	5083-SHIELD-YELLOW-12P-2P8MM	5083 防護罩 黃光 2.8mm	0	2	依例外清單補SKU
+已補SKU轉移	P0110	F23 2MP 槍型 紅外線 2.8mm	7	F23-BULLET-IR-2P8MM	F23 2MP 槍型 紅外線 2.8mm	0	7	依例外清單補SKU
+已補SKU轉移	P0111	F23 星光級 針孔豆干型 紅外線 3.7mm	1	F23-PINHOLE-IR-3P7MM	F23 星光級 針孔豆干型 紅外線 3.7mm	0	1	依例外清單補SKU
+已補SKU轉移	P0112	F23 星光級 碟型 紅外線 1.8mm	4	F23-DISC-IR-1P8MM	F23 星光級 碟型 紅外線 1.8mm	0	4	依例外清單補SKU
+已補SKU轉移	P0113	AHD 5X 自動對焦球型 紅外線 2.8-12mm	1	AHD-5X-AF-DOME-2P8-12MM	AHD 5X 自動對焦球型 紅外線 2.8-12mm	0	1	依例外清單補SKU
+已補SKU轉移	P0114	黑光網 8MP 一體機	3	BLACKNET-8MP-AIO	黑光網 8MP 一體機	0	3	依例外清單補SKU
+已補SKU轉移	P0262	螺絲型針孔攝影機 2MP AHD	7	AHD-2MP-SCREW-PINHOLE	螺絲型針孔攝影機 2MP AHD	0	7	依例外清單補SKU

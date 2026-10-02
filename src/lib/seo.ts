@@ -5,7 +5,7 @@ export const defaultSiteUrl = "https://www.suntaili.com";
 export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || defaultSiteUrl).replace(/\/+$/, "");
 export const defaultDescription =
   "三泰利企業有限公司提供 B2B 監控器材批發、AHD 攝影機組裝客製、NVR/DVR、PoE、門禁與弱電整合支援。";
-export const ogImagePath = "/images/home-hero.jpg";
+export const ogImagePath = "/images/og-home.jpg";
 
 export function absoluteUrl(path = "/") {
   if (/^https?:\/\//i.test(path)) {

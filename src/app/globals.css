@@ -21,6 +21,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  /* 設計稿指定色：深藍 #203656、藍灰 #5b6d8c、灰 #8b96a3 */
+  --color-brand-navy: #203656;
+  --color-brand-blue: #5b6d8c;
+  --color-brand-grey: #8b96a3;
 }
 
 * {
@@ -74,4 +78,67 @@ select {
 .mobile-scroll-panel {
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+}
+
+/* ---------- 首頁 ---------- */
+
+/* 主視覺背景：依設計稿以漸層重現深藍到青色的光暈，左下帶一道彩虹光 */
+.home-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 9% 22% at 72% 0%, rgba(214, 255, 255, 0.95), rgba(170, 240, 245, 0.5) 45%, transparent 75%),
+    radial-gradient(ellipse 34% 62% at 76% 8%, rgba(106, 196, 210, 0.85), transparent 72%),
+    radial-gradient(ellipse 30% 45% at 98% 60%, rgba(128, 170, 180, 0.6), transparent 70%),
+    radial-gradient(ellipse 24% 34% at 43% 104%, rgba(214, 206, 190, 0.8), transparent 70%),
+    radial-gradient(ellipse 30% 48% at 66% 64%, rgba(108, 182, 208, 0.55), transparent 72%),
+    radial-gradient(ellipse 36% 58% at 14% 104%, rgba(118, 122, 148, 0.85), transparent 72%),
+    linear-gradient(100deg, #253652 0%, #39495f 22%, #53667c 42%, #6c8e9f 62%, #7fa8b4 82%, #7c96a0 100%);
+}
+
+.home-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 40% 60% at 6% 0%, rgba(30, 44, 70, 0.55), transparent 70%);
+}
+
+.home-hero::after {
+  content: "";
+  position: absolute;
+  left: 30%;
+  bottom: -18%;
+  width: 22%;
+  height: 62%;
+  pointer-events: none;
+  background: linear-gradient(
+    118deg,
+    transparent 30%,
+    rgba(255, 110, 110, 0.32) 40%,
+    rgba(255, 214, 102, 0.3) 47%,
+    rgba(120, 236, 160, 0.26) 54%,
+    rgba(110, 170, 255, 0.32) 61%,
+    rgba(190, 120, 255, 0.28) 68%,
+    transparent 78%
+  );
+  filter: blur(14px);
+}
+
+/* 工廠直營區塊：齒輪照片由左往右淡出成白色 */
+.home-band-fade {
+  background: linear-gradient(
+    90deg,
+    rgba(80, 98, 132, 0.62) 0%,
+    rgba(150, 160, 182, 0.55) 30%,
+    rgba(205, 212, 222, 0.82) 48%,
+    rgba(238, 240, 244, 0.97) 60%,
+    #ffffff 70%
+  );
+}
+
+@media (max-width: 767px) {
+  .home-band-fade {
+    background: linear-gradient(180deg, rgba(80, 98, 132, 0.7) 0%, rgba(120, 134, 160, 0.72) 100%);
+  }
 }
