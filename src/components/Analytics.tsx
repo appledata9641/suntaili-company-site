@@ -15,7 +15,8 @@ export default function Analytics() {
 
     document.addEventListener('click', function(event) {
       var target = event.target && event.target.closest ? event.target.closest('[data-ga-event]') : null;
-      if (!target || typeof gtag !== 'function') return;
+      // 表單本身的事件交給下面的 submit 監聽，避免點表單裡任何地方都被算成送出
+      if (!target || target.tagName === 'FORM' || typeof gtag !== 'function') return;
       gtag('event', target.getAttribute('data-ga-event'), {
         event_category: target.getAttribute('data-ga-category') || 'engagement',
         event_label: target.getAttribute('data-ga-label') || target.textContent || target.href || '',

@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
+import ContactCard from "@/components/ContactCard";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import InquiryForms from "@/components/InquiryForms";
-import SectionHeading from "@/components/SectionHeading";
-import { siteProfile } from "@/data/site";
+import InquiryPrepPanel from "@/components/inquiry/InquiryPrepPanel";
+import PageHero from "@/components/ui/PageHero";
+import SectionTitle from "@/components/ui/SectionTitle";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -14,39 +16,24 @@ export const metadata: Metadata = pageMetadata({
 
 export default function InquiryPage() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       <Header />
-      <main className="mx-auto max-w-7xl px-4 py-14">
-        <SectionHeading
-          as="h1"
-          eyebrow="詢價合作"
-          title="經銷合作、批發採購與專案需求"
-          description="提供型號、數量、案場條件與交期，三泰利會依需求協助確認產品搭配、報價與替代方案。"
-        />
+      {/* 設計稿的標點是比例寬度（如「，」「、」較窄），以 palt 字距對齊 */}
+      <main className="bg-brand-page [font-feature-settings:'palt']">
+        <PageHero image="/images/site/inquiry/hero.webp" title="立即諮詢" subtitle="填寫需求，取得協助" tone="light" />
 
-        <InquiryForms />
+        <div className="mx-auto max-w-[1170px] px-4 pb-16 pt-10 lg:pb-[63px] lg:pt-[89px]">
+          <ContactCard gaLabelPrefix="inquiry_card" />
 
-        <section className="mt-8 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-950">聯絡資訊</h2>
-          <dl className="mt-4 grid gap-3 text-sm text-slate-600 md:grid-cols-2">
-            <div>
-              <dt className="font-medium text-slate-900">電話</dt>
-              <dd className="mt-1">{siteProfile.contact.phone}</dd>
+          <section className="mt-14 lg:mt-[69px]">
+            <SectionTitle title={<span className="font-medium tracking-[0.1em]">產品選型與應用諮詢</span>} />
+            <div className="mt-6 lg:mt-[25px]">
+              <InquiryPrepPanel gaLabel="inquiry_prep_email" />
             </div>
-            <div>
-              <dt className="font-medium text-slate-900">Email</dt>
-              <dd className="mt-1">{siteProfile.contact.email}</dd>
-            </div>
-            <div>
-              <dt className="font-medium text-slate-900">地址</dt>
-              <dd className="mt-1">{siteProfile.contact.address}</dd>
-            </div>
-            <div>
-              <dt className="font-medium text-slate-900">服務時間</dt>
-              <dd className="mt-1">{siteProfile.contact.serviceHours}</dd>
-            </div>
-          </dl>
-        </section>
+          </section>
+
+          <InquiryForms className="mt-14 lg:mt-[62px]" />
+        </div>
       </main>
       <Footer />
     </div>

@@ -1,8 +1,12 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import CaseCard from "@/components/cases/CaseCard";
+import CasesCta from "@/components/cases/CasesCta";
+import ScenarioCard from "@/components/cases/ScenarioCard";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import SectionHeading from "@/components/SectionHeading";
+import PageHero from "@/components/ui/PageHero";
+import SectionTitle from "@/components/ui/SectionTitle";
+import { applicationScenarios, caseStudies } from "@/data/cases";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -11,76 +15,79 @@ export const metadata: Metadata = pageMetadata({
   path: "/applications",
 });
 
-const applicationGroups = [
-  {
-    title: "商用空間與店面",
-    description: "適合櫃台、出入口、走道、收銀區與倉儲區域監看，常搭配 AHD 攝影機、DVR 與既有同軸線路。",
-    products: ["AHD 攝影機", "DVR 錄影主機", "螢幕與影像延伸設備"],
-  },
-  {
-    title: "社區與住宅公共區域",
-    description: "可依梯廳、停車場、信箱區、管理室與大門口規劃攝影機數量、夜視距離與錄影保存天數。",
-    products: ["半球攝影機", "室外槍型攝影機", "NVR / DVR"],
-  },
-  {
-    title: "工廠、倉儲與廠區周界",
-    description: "重視長距離夜視、防水防塵、穩定錄影與遠端巡檢，可依現場供電與線路距離調整配置。",
-    products: ["IP67 室外攝影機", "PoE 交換器", "多通道錄影主機"],
-  },
-  {
-    title: "系統整合與弱電工程",
-    description: "支援系統整合商確認既有設備相容性、替代型號、線材與供電配置，降低現場施工不確定性。",
-    products: ["PoE 周邊", "VMS 管理工具", "門禁與弱電周邊"],
-  },
-];
-
 export default function ApplicationsPage() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       <Header />
-      <main className="mx-auto max-w-7xl px-4 py-14">
-        <SectionHeading
-          as="h1"
-          eyebrow="應用場域"
-          title="依案場情境規劃監控與弱電設備"
-          description="三泰利以 B2B 供貨與技術支援為主，協助工程商、系統整合商與經銷夥伴確認產品組合。"
-        />
+      {/* 設計稿的標點是比例寬度（如「，」「、」較窄），以 palt 字距對齊 */}
+      <main className="[font-feature-settings:'palt']">
+        <PageHero image="/images/site/cases/hero.webp" title="案例場景" subtitle="從真實案場尋找最佳設備組合" tone="brand" />
 
-        <div className="mt-8 grid gap-5 md:grid-cols-2">
-          {applicationGroups.map((group) => (
-            <section key={group.title} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-slate-950">{group.title}</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{group.description}</p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {group.products.map((product) => (
-                  <span
-                    key={product}
-                    className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs text-slate-600"
-                  >
-                    {product}
-                  </span>
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-
-        <section className="mt-10 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
-            <div>
-              <h2 className="text-lg font-semibold text-slate-950">需要依案場配貨或確認替代型號</h2>
-              <p className="mt-2 text-sm leading-7 text-slate-600">
-                可提供現場環境、攝影機數量、距離、既有主機或線路狀況，方便快速確認產品搭配。
-              </p>
-            </div>
-            <Link
-              href="/inquiry"
-              className="inline-flex justify-center rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800"
-            >
-              填寫專案需求
-            </Link>
+        {/* 應用場域 */}
+        <section id="scenarios" className="px-4 pb-14 pt-14 lg:pb-[9px] lg:pt-[105px]">
+          <SectionTitle
+            as="h2"
+            tracking="wide"
+            title={
+              <span className="font-normal lg:tracking-[0.15em]">
+                <span className="block sm:inline">精準對應案場需求，</span>
+                <span className="block sm:inline">嚴選監控與弱電設備</span>
+              </span>
+            }
+            description={
+              <>
+                <span className="font-normal tracking-[0.1em] lg:block lg:pt-1 lg:leading-[21px]">
+                  三泰利提供齊全的產品線與技術支援，協助工程商、
+                </span>
+                <span className="font-normal tracking-[0.1em] lg:block lg:leading-[21px]">
+                  系統整合商與經銷夥伴快速找到最佳設備組合，讓專案規劃更順手。
+                </span>
+              </>
+            }
+          />
+          <div className="mx-auto mt-8 grid max-w-[958px] gap-6 md:grid-cols-2 md:gap-x-4 lg:mt-[47px] lg:gap-y-[58px]">
+            {applicationScenarios.map((scenario) => (
+              <ScenarioCard key={scenario.title} scenario={scenario} />
+            ))}
           </div>
         </section>
+
+        {/* 實際案例：背景為透視格線圖 */}
+        <section
+          id="cases"
+          className="bg-[url('/images/site/cases/grid-bg.webp')] bg-[length:1440px_667px] bg-top bg-no-repeat px-4 pb-16 pt-14 lg:pb-[135px] lg:pt-[123px]"
+        >
+          <SectionTitle
+            as="h2"
+            tracking="wide"
+            title={
+              <span className="font-normal lg:tracking-[0.15em]">
+                <span className="block md:inline">實際案例</span>
+                <span
+                  aria-hidden="true"
+                  className="hidden h-[0.95em] w-[2px] translate-y-[0.12em] bg-brand-navy/85 md:mx-3 md:inline-block lg:ml-[14px] lg:mr-[19px]"
+                />
+                <span className="sr-only">：</span>
+                <span className="block text-brand-blue md:inline">對應案場情境，精準選配設備</span>
+              </span>
+            }
+            description={
+              <span className="font-normal tracking-[0.1em]">
+                <span className="block sm:inline">匯整系統整合與工程部署經驗，</span>
+                <span className="block sm:inline">為您的弱電專案提供最可靠的配置參考</span>
+              </span>
+            }
+          />
+          <ul className="mx-auto mt-10 flex max-w-[959px] flex-wrap justify-center gap-[25px] lg:mt-[50px]">
+            {caseStudies.map((item) => (
+              <li key={item.name} className="flex w-[303px] max-w-full">
+                <CaseCard item={item} />
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <CasesCta />
       </main>
       <Footer />
     </div>

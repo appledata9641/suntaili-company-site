@@ -87,6 +87,8 @@ function postalAddressJsonLd() {
 }
 
 export function organizationJsonLd() {
+  // 蝦皮賣場、Facebook 粉專在 src/data/site.ts 填了網址才會列進 sameAs
+  const sameAs = [siteProfile.social?.shopee, siteProfile.social?.facebook].filter((url): url is string => Boolean(url));
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -99,6 +101,7 @@ export function organizationJsonLd() {
     telephone: siteProfile.contact.phoneInternational,
     taxID: siteProfile.contact.taxId,
     address: postalAddressJsonLd(),
+    ...(sameAs.length ? { sameAs } : {}),
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "sales",

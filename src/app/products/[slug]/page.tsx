@@ -1,38 +1,24 @@
-import Image from "next/image";
-import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
-import SectionHeading from "@/components/SectionHeading";
-import { productBrands } from "@/data/brands";
-import { downloads } from "@/data/downloads";
-import { publishedProducts } from "@/data/products";
+import BracketSection from "@/components/product-detail/BracketSection";
+import CompareSection from "@/components/product-detail/CompareSection";
+import DimensionSection from "@/components/product-detail/DimensionSection";
+import ProductSummary from "@/components/product-detail/ProductSummary";
+import SectionTabs, { type SectionTab } from "@/components/product-detail/SectionTabs";
+import SpecTable from "@/components/product-detail/SpecTable";
 import {
-  getApplicationFields,
-  getCompatibility,
-  getProductCategory,
-  getProductUse,
-  getRelatedProducts,
-} from "@/lib/product-content";
-import { sortDownloadsByDateDesc } from "@/lib/downloads";
+  getCompareCandidates,
+  getDimensionSpec,
+  getProductDownloads,
+  getSpecGroups,
+} from "@/components/product-detail/product-detail-data";
+import { productBrands } from "@/data/brands";
+import { publishedProducts } from "@/data/products";
+import { getProductCategory } from "@/lib/product-content";
 import { absoluteUrl, breadcrumbJsonLd, canonicalUrl, organizationId, pageMetadata } from "@/lib/seo";
-
-function getDownloadAnchorProps(downloadUrl: string) {
-  const isExternal = /^https?:\/\//i.test(downloadUrl);
-
-  if (isExternal) {
-    return {
-      target: "_blank",
-      rel: "noopener noreferrer",
-    };
-  }
-
-  return {
-    download: true,
-  };
-}
 
 type PublishedProduct = (typeof publishedProducts)[number];
 
@@ -116,18 +102,25 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   }
 
   const category = getProductCategory(product);
-  const brand = productBrands[product.brand];
-  const applications = getApplicationFields(product);
-  const compatibility = getCompatibility(product);
-  const relatedProducts = getRelatedProducts(product, publishedProducts);
-  const relatedDownloads = sortDownloadsByDateDesc(
-    downloads.filter((item) => item.productSlug === product.slug),
-  );
+  const imageAlt = productTitle(product);
+  const specGroups = getSpecGroups(product);
+  const dimensionSpec = getDimensionSpec(product);
+  const showAccessories = product.category === "camera";
+  const related = getCompareCandidates(product, publishedProducts);
+
+  // 只列出有內容的區塊
+  const tabs: SectionTab[] = [
+    ...(specGroups.length > 0 ? [{ id: "specs", label: "規格資訊" }] : []),
+    ...(dimensionSpec ? [{ id: "dimensions", label: "產品尺寸" }] : []),
+    ...(showAccessories ? [{ id: "accessories", label: "支架配件" }] : []),
+    ...(related.length > 0 ? [{ id: "compare", label: "型號比較" }] : []),
+  ];
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       <Header />
-      <main className="mx-auto max-w-7xl px-4 py-14">
+      {/* 設計稿的中文標點是比例寬度（palt），只影響標點與假名，中文字寬不變 */}
+      <main className="[font-feature-settings:'palt']">
         <JsonLd id="product-jsonld" data={productJsonLd(product, category?.name)} />
         <JsonLd
           id="product-breadcrumb-jsonld"
@@ -139,214 +132,32 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
           ])}
         />
 
-        <nav aria-label="麵包屑" className="mb-6 text-sm text-slate-500">
-          <Link href="/" className="hover:text-slate-900">
-            首頁
-          </Link>
-          <span className="mx-2">/</span>
-          <Link href="/products" className="hover:text-slate-900">
-            產品中心
-          </Link>
-          {category ? (
-            <>
-              <span className="mx-2">/</span>
-              <Link href={`/categories/${category.slug}`} className="hover:text-slate-900">
-                {category.name}
-              </Link>
-            </>
-          ) : null}
-          <span className="mx-2">/</span>
-          <span className="text-slate-900">{product.model}</span>
-        </nav>
+        <ProductSummary product={product} imageAlt={imageAlt} downloads={getProductDownloads(product)} />
 
-        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-          <section className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-            <div className="relative aspect-[16/10] bg-white">
-              <Image
-                src={product.coverImage}
-                alt={productTitle(product)}
-                fill
-                sizes="(min-width: 1024px) 50vw, 100vw"
-                className="object-contain"
-                priority
-              />
-            </div>
-            <div className="p-6">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
-                  {category?.name ?? "產品"}
-                </span>
-                <span className="rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-600">
-                  {product.model}
-                </span>
-                {product.legacyModels?.map((legacyModel) => (
-                  <span
-                    key={legacyModel}
-                    className="rounded-full border border-dashed border-slate-300 px-3 py-1 text-xs text-slate-500"
-                  >
-                    舊型號 {legacyModel}
-                  </span>
-                ))}
-                <span className="rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-600">
-                  {brand.relationship === "distributor" ? `${brand.label}（三泰利經銷）` : brand.label}
-                </span>
-              </div>
-              <h1 className="mt-4 text-2xl font-semibold tracking-tight text-slate-950 md:text-3xl">
-                {product.name}
-              </h1>
-              <p className="mt-4 text-sm leading-7 text-slate-600">{product.description}</p>
+        {tabs.length > 0 ? <SectionTabs tabs={tabs} /> : null}
 
-              <div className="mt-6 flex flex-wrap gap-2">
-                {product.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-600"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-3">
-                <Link
-                  href={`/inquiry?model=${encodeURIComponent(product.model)}`}
-                  data-ga-event="inquiry_click"
-                  data-ga-category="lead"
-                  data-ga-label={product.model}
-                  className="rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800"
-                >
-                  詢問此型號
-                </Link>
-                {relatedDownloads.length > 0 ? (
-                  <a
-                    href={relatedDownloads[0].downloadUrl}
-                    {...getDownloadAnchorProps(relatedDownloads[0].downloadUrl)}
-                    className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-800"
-                  >
-                    下載文件
-                  </a>
-                ) : null}
-              </div>
-            </div>
-          </section>
-
-          <div className="space-y-6">
-            <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-slate-900">用途</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">{getProductUse(product)}</p>
-            </section>
-
-            <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-slate-900">產品特色</h2>
-              <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600">
-                {product.featureBullets.map((feature) => (
-                  <li key={feature}>• {feature}</li>
-                ))}
-              </ul>
-            </section>
-
-            <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-slate-900">規格資料</h2>
-              <dl className="mt-4 space-y-3">
-                {product.specs.map((spec) => (
-                  <div key={spec.label} className="grid grid-cols-[100px_1fr] gap-3 text-sm">
-                    <dt className="text-slate-500">{spec.label}</dt>
-                    <dd className="font-medium text-slate-900">{spec.value}</dd>
-                  </div>
-                ))}
-              </dl>
-            </section>
-          </div>
-        </div>
-
-        <div className="mt-8 grid gap-6 lg:grid-cols-2">
-          <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-900">適用場域</h2>
-            <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600">
-              {applications.map((application) => (
-                <li key={application}>• {application}</li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-900">相容性與搭配</h2>
-            <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600">
-              {compatibility.map((item) => (
-                <li key={item}>• {item}</li>
-              ))}
-            </ul>
-          </section>
-        </div>
-
-        <section className="mt-8 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-          <SectionHeading
-            eyebrow="相關下載"
-            title="此型號可用文件"
-            description="依型號整理可下載的產品型錄、說明文件或相關資料。"
-          />
-
-          {relatedDownloads.length === 0 ? (
-            <div className="mt-6 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-5 text-sm text-slate-600">
-              目前尚未提供此型號的下載文件。
-            </div>
-          ) : (
-            <div className="mt-6 space-y-3">
-              {relatedDownloads.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 md:flex-row md:items-center md:justify-between"
-                >
-                  <div>
-                    <div className="text-sm font-semibold text-slate-900">{item.title}</div>
-                    <div className="mt-1 text-xs text-slate-600">
-                      {[item.version, item.releaseDate, item.fileSize].filter(Boolean).join(" ・ ")}
-                    </div>
-                    {item.notes ? (
-                      <p className="mt-1 text-xs leading-6 text-slate-500">{item.notes}</p>
-                    ) : null}
-                  </div>
-                  <a
-                    href={item.downloadUrl}
-                    {...getDownloadAnchorProps(item.downloadUrl)}
-                    className="inline-flex justify-center rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-800"
-                  >
-                    下載
-                  </a>
-                </div>
-              ))}
-            </div>
-          )}
-        </section>
-
-        {relatedProducts.length > 0 ? (
-          <section className="mt-8 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <SectionHeading eyebrow="相關產品" title="可一起比較的型號" />
-            <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              {relatedProducts.map((item) => (
-                <Link
-                  key={item.id}
-                  href={`/products/${item.slug}`}
-                  className="overflow-hidden rounded-xl border border-slate-200 bg-slate-50 hover:bg-white"
-                >
-                  <div className="relative aspect-[16/10] bg-white">
-                    <Image
-                      src={item.coverImage}
-                      alt={item.name}
-                      fill
-                      sizes="(min-width: 1024px) 25vw, (min-width: 768px) 50vw, 100vw"
-                      className="object-contain"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <div className="text-xs font-medium text-slate-500">{item.model}</div>
-                    <h3 className="mt-2 text-sm font-semibold leading-6 text-slate-950">{item.name}</h3>
-                  </div>
-                </Link>
-              ))}
-            </div>
+        {specGroups.length > 0 ? (
+          <section
+            id="specs"
+            aria-labelledby="specs-title"
+            className="mx-auto max-w-[1067px] scroll-mt-[114px]! px-4 pt-8 lg:scroll-mt-[134px]! lg:pt-[42px]"
+          >
+            <h2 id="specs-title" className="sr-only">
+              規格資訊
+            </h2>
+            <SpecTable model={product.model} groups={specGroups} />
           </section>
         ) : null}
+
+        {dimensionSpec ? <DimensionSection product={product} spec={dimensionSpec} imageAlt={imageAlt} /> : null}
+
+        {showAccessories ? <BracketSection /> : null}
+
+        {related.length > 0 ? (
+          <CompareSection product={product} related={related} />
+        ) : (
+          <div className="h-16" aria-hidden="true" />
+        )}
       </main>
       <Footer />
     </div>

@@ -26,6 +26,8 @@ npm run dev
 
 不要把正式 GA4、GSC 或 LINE 管理資訊直接寫死在程式碼裡。
 
+蝦皮賣場、Facebook 粉專的網址寫在 `src/data/site.ts` 的 `social`，留空就不會在頁尾顯示圖示。
+
 ## 3. 靜態建置（Cloudflare 使用）
 
 ```bash
@@ -45,7 +47,7 @@ npm run build
 - `public/downloads/manual/...`
 - `public/downloads/software/...`
 
-產品 DM 放在各型號產品頁，不放在 `/resources/` 文件下載總頁。
+產品 DM 放在各型號產品頁與「產品型錄」頁（`/catalog/`），不放在 `/resources/` 文件下載總頁。
 
 ## 5. Cloudflare Pages 部署設定
 

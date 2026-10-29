@@ -14,6 +14,10 @@ export function getProductUse(product: Product) {
     return `${product.model} 用於監控影像錄影、回放、儲存與遠端管理，適合需要集中管理多支攝影機的案場。`;
   }
 
+  if (product.category === "software") {
+    return `${product.model} 是電腦端的監控管理軟體，用於集中監看、錄影回放與遠端連線，適合監控案場維護與日常管理。`;
+  }
+
   return `${product.model} 用於監控、弱電或門禁周邊整合，協助系統整合商完成現場配線、管理或延伸需求。`;
 }
 

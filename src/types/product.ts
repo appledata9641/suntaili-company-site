@@ -1,4 +1,5 @@
-export type ProductCategory = "camera" | "recorder" | "accessory";
+// software = 軟體方案（VMS 等）；accessory = 周邊設備（線材、支架、硬碟、變壓器，目前尚未刊登）
+export type ProductCategory = "camera" | "recorder" | "software" | "accessory";
 
 // suntaili = 三泰利自有品牌；avtech、dahua = 三泰利經銷的品牌
 export type ProductBrand = "suntaili" | "avtech" | "dahua";

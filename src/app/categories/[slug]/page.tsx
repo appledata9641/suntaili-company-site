@@ -1,16 +1,22 @@
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
-import SectionHeading from "@/components/SectionHeading";
+import { ArrowRightLine } from "@/components/icons";
+import { CompareActions } from "@/components/products/CompareTray";
+import ProductCard from "@/components/products/ProductCard";
+import { toProductSummary } from "@/components/products/product-summary";
+import PageHero from "@/components/ui/PageHero";
+import { buttonClass } from "@/components/ui/styles";
 import { productCategories } from "@/data/categories";
 import { publishedProducts } from "@/data/products";
-import { getProductCategory } from "@/lib/product-content";
+import { productCenterCategories, productsHref } from "@/lib/catalog";
+import { activeProductCategories, hasCategoryProducts } from "@/lib/product-availability";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
+// 沒有產品的分類（目前是周邊設備）也輸出頁面，讓舊連結還能打開，但頁面顯示「整理中」且不給搜尋引擎收錄
 export function generateStaticParams() {
   return productCategories.map((category) => ({ slug: category.slug }));
 }
@@ -27,11 +33,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     });
   }
 
-  return pageMetadata({
+  const metadata = pageMetadata({
     title: category.seoTitle ?? `${category.name}分類`,
     description: category.description,
     path: `/categories/${category.slug}`,
   });
+  return hasCategoryProducts(category.id) ? metadata : { ...metadata, robots: { index: false, follow: true } };
 }
 
 export default async function CategoryDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -42,12 +49,20 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
     notFound();
   }
 
-  const products = publishedProducts.filter((product) => product.category === category.id);
+  const products = publishedProducts.filter((product) => product.category === category.id).map(toProductSummary);
+  // 主圖副標：取 SEO 標題冒號後的說明（例如「AHD 類比高清與 IP 網路攝影機」）
+  const subtitle = category.seoTitle?.split("：")[1] ?? category.seoTitle ?? category.shortName;
+  // 這個分類在產品中心對應的篩選（只列出有產品的）
+  const centerLinks = productCenterCategories.filter((center) =>
+    products.some((product) => product.centerCategory === center.key),
+  );
+  // 沒有產品時，改列出其他有產品的分類
+  const otherCategories = activeProductCategories.filter((item) => item.id !== category.id);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       <Header />
-      <main className="mx-auto max-w-7xl px-4 py-14">
+      <main>
         <JsonLd
           id="category-breadcrumb-jsonld"
           data={breadcrumbJsonLd([
@@ -56,56 +71,79 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
             { name: category.name, path: `/categories/${category.slug}` },
           ])}
         />
+        <PageHero image="/images/site/products/hero.webp" title={category.name} subtitle={subtitle} tone="light" />
 
-        <nav aria-label="麵包屑" className="mb-6 text-sm text-slate-500">
-          <Link href="/" className="hover:text-slate-900">
-            首頁
-          </Link>
-          <span className="mx-2">/</span>
-          <Link href="/categories" className="hover:text-slate-900">
-            產品分類
-          </Link>
-          <span className="mx-2">/</span>
-          <span className="text-slate-900">{category.name}</span>
-        </nav>
+        <section className="mx-auto max-w-[1022px] px-4 pb-16 pt-5 lg:pb-[93px]">
+          <nav aria-label="麵包屑" className="text-sm font-medium text-brand-grey">
+            <ol className="flex flex-wrap items-center gap-x-2">
+              <li>
+                <Link href="/" className="hover:text-brand-navy">
+                  首頁
+                </Link>
+              </li>
+              <li aria-hidden>/</li>
+              <li>
+                <Link href="/categories/" className="hover:text-brand-navy">
+                  產品分類
+                </Link>
+              </li>
+              <li aria-hidden>/</li>
+              <li aria-current="page" className="text-brand-navy">
+                {category.name}
+              </li>
+            </ol>
+          </nav>
 
-        <SectionHeading as="h1" eyebrow="產品分類" title={category.name} description={category.description} />
+          <p className="mt-8 text-base font-medium leading-8 text-brand-muted lg:mt-10 lg:text-lg lg:leading-9">
+            {category.description}
+          </p>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => {
-            const productCategory = getProductCategory(product);
+          {products.length > 0 ? (
+            <>
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between lg:mt-12">
+                <h2 className="text-xl font-bold leading-7 text-brand-navy">共 {products.length} 項產品</h2>
+                <CompareActions showCount />
+              </div>
 
-            return (
-              <Link
-                key={product.id}
-                href={`/products/${product.slug}`}
-                className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm hover:border-slate-300"
-              >
-                <div className="relative aspect-[16/10] bg-white">
-                  <Image
-                    src={product.coverImage}
-                    alt={product.name}
-                    fill
-                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                    className="object-contain"
-                  />
+              <ul className="mt-4 grid grid-cols-2 gap-2.5 md:grid-cols-3 lg:mt-6 lg:grid-cols-4 lg:gap-y-[13px]">
+                {products.map((product, index) => (
+                  <li key={product.slug} className="min-w-0">
+                    <ProductCard product={product} priority={index < 4} />
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-12 flex flex-col gap-4 border border-brand-line bg-brand-panel px-6 py-6 lg:mt-16 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+                <p className="text-base font-medium text-brand-navy">
+                  {category.id === "camera" ? "想依類型、解析度或品牌篩選，請到產品中心：" : "想依品牌或型號篩選，請到產品中心："}
+                </p>
+                <div className="flex flex-wrap gap-2.5">
+                  {centerLinks.map((center) => (
+                    <Link key={center.key} href={productsHref({ category: center.key })} className={buttonClass("outline", "sm")}>
+                      {center.label}
+                      <ArrowRightLine className="h-4 w-4" />
+                    </Link>
+                  ))}
                 </div>
-                <div className="p-5">
-                  <div className="flex flex-wrap gap-2">
-                    <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs text-slate-600">
-                      {productCategory?.shortName ?? "產品"}
-                    </span>
-                    <span className="rounded-full border border-slate-200 px-2.5 py-1 text-xs text-slate-600">
-                      {product.model}
-                    </span>
-                  </div>
-                  <h3 className="mt-4 text-base font-semibold leading-7 text-slate-950">{product.name}</h3>
-                  <p className="mt-2 text-sm leading-7 text-slate-600">{product.shortDescription}</p>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+              </div>
+            </>
+          ) : (
+            <div className="mt-10 flex flex-col items-center gap-5 border border-brand-line bg-brand-panel px-6 py-12 text-center lg:mt-12 lg:py-16">
+              <h2 className="text-xl font-bold leading-7 text-brand-navy">{category.name}資料整理中</h2>
+              <p className="text-base font-medium leading-relaxed text-brand-muted">需要報價或確認規格，可以直接詢問三泰利。</p>
+              <div className="flex flex-wrap justify-center gap-3">
+                <Link href="/inquiry/" className={buttonClass("primary", "md")}>
+                  立即諮詢
+                </Link>
+                {otherCategories.map((item) => (
+                  <Link key={item.id} href={`/categories/${item.slug}/`} className={buttonClass("outline", "md")}>
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </section>
       </main>
       <Footer />
     </div>

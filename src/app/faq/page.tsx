@@ -1,9 +1,9 @@
-import Link from "next/link";
 import type { Metadata } from "next";
+import FaqBrowser from "@/components/faq/FaqBrowser";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import SectionHeading from "@/components/SectionHeading";
-import { siteProfile } from "@/data/site";
+import JsonLd from "@/components/JsonLd";
+import { faqTabCategories, faqs } from "@/data/faq";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -12,80 +12,33 @@ export const metadata: Metadata = pageMetadata({
   path: "/faq",
 });
 
-const faqs = [
-  {
-    question: "三泰利主要服務對象是誰？",
-    answer:
-      "以系統整合商、弱電工程商、監控器材經銷商與專案採購為主，協助確認型號、配貨、客製與售後文件。",
-  },
-  {
-    question: "可以協助 AHD 攝影機組裝或客製嗎？",
-    answer:
-      "可以先提供解析度、外型、鏡頭焦距、夜視需求、安裝環境與數量，三泰利會依現有產品與可配置方式協助確認。",
-  },
-  {
-    question: "既有 DVR 或同軸線路可以沿用嗎？",
-    answer:
-      "需依現場主機支援的訊號格式確認。產品頁若標示 AHD / TVI / CVI / CVBS，仍建議提供主機型號再確認相容性。",
-  },
-  {
-    question: "文件下載頁為什麼不放產品 DM？",
-    answer:
-      "文件下載頁保留工具軟體與操作說明書，產品 DM 放在各型號產品頁，避免工程人員下載時混到不相關文件。",
-  },
-  {
-    question: "大量採購或專案配貨需要準備哪些資料？",
-    answer:
-      "建議提供產品型號、預估數量、案場類型、交期、既有設備型號、線路與供電條件，方便回覆報價與替代方案。",
-  },
-  {
-    question: "網站上沒有看到的型號可以詢問嗎？",
-    answer:
-      "可以。部分型號可能尚未整理到網站，可透過 Email、電話或詢價表單提供需求與照片，由三泰利協助確認。",
-  },
-];
+// 搜尋引擎用的 FAQPage 結構化資料（內容與頁面上的問答相同）
+function faqPageJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+}
 
+// 常見問題：版面依美編設計稿「網站_常見問題」（無主圖，標題置中、分類頁籤、問答列表與分頁）
 export default function FAQPage() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       <Header />
-      <main className="mx-auto max-w-4xl px-4 py-14">
-        <SectionHeading
-          as="h1"
-          eyebrow="常見問題"
-          title="監控器材批發、客製與文件下載 FAQ"
-          description="整理系統整合商與經銷夥伴在詢價、配貨與售後支援時最常遇到的問題。"
-        />
-
-        <div className="mt-8 space-y-4">
-          {faqs.map((faq) => (
-            <section key={faq.question} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-              <h2 className="text-base font-semibold text-slate-950">{faq.question}</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{faq.answer}</p>
-            </section>
-          ))}
+      <main className="mx-auto max-w-[983px] px-4 pb-20 pt-14 lg:pb-[114px] lg:pt-[108px]">
+        <JsonLd id="faq-jsonld" data={faqPageJsonLd()} />
+        <h1 className="text-center text-[26px] font-bold leading-[42px] tracking-[0.06em] text-brand-navy lg:text-[30px]">常見問題</h1>
+        <div className="mt-8 lg:mt-[51px]">
+          <FaqBrowser items={faqs} categories={faqTabCategories} />
         </div>
-
-        <section className="mt-8 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-          <h2 className="text-base font-semibold text-slate-950">需要進一步確認</h2>
-          <p className="mt-3 text-sm leading-7 text-slate-600">
-            可來信 {siteProfile.contact.email} 或致電 {siteProfile.contact.phone}，也可以先填寫詢價需求。
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Link
-              href="/inquiry"
-              className="rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:bg-slate-800"
-            >
-              詢價合作
-            </Link>
-            <Link
-              href="/contact"
-              className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-800"
-            >
-              聯絡我們
-            </Link>
-          </div>
-        </section>
       </main>
       <Footer />
     </div>

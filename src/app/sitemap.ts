@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
-import { productCategories } from "@/data/categories";
 import { publishedProducts } from "@/data/products";
+import { activeProductCategories } from "@/lib/product-availability";
 import { absoluteUrl, canonicalUrl } from "@/lib/seo";
 
 export const dynamic = "force-static";
@@ -11,6 +11,7 @@ const staticRoutes = [
   "/categories",
   "/applications",
   "/resources",
+  "/catalog",
   "/inquiry",
   "/faq",
   "/about",
@@ -25,7 +26,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route === "/" ? 1 : 0.8,
   }));
 
-  const categoryEntries = productCategories.map((category) => ({
+  // 沒有產品的分類頁（目前是周邊設備）不列入
+  const categoryEntries = activeProductCategories.map((category) => ({
     url: canonicalUrl(`/categories/${category.slug}`),
     changeFrequency: "monthly",
     priority: 0.7,

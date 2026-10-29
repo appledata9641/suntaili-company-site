@@ -1,80 +1,74 @@
 "use client";
 
-import type { DownloadType } from "@/types/download";
+import { useId } from "react";
+import Dropdown, { type DropdownOption } from "@/components/ui/Dropdown";
 
-interface FilterOption {
-  id: string;
-  label: string;
+// 文件下載的篩選列：依設計稿「產品分類｜檔案類型｜搜尋關鍵字」，標籤 18pt 深藍（設計稿字重約 Medium），選單 186px 寬。
+interface DownloadFiltersProps<C extends string, T extends string> {
+  categoryOptions: DropdownOption<C>[];
+  category: C;
+  onCategoryChange: (value: C) => void;
+  typeOptions: DropdownOption<T>[];
+  type: T;
+  onTypeChange: (value: T) => void;
+  keyword: string;
+  onKeywordChange: (value: string) => void;
 }
 
-interface DownloadFiltersProps {
-  categoryOptions: FilterOption[];
-  activeCategory: string;
-  onCategoryChange: (value: string) => void;
-  activeType: DownloadType | "all";
-  onTypeChange: (value: DownloadType | "all") => void;
-  searchTerm: string;
-  onSearchTermChange: (value: string) => void;
-}
+const labelClass = "w-[92px] shrink-0 text-lg font-medium text-brand-navy lg:w-auto";
 
-const typeOptions: Array<{ id: DownloadType | "all"; label: string }> = [
-  { id: "all", label: "全部類型" },
-  { id: "manual", label: "說明文件" },
-  { id: "software", label: "軟體工具" },
-];
-
-export default function DownloadFilters({
+export default function DownloadFilters<C extends string, T extends string>({
   categoryOptions,
-  activeCategory,
+  category,
   onCategoryChange,
-  activeType,
+  typeOptions,
+  type,
   onTypeChange,
-  searchTerm,
-  onSearchTermChange,
-}: DownloadFiltersProps) {
+  keyword,
+  onKeywordChange,
+}: DownloadFiltersProps<C, T>) {
+  const keywordId = useId();
+
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-      <div className="grid gap-4 md:grid-cols-[1fr_1fr_1.4fr]">
-        <label className="flex flex-col gap-2 text-sm">
-          <span className="font-medium text-slate-800">產品分類</span>
-          <select
-            value={activeCategory}
-            onChange={(event) => onCategoryChange(event.target.value)}
-            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-slate-500"
-          >
-            {categoryOptions.map((option) => (
-              <option key={option.id} value={option.id}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+    <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-6">
+      <div className="flex items-center gap-3.5">
+        <span className={labelClass} aria-hidden="true">
+          產品分類
+        </span>
+        <Dropdown
+          value={category}
+          options={categoryOptions}
+          onChange={onCategoryChange}
+          ariaLabel="產品分類"
+          className="min-w-0 flex-1 lg:w-[186px] lg:flex-none"
+        />
+      </div>
+      <div className="flex items-center gap-3.5">
+        <span className={labelClass} aria-hidden="true">
+          檔案類型
+        </span>
+        <Dropdown
+          value={type}
+          options={typeOptions}
+          onChange={onTypeChange}
+          ariaLabel="檔案類型"
+          className="min-w-0 flex-1 lg:w-[186px] lg:flex-none"
+        />
+      </div>
+      <div className="flex items-center gap-3.5 lg:min-w-0 lg:flex-1">
+        <label htmlFor={keywordId} className={labelClass}>
+          搜尋關鍵字
         </label>
-
-        <label className="flex flex-col gap-2 text-sm">
-          <span className="font-medium text-slate-800">檔案類型</span>
-          <select
-            value={activeType}
-            onChange={(event) => onTypeChange(event.target.value as DownloadType | "all")}
-            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 outline-none focus:border-slate-500"
-          >
-            {typeOptions.map((option) => (
-              <option key={option.id} value={option.id}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <label className="flex flex-col gap-2 text-sm">
-          <span className="font-medium text-slate-800">搜尋型號 / 關鍵字</span>
-          <input
-            type="search"
-            value={searchTerm}
-            onChange={(event) => onSearchTermChange(event.target.value)}
-            placeholder="例如：NVR、AHD、說明書、工具"
-            className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-slate-900 placeholder:text-slate-400 outline-none focus:border-slate-500"
-          />
-        </label>
+        <input
+          id={keywordId}
+          type="search"
+          value={keyword}
+          onChange={(event) => onKeywordChange(event.target.value)}
+          placeholder="例如：AHD、NVR、說明書、工具"
+          autoComplete="off"
+          enterKeyHint="search"
+          className="h-[34px] w-full min-w-0 flex-1 rounded-[3px] border border-brand-grey bg-white px-3 text-sm font-medium tracking-[0.04em] text-brand-blue placeholder:font-normal placeholder:text-brand-grey hover:border-brand-blue focus:border-brand-blue"
+        />
       </div>
     </div>
   );

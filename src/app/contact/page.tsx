@@ -3,8 +3,11 @@ import type { Metadata } from "next";
 import ContactCard from "@/components/ContactCard";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import SectionHeading from "@/components/SectionHeading";
-import { siteProfile } from "@/data/site";
+import { ArrowRightLine } from "@/components/icons";
+import { wideButtonClass } from "@/components/inquiry/buttons";
+import InquiryPrepPanel from "@/components/inquiry/InquiryPrepPanel";
+import PageHero from "@/components/ui/PageHero";
+import SectionTitle from "@/components/ui/SectionTitle";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -13,62 +16,30 @@ export const metadata: Metadata = pageMetadata({
   path: "/contact",
 });
 
+// 舊網址保留的聯絡頁（不在新選單中）：沿用立即諮詢頁的聯絡卡與諮詢區塊，表單集中在立即諮詢頁。
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       <Header />
-      <main className="mx-auto max-w-7xl px-4 py-14">
-        <SectionHeading
-          as="h1"
-          eyebrow="聯絡我們"
-          title="聯絡三泰利：選型建議與技術支援"
-          description="可先提供型號、案場需求與目前遇到的問題，我們會在服務時段內回覆。"
-        />
+      {/* 設計稿的標點是比例寬度（如「，」「、」較窄），以 palt 字距對齊 */}
+      <main className="bg-brand-page [font-feature-settings:'palt']">
+        <PageHero image="/images/site/inquiry/hero.webp" title="聯絡我們" subtitle="選型建議與技術支援" tone="light" />
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <ContactCard />
+        <div className="mx-auto max-w-[1170px] px-4 pb-16 pt-10 lg:pb-[90px] lg:pt-[89px]">
+          <ContactCard gaLabelPrefix="contact_card" />
 
-          <div className="space-y-6">
-            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-slate-900">詢問前建議準備資料</h2>
-              <ul className="mt-4 space-y-3 text-sm leading-7 text-slate-600">
-                <li>1. 產品型號與目前版本資訊</li>
-                <li>2. 問題發生情境與時間點</li>
-                <li>3. 已嘗試的排查步驟</li>
-                <li>4. 現場網路與供電條件（如 PoE）</li>
-              </ul>
-            </section>
+          <section className="mt-14 lg:mt-[69px]">
+            <SectionTitle title={<span className="font-medium tracking-[0.1em]">產品選型與應用諮詢</span>} />
+            <div className="mt-6 lg:mt-[25px]">
+              <InquiryPrepPanel gaLabel="contact_page_email" />
+            </div>
+          </section>
 
-            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-slate-900">快速入口</h2>
-              <div className="mt-4 flex flex-wrap gap-3">
-                <Link
-                  href={`mailto:${siteProfile.contact.email}`}
-                  data-ga-event="email_click"
-                  data-ga-category="contact"
-                  data-ga-label="contact_page_email"
-                  className="rounded-full bg-slate-900 px-5 py-3 text-sm font-medium text-white"
-                >
-                  寄送 Email
-                </Link>
-                <Link
-                  href="/resources"
-                  className="rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-800"
-                >
-                  前往文件下載
-                </Link>
-              </div>
-              <p className="mt-4 text-sm leading-7 text-slate-600">
-                若需要大量型號文件，建議先整理清單，我們可提供較完整的對應資訊與下載建議。
-              </p>
-            </section>
-
-            <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-              <h2 className="text-lg font-semibold text-slate-900">服務時段</h2>
-              <p className="mt-3 text-sm leading-7 text-slate-600">
-                服務時間為 {siteProfile.contact.serviceHours}。非服務時段收到的詢問會於下一個工作時段盡快回覆。
-              </p>
-            </section>
+          <div className="mt-12 flex justify-center lg:mt-[62px]">
+            <Link href="/inquiry/" className={wideButtonClass("primary")}>
+              <span className="flex-1 text-center">填寫詢價需求</span>
+              <ArrowRightLine className="h-[27px] w-[27px] shrink-0" />
+            </Link>
           </div>
         </div>
       </main>

@@ -19,26 +19,13 @@ export const siteProfile: SiteProfile = {
     },
     taxId: "28766429",
     serviceHours: "週一至週五 09:00 - 18:00",
+    contactPerson: "許先生",
+    // 主要聯絡人的電話先用公司電話
+    contactPersonPhone: "(02)2991-8878",
+  },
+  // 頁尾的社群圖示：填網址才會顯示（蝦皮賣場網址之後提供；Facebook 粉專目前不放）
+  social: {
+    shopee: "",
+    facebook: "",
   },
 };
-
-export const homeStats = [
-  { label: "服務年資", value: "10+" },
-  { label: "合作案場", value: "300+" },
-  { label: "B2B 技術支援", value: "持續提供" },
-];
-
-export const solutionUseCases = [
-  {
-    title: "商用空間",
-    description: "辦公室、店面與營運據點監控建置，強化管理效率。",
-  },
-  {
-    title: "住宅社區",
-    description: "出入口與公共區域監控整合，提升安全與維運效率。",
-  },
-  {
-    title: "工廠倉儲",
-    description: "長時間錄影與遠端巡檢規劃，滿足大型場域需求。",
-  },
-];

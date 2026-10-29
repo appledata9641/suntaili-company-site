@@ -1917,7 +1917,7 @@ export const products: Product[] = [
     name: "三泰利 VMS 管理平台",
     model: "VMS",
     brand: "suntaili",
-    category: "accessory",
+    category: "software",
     subcategoryKey: "vms-platform",
     shortDescription: "監控系統電腦端集中管理平台，提供遠端監看與設備管理。",
     description:
