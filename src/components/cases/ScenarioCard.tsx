@@ -28,7 +28,7 @@ export default function ScenarioCard({ scenario }: { scenario: ApplicationScenar
         </p>
         <ul className="mt-[21px] flex flex-wrap gap-1.5" aria-label="常用設備">
           {scenario.products.map((product) => (
-            <li key={product} className={chipClass("outline")}>
+            <li key={product} className={chipClass("outline", "", "md")}>
               {product}
             </li>
           ))}

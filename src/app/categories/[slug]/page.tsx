@@ -71,7 +71,7 @@ export default async function CategoryDetailPage({ params }: { params: Promise<{
             { name: category.name, path: `/categories/${category.slug}` },
           ])}
         />
-        <PageHero image="/images/site/products/hero.webp" title={category.name} subtitle={subtitle} tone="light" />
+        <PageHero image="/images/site/products/hero-v2.webp" title={category.name} subtitle={subtitle} tone="light" />
 
         <section className="mx-auto max-w-[1022px] px-4 pb-16 pt-5 lg:pb-[93px]">
           <nav aria-label="麵包屑" className="text-sm font-medium text-brand-grey">

@@ -1,15 +1,16 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { FormEvent, MouseEvent, Suspense, useEffect, useRef, type ReactNode } from "react";
-import { ArrowDownSLine, FilePaper2Line, ShakeHandsLine } from "@/components/icons";
+import { FormEvent, MouseEvent, Suspense, useEffect, useRef, useState, type ReactNode } from "react";
+import { FilePaper2Line, ShakeHandsLine } from "@/components/icons";
+import Dropdown from "@/components/ui/Dropdown";
 import { buttonClass } from "@/components/ui/styles";
 import { siteProfile } from "@/data/site";
 
-// 依設計稿：標籤 12pt、輸入框 3px 圓角、提示文字 10pt #8a95a2。
+// 依設計稿：標籤 12pt、輸入框 3px 圓角、提示文字 #8a95a2；表單內文（輸入文字、提示文字、下拉選單）11/03 修改稿由 10pt 改 12pt。
 // 手機版輸入文字用 16px，避免 iOS 點輸入框時自動放大畫面。
 const fieldClass =
-  "w-full rounded-[3px] border border-slate-300 bg-white px-3 text-base font-medium text-brand-navy shadow-sm placeholder:text-sm placeholder:font-normal placeholder:text-brand-grey hover:border-brand-grey focus:border-brand-blue lg:text-xs lg:placeholder:text-[10px]";
+  "w-full rounded-[3px] border border-slate-300 bg-white px-3 text-base font-medium text-brand-navy shadow-sm placeholder:text-sm placeholder:font-normal placeholder:text-brand-grey hover:border-brand-grey focus:border-brand-blue lg:text-xs lg:placeholder:text-xs";
 const inputClass = `${fieldClass} h-11 lg:h-8`;
 const textareaClass = `${fieldClass} block resize-y py-2 leading-normal`;
 const labelClass = "mb-[5px] block text-sm leading-4 text-brand-navy lg:text-xs";
@@ -105,6 +106,9 @@ function TextField({
   );
 }
 
+// 下拉欄位：瀏覽器原生的 <select> 展開後是系統配色（藍底），改用自訂清單，
+// 展開的選項配色同產品中心（11/03 修改稿：底色 #e2e8f0、文字 #5b6d8b）。
+// 選到的值放在隱藏欄位，寄信時和其他欄位一起帶入。
 function SelectField({
   label,
   name,
@@ -116,18 +120,23 @@ function SelectField({
   defaultValue: string;
   options: string[];
 }) {
+  const [value, setValue] = useState(defaultValue);
   return (
-    <label className="block">
-      <span className={labelClass}>{label}</span>
-      <span className="relative block">
-        <select className={`${inputClass} cursor-pointer appearance-none pr-8`} name={name} defaultValue={defaultValue}>
-          {options.map((option) => (
-            <option key={option}>{option}</option>
-          ))}
-        </select>
-        <ArrowDownSLine className="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-navy" />
+    <div>
+      <span className={labelClass} aria-hidden>
+        {label}
       </span>
-    </label>
+      <Dropdown
+        variant="field"
+        value={value}
+        options={options.map((option) => ({ value: option, label: option }))}
+        onChange={setValue}
+        ariaLabel={label}
+        fieldClassName={`${inputClass} cursor-pointer pr-2`}
+        listTextClassName="text-base lg:text-xs"
+      />
+      <input type="hidden" name={name} value={value} />
+    </div>
   );
 }
 

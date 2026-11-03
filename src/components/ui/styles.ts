@@ -28,6 +28,8 @@ export function buttonClass(variant: ButtonVariant = "primary", size: ButtonSize
 }
 
 export type ChipVariant = "solid" | "outline" | "outlineLight";
+// sm = 10pt（產品頁的分類／型號／品牌）；md = 12pt（案例場景的設備標籤，11/03 修改稿由 10pt 改 12pt）
+export type ChipSize = "sm" | "md";
 
 const chipVariants: Record<ChipVariant, string> = {
   solid: "border-brand-blue bg-brand-blue text-white",
@@ -35,9 +37,14 @@ const chipVariants: Record<ChipVariant, string> = {
   outlineLight: "border-white text-white",
 };
 
-// 小標籤：10pt、圓角 3px（產品頁的分類／型號／品牌、案例卡片的設備標籤）
-export function chipClass(variant: ChipVariant = "outline", extra = "") {
-  return `inline-flex items-center rounded-[3px] border px-1.5 py-[2px] text-[10px] font-bold leading-[14px] tracking-[0.06em] whitespace-nowrap ${chipVariants[variant]} ${extra}`.trim();
+const chipSizes: Record<ChipSize, string> = {
+  sm: "px-1.5 py-[2px] text-[10px] leading-[14px] tracking-[0.06em]",
+  md: "px-2 py-[3px] text-[12px] leading-[15px] tracking-[0.02em]",
+};
+
+// 小標籤：圓角 3px、粗體
+export function chipClass(variant: ChipVariant = "outline", extra = "", size: ChipSize = "sm") {
+  return `inline-flex items-center rounded-[3px] border font-bold whitespace-nowrap ${chipSizes[size]} ${chipVariants[variant]} ${extra}`.trim();
 }
 
 // 卡片陰影（主頁產品卡、應用場域卡）

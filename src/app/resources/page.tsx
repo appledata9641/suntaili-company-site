@@ -78,7 +78,7 @@ export default function ResourcesPage() {
     <div className="min-h-screen bg-white">
       <Header />
       <main>
-        <PageHero image="/images/site/docs/hero.webp" title="文件下載" subtitle="監控系統說明書與工具軟體下載" tone="brand" />
+        <PageHero image="/images/site/docs/hero-v2.webp" title="文件下載" subtitle="監控系統說明書與工具軟體下載" tone="brand" />
         <section aria-labelledby="downloads-heading" className="mx-auto max-w-[1064px] px-4 pb-24 pt-10 sm:px-5 lg:pb-[150px] lg:pt-[81px]">
           <h2 id="downloads-heading" className="sr-only">
             文件列表

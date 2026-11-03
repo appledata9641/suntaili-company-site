@@ -23,7 +23,7 @@ export default function ContactPage() {
       <Header />
       {/* 設計稿的標點是比例寬度（如「，」「、」較窄），以 palt 字距對齊 */}
       <main className="bg-brand-page [font-feature-settings:'palt']">
-        <PageHero image="/images/site/inquiry/hero.webp" title="聯絡我們" subtitle="選型建議與技術支援" tone="light" />
+        <PageHero image="/images/site/inquiry/hero-v2.webp" title="聯絡我們" subtitle="選型建議與技術支援" tone="light" />
 
         <div className="mx-auto max-w-[1170px] px-4 pb-16 pt-10 lg:pb-[90px] lg:pt-[89px]">
           <ContactCard gaLabelPrefix="contact_card" />

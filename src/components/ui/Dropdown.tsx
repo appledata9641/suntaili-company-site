@@ -1,9 +1,10 @@
 "use client";
 
 import { useId, useRef, useState, type KeyboardEvent } from "react";
-import { ArrowDropRightLine } from "@/components/icons";
+import { ArrowDownSLine, ArrowDropRightLine } from "@/components/icons";
 
 // 下拉選單：設計稿「全部分類 ›」外框 #8a95a2、圓角 3px、14pt #5b6d8b；展開後選項清單，選中項目 #e2e8f0 底。
+// variant="field"：表單欄位樣式（立即諮詢的需求類型等），外觀同輸入框，展開的清單配色相同（#e2e8f0 底、#5b6d8b 字）。
 export interface DropdownOption<T extends string> {
   value: T;
   label: string;
@@ -17,7 +18,13 @@ interface DropdownProps<T extends string> {
   className?: string;
   // 清單字級：產品中心用 16pt，其餘 14pt
   listTextClassName?: string;
+  variant?: "filter" | "field";
+  // variant="field" 時的按鈕外觀（高度、字級等），沿用表單輸入框的樣式
+  fieldClassName?: string;
 }
+
+const filterButtonClass =
+  "flex h-[34px] w-full items-center justify-between gap-2 rounded-[3px] border border-brand-grey bg-white pl-3 pr-2 text-left text-sm font-medium tracking-[0.04em] text-brand-blue hover:border-brand-blue";
 
 export default function Dropdown<T extends string>({
   value,
@@ -26,7 +33,10 @@ export default function Dropdown<T extends string>({
   ariaLabel,
   className = "",
   listTextClassName = "text-sm",
+  variant = "filter",
+  fieldClassName = "",
 }: DropdownProps<T>) {
+  const isField = variant === "field";
   const [open, setOpen] = useState(false);
   const [highlight, setHighlight] = useState(0);
   const listId = useId();
@@ -84,10 +94,18 @@ export default function Dropdown<T extends string>({
         aria-label={`${ariaLabel}：${current?.label ?? ""}`}
         onClick={() => (open ? setOpen(false) : openList())}
         onKeyDown={onKeyDown}
-        className="flex h-[34px] w-full items-center justify-between gap-2 rounded-[3px] border border-brand-grey bg-white pl-3 pr-2 text-left text-sm font-medium tracking-[0.04em] text-brand-blue hover:border-brand-blue"
+        className={
+          isField
+            ? `flex w-full items-center justify-between gap-2 text-left aria-expanded:border-brand-blue ${fieldClassName}`
+            : filterButtonClass
+        }
       >
         <span className="truncate">{current?.label}</span>
-        <ArrowDropRightLine className={`h-5 w-5 shrink-0 transition-transform ${open ? "rotate-90" : ""}`} />
+        {isField ? (
+          <ArrowDownSLine className={`h-4 w-4 shrink-0 text-brand-navy transition-transform ${open ? "rotate-180" : ""}`} />
+        ) : (
+          <ArrowDropRightLine className={`h-5 w-5 shrink-0 transition-transform ${open ? "rotate-90" : ""}`} />
+        )}
       </button>
       {open ? (
         <ul
@@ -106,7 +124,7 @@ export default function Dropdown<T extends string>({
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => choose(option.value)}
                 onMouseEnter={() => setHighlight(index)}
-                className={`cursor-pointer px-5 py-[3px] font-medium text-brand-blue ${listTextClassName} ${
+                className={`cursor-pointer font-medium text-brand-blue ${isField ? "px-3 py-2.5 lg:py-[5px]" : "px-5 py-[3px]"} ${listTextClassName} ${
                   index === highlight ? "bg-brand-line" : selected ? "bg-brand-panel" : ""
                 }`}
               >

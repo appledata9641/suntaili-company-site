@@ -34,7 +34,7 @@ export default function ProductsPage() {
       <Header />
       <main>
         <PageHero
-          image="/images/site/products/hero.webp"
+          image="/images/site/products/hero-v2.webp"
           title="產品中心"
           subtitle="根據需求快速查找所需產品"
           tone="light"

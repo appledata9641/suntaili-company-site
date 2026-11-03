@@ -20,7 +20,7 @@ export default function InquiryPage() {
       <Header />
       {/* 設計稿的標點是比例寬度（如「，」「、」較窄），以 palt 字距對齊 */}
       <main className="bg-brand-page [font-feature-settings:'palt']">
-        <PageHero image="/images/site/inquiry/hero.webp" title="立即諮詢" subtitle="填寫需求，取得協助" tone="light" />
+        <PageHero image="/images/site/inquiry/hero-v2.webp" title="立即諮詢" subtitle="填寫需求，取得協助" tone="light" />
 
         <div className="mx-auto max-w-[1170px] px-4 pb-16 pt-10 lg:pb-[63px] lg:pt-[89px]">
           <ContactCard gaLabelPrefix="inquiry_card" />

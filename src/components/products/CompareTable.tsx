@@ -38,8 +38,9 @@ function buildRows(selected: CompareProduct[]) {
   return groupOrder.map((key) => ({ key, rows: rows.filter((row) => row.group === key) }));
 }
 
-// 規格不同的列：淺青底＋左側色條
+// 規格不同的列：淺青底＋左側色條（11/03 修改稿：色條由 #5ecbdd 改為 #448893）
 const diffCell = "bg-[#f2fbfc]";
+const diffBar = "shadow-[inset_3px_0_0_#448893]";
 
 export default function CompareTable({ products }: { products: CompareProduct[] }) {
   const searchParams = useSearchParams();
@@ -101,7 +102,7 @@ export default function CompareTable({ products }: { products: CompareProduct[] 
         {selected.length > 1 ? (
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <span className="inline-flex items-center gap-2 text-sm font-medium text-brand-muted">
-              <span aria-hidden className={`h-4 w-6 border border-brand-line shadow-[inset_3px_0_0_#5ecbdd] ${diffCell}`} />
+              <span aria-hidden className={`h-4 w-6 border border-brand-line ${diffBar} ${diffCell}`} />
               底色標示的項目規格不同
             </span>
             <Checkbox
@@ -206,7 +207,7 @@ export default function CompareTable({ products }: { products: CompareProduct[] 
                     <th
                       scope="row"
                       className={`sticky left-0 z-[1] border-b border-r border-brand-line px-3 py-3 text-xs font-medium leading-[18px] text-brand-muted sm:px-[29px] ${
-                        row.differs ? `${diffCell} shadow-[inset_3px_0_0_#5ecbdd]` : "bg-white"
+                        row.differs ? `${diffCell} ${diffBar}` : "bg-white"
                       }`}
                     >
                       {row.label}

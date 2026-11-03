@@ -33,7 +33,7 @@ export default function CategoriesPage() {
     <div className="min-h-screen bg-white">
       <Header />
       <main>
-        <PageHero image="/images/site/products/hero.webp" title="產品分類" subtitle="依產品線瀏覽監控設備" tone="light" />
+        <PageHero image="/images/site/products/hero-v2.webp" title="產品分類" subtitle="依產品線瀏覽監控設備" tone="light" />
 
         <section className="mx-auto max-w-[1108px] px-4 pb-16 pt-12 lg:pb-[93px] lg:pt-[68px]">
           <ul className={`grid gap-5 lg:gap-[30px] ${gridClass}`}>

@@ -19,22 +19,22 @@ export const coreServices: CoreService[] = [
   {
     title: "B2B穩定供貨",
     descriptionLines: ["專注專案需求，整合供應", "監控與周邊設備。"],
-    image: "/images/site/about/core-1.webp",
+    image: "/images/site/about/core-1-v2.webp",
   },
   {
     title: "台灣直營客製",
     descriptionLines: ["提供 AHD 規格彈性組裝，", "加速專案導入。"],
-    image: "/images/site/about/core-2.webp",
+    image: "/images/site/about/core-2-v2.webp",
   },
   {
     title: "專業弱電整合",
     descriptionLines: ["涵蓋監控與傳輸架構，", "支援整體場域規劃。"],
-    image: "/images/site/about/core-3.webp",
+    image: "/images/site/about/core-3-v2.webp",
   },
   {
     title: "健全售後支援",
     descriptionLines: ["專責窗口與技術文件，", "高效排解導入問題。"],
-    image: "/images/site/about/core-4.webp",
+    image: "/images/site/about/core-4-v2.webp",
   },
 ];
 
