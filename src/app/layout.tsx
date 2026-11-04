@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Analytics from "@/components/Analytics";
+import BackToTop from "@/components/BackToTop";
 import JsonLd from "@/components/JsonLd";
 import { siteProfile } from "@/data/site";
 import {
@@ -71,6 +72,7 @@ export default function RootLayout({
           data={[organizationJsonLd(), localBusinessJsonLd(), websiteJsonLd()]}
         />
         {children}
+        <BackToTop />
         <Analytics />
       </body>
     </html>

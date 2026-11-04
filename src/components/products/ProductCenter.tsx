@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useDeferredValue, useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { useDeferredValue, useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { ArrowDropDownLine, ArrowDropRightLine, CloseLine } from "@/components/icons";
 import Checkbox from "@/components/ui/Checkbox";
 import Dropdown, { type DropdownOption } from "@/components/ui/Dropdown";
@@ -19,6 +19,7 @@ import {
   type ProductResolution,
 } from "@/lib/catalog";
 import { MAX_COMPARE } from "@/lib/compare";
+import { revealResults } from "@/lib/reveal-results";
 import type { ProductBrand } from "@/types/product";
 import CompareTray, { CompareActions } from "./CompareTray";
 import ProductCard from "./ProductCard";
@@ -105,6 +106,7 @@ export default function ProductCenter({ products }: ProductCenterProps) {
   const categoryOptions = categoryOptionsFor(products);
   const filters = parseFilters(searchParams, categoryOptions);
   const searchId = useId();
+  const searchRef = useRef<HTMLInputElement>(null);
   const listTopRef = useRef<HTMLParagraphElement>(null);
   const keywordTimer = useRef<number | null>(null);
 
@@ -162,6 +164,14 @@ export default function ProductCenter({ products }: ProductCenterProps) {
     writeUrlFilters({ ...readUrlFilters(categoryOptions), keyword, page: 1 });
   };
 
+  // 按 Enter／手機鍵盤的「搜尋」：立刻寫回網址，收起鍵盤並捲到「共 N 項產品」
+  const onSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (keywordTimer.current) window.clearTimeout(keywordTimer.current);
+    commitKeyword(query);
+    revealResults(listTopRef.current, searchRef.current);
+  };
+
   const onQueryChange = (value: string) => {
     setQuery(value);
     if (keywordTimer.current) window.clearTimeout(keywordTimer.current);
@@ -216,7 +226,11 @@ export default function ProductCenter({ products }: ProductCenterProps) {
   return (
     <>
       {/* 快速搜尋 */}
-      <div className="grid gap-2 lg:grid-cols-[216px_minmax(0,1fr)] lg:items-center lg:gap-0 min-[87.5rem]:grid-cols-[239px_minmax(0,1fr)]">
+      <form
+        role="search"
+        onSubmit={onSearchSubmit}
+        className="grid gap-2 lg:grid-cols-[216px_minmax(0,1fr)] lg:items-center lg:gap-0 min-[87.5rem]:grid-cols-[239px_minmax(0,1fr)]"
+      >
         <label
           htmlFor={searchId}
           className="whitespace-nowrap text-base font-bold text-brand-navy lg:pl-[7px] min-[87.5rem]:text-lg"
@@ -225,23 +239,18 @@ export default function ProductCenter({ products }: ProductCenterProps) {
         </label>
         <div>
           <input
+            ref={searchRef}
             id={searchId}
             type="search"
             value={query}
             onChange={(event) => onQueryChange(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter") {
-                if (keywordTimer.current) window.clearTimeout(keywordTimer.current);
-                commitKeyword(query);
-              }
-            }}
             placeholder="搜尋分類 / 品牌 / 型號"
             autoComplete="off"
             enterKeyHint="search"
             className="h-10 w-full rounded-[3px] border border-brand-grey bg-white px-3 text-base font-medium text-brand-navy placeholder:font-medium placeholder:text-brand-grey hover:border-brand-blue focus:border-brand-blue focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-0 focus-visible:outline-brand-navy lg:h-[34px] lg:text-sm"
           />
         </div>
-      </div>
+      </form>
 
       <div className="mt-8 grid gap-8 lg:mt-[63px] lg:grid-cols-[184px_minmax(0,1fr)] lg:gap-x-8 min-[87.5rem]:gap-x-[55px]">
         {/* 左側篩選 */}
@@ -320,7 +329,7 @@ export default function ProductCenter({ products }: ProductCenterProps) {
               id="product-list"
               tabIndex={-1}
               aria-live="polite"
-              className="text-xl font-bold leading-7 text-brand-navy outline-none"
+              className="text-xl font-bold leading-7 text-brand-navy outline-none!"
             >
               共 {filtered.length} 項產品
             </p>

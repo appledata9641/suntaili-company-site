@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useRef, useState } from "react";
 import Link from "next/link";
 import DownloadFilters from "@/components/DownloadFilters";
 import DownloadList, { type DownloadRow } from "@/components/DownloadList";
@@ -9,6 +9,7 @@ import { useUrlQuery } from "@/components/docs/useUrlQuery";
 import { SortAsc, SortDesc } from "@/components/icons";
 import type { DropdownOption } from "@/components/ui/Dropdown";
 import Pagination from "@/components/ui/Pagination";
+import { revealResults } from "@/lib/reveal-results";
 
 // 文件下載頁的篩選、排序與列表。網址參數：?category=camera|recorder|software|accessory、?type=manual|software|firmware、?keyword=…
 export interface DownloadExplorerRow extends DownloadRow {
@@ -85,6 +86,7 @@ interface DownloadsBrowserProps extends DownloadsExplorerProps {
 
 function DownloadsBrowser({ rows, categoryOptions, typeOptions, query, onQueryChange }: DownloadsBrowserProps) {
   const [newestFirst, setNewestFirst] = useState(true);
+  const countRef = useRef<HTMLParagraphElement>(null);
   const terms = normalizeSearchText(query.keyword).split(/\s+/).filter(Boolean);
   const filterKey = `${query.category}|${query.type}|${terms.join(" ")}|${newestFirst}`;
   // 換了條件就回到第 1 頁
@@ -123,10 +125,17 @@ function DownloadsBrowser({ rows, categoryOptions, typeOptions, query, onQueryCh
         onTypeChange={(type) => update({ type })}
         keyword={query.keyword}
         onKeywordChange={(keyword) => update({ keyword }, true)}
+        onKeywordSubmit={(input) => revealResults(countRef.current, input)}
       />
 
       <div className="mt-8 flex items-center justify-between gap-4 lg:mt-14">
-        <p className="text-sm font-medium text-brand-muted" aria-live="polite">
+        <p
+          ref={countRef}
+          id="download-results"
+          tabIndex={-1}
+          className="text-sm font-medium text-brand-muted outline-none!"
+          aria-live="polite"
+        >
           符合條件共 {sorted.length} 筆資料
         </p>
         <button

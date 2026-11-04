@@ -31,7 +31,8 @@ function readEdges(element: HTMLElement): Edges {
 const cardClass =
   "group flex h-[276px] w-[220px] flex-col items-center rounded-[4px] border border-brand-line bg-white shadow-[0_0_10px_rgba(0,0,0,0.08)] focus-visible:outline-offset-[-2px] md:w-[240px]";
 
-// 主頁「產品」橫向卡片列：桌機一次顯示 4 張（240×276、間距 41px），左右箭頭一次捲動一張；手機可直接滑動。
+// 主頁「產品」橫向卡片列：桌機一次顯示 4 張（240×276、間距 41px），左右箭頭一次捲動一張。
+// 手機版也顯示左右箭頭（提示還能左右滑），卡片列可直接滑動，也可以按箭頭。
 export default function ProductCarousel({ items }: { items: ProductCarouselItem[] }) {
   const listRef = useRef<HTMLUListElement>(null);
   const [edges, setEdges] = useState<Edges>({ atStart: true, atEnd: false });
@@ -65,10 +66,12 @@ export default function ProductCarousel({ items }: { items: ProductCarouselItem[
   };
 
   const arrowClass =
-    "hidden h-[64px] w-10 shrink-0 items-center justify-center text-brand-blue hover:text-brand-navy disabled:cursor-default disabled:opacity-30 disabled:hover:text-brand-blue md:flex";
+    "flex h-16 w-9 shrink-0 items-center justify-center text-brand-blue hover:text-brand-navy disabled:cursor-default disabled:opacity-30 disabled:hover:text-brand-blue md:w-10";
+  const arrowIconClass = "h-8 w-8 md:h-10 md:w-10";
 
   return (
-    <div className="flex items-center justify-center md:gap-3 xl:gap-0">
+    // 手機版往兩側多延伸 12px，箭頭靠近螢幕邊緣，中間留給卡片（下一張會露出一小截）
+    <div className="-mx-3 flex items-center justify-center gap-1 md:mx-0 md:gap-3 xl:gap-0">
       <button
         type="button"
         onClick={() => scrollByCard(-1)}
@@ -77,14 +80,14 @@ export default function ProductCarousel({ items }: { items: ProductCarouselItem[
         aria-label="上一個產品分類"
         className={arrowClass}
       >
-        <ArrowLeftWideFill className="h-10 w-10" />
+        <ArrowLeftWideFill className={arrowIconClass} />
       </button>
 
       <ul
         id="home-product-list"
         ref={listRef}
         aria-label="產品分類"
-        className="no-scrollbar -mx-4 flex w-[calc(100%+2rem)] snap-x snap-mandatory gap-4 overflow-x-auto px-4 py-3 scroll-px-4 md:mx-0 md:w-[545px] md:gap-[41px] md:px-3 md:scroll-px-3 lg:w-[826px] xl:ml-5 xl:mr-3 xl:w-[1107px]"
+        className="no-scrollbar flex min-w-0 flex-1 snap-x snap-mandatory gap-4 overflow-x-auto px-2 py-3 scroll-px-2 md:w-[545px] md:flex-none md:gap-[41px] md:px-3 md:scroll-px-3 lg:w-[826px] xl:ml-5 xl:mr-3 xl:w-[1107px]"
       >
         {items.map((item) => (
           <li key={item.href} className="shrink-0 snap-start">
@@ -128,7 +131,7 @@ export default function ProductCarousel({ items }: { items: ProductCarouselItem[
         aria-label="下一個產品分類"
         className={arrowClass}
       >
-        <ArrowRightWideFill className="h-10 w-10" />
+        <ArrowRightWideFill className={arrowIconClass} />
       </button>
     </div>
   );
